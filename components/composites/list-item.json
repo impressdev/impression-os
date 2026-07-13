@@ -1,0 +1,49 @@
+{
+  "name": "list-item",
+  "category": "composite",
+  "status": "draft",
+  "description": "A single row in a list: an optional leading icon, content, and optional trailing icon or metadata. The building block of feature lists, checklists, and menus.",
+  "anatomy": ["root", "icon", "content", "trailing"],
+  "dependencies": ["icon", "text"],
+
+  "props": {
+    "leadingIcon": { "type": "boolean", "default": true, "description": "Show a leading icon (e.g. a check)." },
+    "trailing": {
+      "type": "enum",
+      "values": ["none", "icon", "meta"],
+      "default": "none",
+      "description": "Trailing affordance: nothing, an icon, or a short metadata label."
+    },
+    "align": {
+      "type": "enum",
+      "values": ["start", "center"],
+      "default": "start",
+      "description": "Vertical alignment of the row when content wraps to multiple lines."
+    }
+  },
+
+  "base": {
+    "root": { "gap": "{space.3}", "paddingY": "{space.2}" },
+    "content": { "typography": "{text.body}", "color": "{color.text.default}" },
+    "icon": { "color": "{color.accent.default}" },
+    "trailing": { "typography": "{text.small}", "color": "{color.text.muted}" }
+  },
+
+  "a11y": {
+    "contrast": "Content meets 4.5:1; the leading icon meets 3:1 as non-text.",
+    "notes": [
+      "Rendered inside a semantic list (ul/ol); each item is a listitem.",
+      "A decorative leading icon is hidden from assistive tech; the meaning lives in the content text."
+    ]
+  },
+
+  "elementor": {
+    "widget": "icon-list",
+    "notes": "Compiles to an item within the Elementor Icon List widget (or a Container row for richer trailing content).",
+    "mapping": {
+      "leadingIcon": "Item → Icon",
+      "trailing": "Item → trailing Container (icon or text)",
+      "align": "Style → vertical alignment"
+    }
+  }
+}

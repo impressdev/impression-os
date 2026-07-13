@@ -1,0 +1,67 @@
+{
+  "name": "icon",
+  "category": "primitive",
+  "status": "draft",
+  "description": "A decorative or meaningful glyph. Sizes are set in em so an icon scales with the text it accompanies. Color inherits by default.",
+  "anatomy": ["root"],
+
+  "props": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "description": "Icon identifier from the active icon set."
+    },
+    "size": {
+      "type": "enum",
+      "values": ["sm", "md", "lg"],
+      "default": "md",
+      "description": "Glyph size relative to the surrounding text."
+    },
+    "tone": {
+      "type": "enum",
+      "values": ["inherit", "muted", "accent"],
+      "default": "inherit",
+      "description": "Foreground color role."
+    },
+    "decorative": {
+      "type": "boolean",
+      "default": true,
+      "description": "When true, the icon is hidden from assistive tech; when false, it must carry a label."
+    }
+  },
+
+  "base": {
+    "root": { "color": "{color.text.default}", "width": "1.25em", "height": "1.25em" }
+  },
+
+  "variants": {
+    "size": {
+      "sm": { "root": { "width": "1em", "height": "1em" } },
+      "md": { "root": { "width": "1.25em", "height": "1.25em" } },
+      "lg": { "root": { "width": "1.5em", "height": "1.5em" } }
+    },
+    "tone": {
+      "inherit": { "root": { "color": "currentColor" } },
+      "muted":   { "root": { "color": "{color.text.muted}" } },
+      "accent":  { "root": { "color": "{color.accent.default}" } }
+    }
+  },
+
+  "a11y": {
+    "contrast": "Meaningful icons meet the 3:1 non-text contrast rule against their background.",
+    "notes": [
+      "Decorative icons set aria-hidden and add no accessible name.",
+      "A meaningful icon (e.g. the only content of a control) must provide a text alternative."
+    ]
+  },
+
+  "elementor": {
+    "widget": "icon",
+    "notes": "Compiles to the Elementor Icon widget; em sizing keeps the glyph aligned to adjacent text.",
+    "mapping": {
+      "name": "Content → Icon",
+      "size": "Style → Size (em)",
+      "tone": "Style → Color, bound to a Global Color or currentColor"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "name": "heading",
+  "category": "primitive",
+  "status": "draft",
+  "description": "A section or page heading. Level is chosen by document structure; style is chosen for emphasis. The two are decoupled so the accessible outline stays intact (foundation typography law).",
+  "anatomy": ["root"],
+
+  "props": {
+    "level": {
+      "type": "enum",
+      "values": ["h1", "h2", "h3", "h4"],
+      "default": "h2",
+      "description": "The semantic heading level. Exactly one h1 per page; never skip levels."
+    },
+    "appearance": {
+      "type": "enum",
+      "values": ["display", "h1", "h2", "h3", "h4"],
+      "description": "Optional visual style override, independent of level. Defaults to the style matching `level`."
+    },
+    "tone": {
+      "type": "enum",
+      "values": ["default", "muted", "inverse"],
+      "default": "default",
+      "description": "Foreground color role."
+    }
+  },
+
+  "base": {
+    "root": { "typography": "{text.h2}", "color": "{color.text.default}" }
+  },
+
+  "variants": {
+    "appearance": {
+      "display": { "root": { "typography": "{text.display}" } },
+      "h1": { "root": { "typography": "{text.h1}" } },
+      "h2": { "root": { "typography": "{text.h2}" } },
+      "h3": { "root": { "typography": "{text.h3}" } },
+      "h4": { "root": { "typography": "{text.h4}" } }
+    },
+    "tone": {
+      "default": { "root": { "color": "{color.text.default}" } },
+      "muted":   { "root": { "color": "{color.text.muted}" } },
+      "inverse": { "root": { "color": "{color.text.inverse}" } }
+    }
+  },
+
+  "a11y": {
+    "focusVisible": false,
+    "contrast": "All tones meet 3:1 (large text) against their intended surface.",
+    "notes": [
+      "The rendered tag follows `level`, not `appearance` — changing how a heading looks never changes its place in the outline.",
+      "`display` is reserved for a single hero headline and is not a document level."
+    ]
+  },
+
+  "elementor": {
+    "widget": "heading",
+    "notes": "Compiles to the Elementor Heading widget; `level` sets the HTML Tag, `appearance` sets Typography from Global Fonts.",
+    "mapping": {
+      "level": "Content → HTML Tag (h1–h4)",
+      "appearance": "Style → Typography, bound to a Global Font",
+      "tone": "Style → Text Color, bound to a Global Color"
+    }
+  }
+}

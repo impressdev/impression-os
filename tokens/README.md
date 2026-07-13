@@ -74,8 +74,13 @@ system.
 
 ## Conventions
 
-- **Semantic over primitive.** Components and recipes reference semantic roles
-  (`{color.text.default}`, `{radius.control}`), never primitives directly.
+- **Semantic over primitive.** Components and recipes bind **color, typography,
+  radius, elevation, and stacking** to semantic roles
+  (`{color.text.default}`, `{radius.control}`, `{elevation.raised}`), never to
+  primitives. **Spacing** is the exception: the primitive spacing scale
+  (`{space.4}`) *is* the canonical, constrained spacing vocabulary, so components
+  may reference it directly, alongside the semantic `space.*` roles for
+  composition rhythm.
 - **Naming:** dot-namespaced, lowercase (`category.role.scale`).
 - **No literals above this layer.** This is the rule the rest of the system is
   built to protect.

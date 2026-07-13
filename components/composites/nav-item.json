@@ -1,0 +1,61 @@
+{
+  "name": "nav-item",
+  "category": "composite",
+  "status": "draft",
+  "description": "A single navigation link, used in the header nav and footer. Carries a current/active state that is exposed to assistive tech.",
+  "anatomy": ["root", "label"],
+  "dependencies": ["text"],
+
+  "props": {
+    "current": { "type": "boolean", "default": false, "description": "Marks the item for the current page." },
+    "emphasis": {
+      "type": "enum",
+      "values": ["default", "muted"],
+      "default": "default",
+      "description": "Footer links use the muted emphasis."
+    }
+  },
+
+  "base": {
+    "root": {
+      "typography": "{text.small}",
+      "color": "{color.text.default}",
+      "paddingX": "{space.2}",
+      "paddingY": "{space.2}",
+      "radius": "{radius.control}"
+    }
+  },
+
+  "variants": {
+    "emphasis": {
+      "default": { "root": { "color": "{color.text.default}" } },
+      "muted":   { "root": { "color": "{color.text.muted}" } }
+    }
+  },
+
+  "states": {
+    "hover":  { "root": { "color": "{color.accent.default}" } },
+    "active": { "root": { "color": "{color.accent.active}" } },
+    "focus":  { "root": { "outlineColor": "{color.border.focus}", "outlineWidth": "{space.0.5}", "outlineOffset": "{space.0.5}" } }
+  },
+
+  "a11y": {
+    "role": "link",
+    "focusVisible": true,
+    "targetSize": "Padding brings the target to the 24px minimum; header items meet 44px.",
+    "contrast": "Link and hover colors meet 4.5:1 on the header/footer surface.",
+    "notes": [
+      "The current item sets aria-current=\"page\".",
+      "Current state is conveyed with an underline/indicator in addition to color (not color alone)."
+    ]
+  },
+
+  "elementor": {
+    "widget": "nav-menu",
+    "notes": "Compiles to items within the Elementor Pro Nav Menu / WordPress menu; current state maps to the menu's current-item class.",
+    "mapping": {
+      "current": "current-menu-item class + aria-current",
+      "emphasis": "Style → Typography color, bound to a Global Color"
+    }
+  }
+}

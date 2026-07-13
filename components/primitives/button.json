@@ -1,0 +1,82 @@
+{
+  "name": "button",
+  "category": "primitive",
+  "status": "draft",
+  "description": "The primary interactive control: triggers an action or navigates. Every visual value binds to a token; every variant's label meets AA contrast on its fill.",
+  "anatomy": ["root", "icon-leading", "label", "icon-trailing"],
+
+  "props": {
+    "variant": {
+      "type": "enum",
+      "values": ["primary", "secondary", "ghost", "danger"],
+      "default": "primary",
+      "description": "Visual emphasis. One primary per view (foundation hierarchy law)."
+    },
+    "size": {
+      "type": "enum",
+      "values": ["sm", "md", "lg"],
+      "default": "md",
+      "description": "Control size. lg is used for primary CTAs to reach a 44px touch target."
+    },
+    "iconLeading":  { "type": "boolean", "default": false, "description": "Show an icon before the label." },
+    "iconTrailing": { "type": "boolean", "default": false, "description": "Show an icon after the label." },
+    "fullWidth":    { "type": "boolean", "default": false, "description": "Stretch to the container width." },
+    "disabled":     { "type": "boolean", "default": false, "description": "Non-interactive, dimmed state." }
+  },
+
+  "base": {
+    "root": {
+      "typography": "{text.body}",
+      "radius": "{radius.control}",
+      "paddingX": "{space.4}",
+      "paddingY": "{space.2}",
+      "gap": "{space.2}"
+    }
+  },
+
+  "variants": {
+    "variant": {
+      "primary":   { "root": { "background": "{color.accent.default}", "color": "{color.text.onAccent}" } },
+      "secondary": { "root": { "background": "{color.surface.raised}", "color": "{color.text.default}", "borderColor": "{color.border.strong}", "borderWidth": "{space.px}" } },
+      "ghost":     { "root": { "background": "transparent", "color": "{color.accent.default}" } },
+      "danger":    { "root": { "background": "{color.feedback.danger.text}", "color": "{color.text.onAccent}" } }
+    },
+    "size": {
+      "sm": { "root": { "typography": "{text.small}", "paddingX": "{space.3}", "paddingY": "{space.1}" } },
+      "md": { "root": { "paddingX": "{space.4}", "paddingY": "{space.2}" } },
+      "lg": { "root": { "paddingX": "{space.6}", "paddingY": "{space.3}" } }
+    }
+  },
+
+  "states": {
+    "hover":    { "root": { "background": "{color.accent.hover}" } },
+    "active":   { "root": { "background": "{color.accent.active}" } },
+    "focus":    { "root": { "outlineColor": "{color.border.focus}", "outlineWidth": "{space.0.5}", "outlineOffset": "{space.0.5}" } },
+    "disabled": { "root": { "opacity": 0.5 } }
+  },
+
+  "a11y": {
+    "role": "button",
+    "nameFrom": ["content", "aria-label"],
+    "focusVisible": true,
+    "targetSize": "Meets foundation target.min (24px); lg reaches the 44px recommendation.",
+    "contrast": "Label meets 4.5:1 on every variant's fill.",
+    "notes": [
+      "hover/active deltas above describe filled variants; ghost and secondary shift by one surface/subtle step instead of the accent ramp.",
+      "An icon-only button must supply an aria-label.",
+      "Disabled buttons remain in reading order but are removed from tab order."
+    ]
+  },
+
+  "elementor": {
+    "widget": "button",
+    "notes": "Compiles to the Elementor Pro Button widget; variant colors resolve to the kit's Global Colors.",
+    "mapping": {
+      "variant": "Style → Background/Text/Border, bound to Global Colors",
+      "size": "Style → Typography + padding",
+      "iconLeading|iconTrailing": "Content → Icon + Icon Position",
+      "fullWidth": "Content → Width = Full",
+      "disabled": "Advanced → custom class + aria-disabled"
+    }
+  }
+}

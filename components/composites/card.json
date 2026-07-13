@@ -1,0 +1,81 @@
+{
+  "name": "card",
+  "category": "composite",
+  "status": "draft",
+  "description": "A surface that groups related content — optional media, a heading, text, and actions. The workhorse container of most marketing sections.",
+  "anatomy": ["root", "media", "content", "footer"],
+  "dependencies": ["media", "heading", "text", "button"],
+
+  "props": {
+    "variant": {
+      "type": "enum",
+      "values": ["elevated", "outlined", "subtle"],
+      "default": "outlined",
+      "description": "How the card separates from the page: shadow, border, or tint."
+    },
+    "padding": {
+      "type": "enum",
+      "values": ["sm", "md", "lg"],
+      "default": "md",
+      "description": "Internal inset."
+    },
+    "interactive": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the whole card is a link/target and reacts on hover."
+    }
+  },
+
+  "base": {
+    "root": {
+      "radius": "{radius.card}",
+      "background": "{color.surface.raised}",
+      "paddingX": "{space.6}",
+      "paddingY": "{space.6}",
+      "gap": "{space.4}",
+      "borderColor": "{color.border.default}",
+      "borderWidth": "{space.px}",
+      "elevation": "{elevation.raised}"
+    },
+    "content": { "gap": "{space.2}" },
+    "footer":  { "gap": "{space.3}" }
+  },
+
+  "variants": {
+    "variant": {
+      "elevated": { "root": { "elevation": "{elevation.overlay}", "borderWidth": 0 } },
+      "outlined": { "root": { "elevation": "{elevation.flat}", "borderColor": "{color.border.default}", "borderWidth": "{space.px}" } },
+      "subtle":   { "root": { "background": "{color.surface.sunken}", "elevation": "{elevation.flat}", "borderWidth": 0 } }
+    },
+    "padding": {
+      "sm": { "root": { "paddingX": "{space.4}", "paddingY": "{space.4}" } },
+      "md": { "root": { "paddingX": "{space.6}", "paddingY": "{space.6}" } },
+      "lg": { "root": { "paddingX": "{space.8}", "paddingY": "{space.8}" } }
+    }
+  },
+
+  "states": {
+    "hover": { "root": { "elevation": "{elevation.overlay}", "borderColor": "{color.border.strong}" } },
+    "focus": { "root": { "outlineColor": "{color.border.focus}", "outlineWidth": "{space.0.5}", "outlineOffset": "{space.0.5}" } }
+  },
+
+  "a11y": {
+    "focusVisible": true,
+    "contrast": "Card surface preserves 4.5:1 for the text it contains in the active theme.",
+    "notes": [
+      "An interactive card exposes a single clear link; nested interactive elements are avoided to prevent overlapping targets.",
+      "hover/focus states apply only when `interactive` is true.",
+      "Heading level inside the card is chosen by the surrounding document outline, not by the card."
+    ]
+  },
+
+  "elementor": {
+    "widget": "container",
+    "notes": "Compiles to an Elementor flex Container holding child widgets (media, heading, text, button).",
+    "mapping": {
+      "variant": "Style → Background/Border/Box Shadow, bound to Global Colors + elevation roles",
+      "padding": "Layout → Padding",
+      "interactive": "Container → Link + hover styles"
+    }
+  }
+}

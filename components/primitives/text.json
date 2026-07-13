@@ -1,0 +1,65 @@
+{
+  "name": "text",
+  "category": "primitive",
+  "status": "draft",
+  "description": "Running text: paragraphs, leads, captions. Capped at the reading measure so lines never run edge-to-edge (foundation typography law).",
+  "anatomy": ["root"],
+
+  "props": {
+    "variant": {
+      "type": "enum",
+      "values": ["body", "lead", "small", "caption"],
+      "default": "body",
+      "description": "The type style."
+    },
+    "tone": {
+      "type": "enum",
+      "values": ["default", "muted", "subtle", "inverse"],
+      "default": "default",
+      "description": "Foreground color role."
+    },
+    "align": {
+      "type": "enum",
+      "values": ["start", "center"],
+      "default": "start",
+      "description": "Text alignment. Long-form text stays start-aligned."
+    }
+  },
+
+  "base": {
+    "root": { "typography": "{text.body}", "color": "{color.text.default}", "maxWidth": "65ch" }
+  },
+
+  "variants": {
+    "variant": {
+      "body":    { "root": { "typography": "{text.body}" } },
+      "lead":    { "root": { "typography": "{text.lead}" } },
+      "small":   { "root": { "typography": "{text.small}" } },
+      "caption": { "root": { "typography": "{text.caption}", "color": "{color.text.muted}", "maxWidth": "none" } }
+    },
+    "tone": {
+      "default": { "root": { "color": "{color.text.default}" } },
+      "muted":   { "root": { "color": "{color.text.muted}" } },
+      "subtle":  { "root": { "color": "{color.text.subtle}" } },
+      "inverse": { "root": { "color": "{color.text.inverse}" } }
+    }
+  },
+
+  "a11y": {
+    "contrast": "All tones meet 4.5:1 against their intended surface; subtle is the AA floor.",
+    "notes": [
+      "The measure (65ch) is a readability contract — do not remove the cap on paragraph text.",
+      "`caption` is used for eyebrows and metadata, not for primary reading content."
+    ]
+  },
+
+  "elementor": {
+    "widget": "text-editor",
+    "notes": "Compiles to the Elementor Text Editor widget; the measure is applied as a max-width on the container.",
+    "mapping": {
+      "variant": "Style → Typography, bound to a Global Font",
+      "tone": "Style → Text Color, bound to a Global Color",
+      "align": "Style → Alignment"
+    }
+  }
+}

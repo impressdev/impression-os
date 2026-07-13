@@ -45,5 +45,13 @@ Depends on [`tokens/`](../tokens/) and [`foundation/`](../foundation/). Consumed
 
 ## Status
 
-⬜ Not started — see [Phase 3](../ROADMAP.md#phase-3--components-the-atomic-units).
-Do **not** author components ahead of the roadmap or without an explicit request.
+✅ **Implemented (draft)** — six primitives (button, heading, text, icon, badge,
+media), four composites (card, list-item, form-field, nav-item), and the
+component specification schema are in place. Each component is authored as data,
+binds to tokens, and carries an accessibility contract and an Elementor mapping.
+See [Phase 3](../ROADMAP.md#phase-3--components-the-atomic-units), the
+[primitives catalog](primitives/README.md), and the
+[composites catalog](composites/README.md).
+
+Next: [`recipes/`](../recipes/) compose these into complete sections
+([Phase 4](../ROADMAP.md#phase-4--recipes-composed-sections)).

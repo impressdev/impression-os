@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://impression.os/schemas/component.schema.json",
+  "title": "Impression OS Component Specification",
+  "description": "A component is specified as data: its anatomy, props, token-bound base style, variants, interaction states, accessibility contract, and Elementor Pro mapping. Every visual value is a token reference — color/type/radius/elevation/z-index bind to semantic roles; spacing binds to the spacing scale.",
+  "type": "object",
+  "required": ["name", "category", "description", "anatomy", "props", "base", "a11y", "elementor"],
+  "properties": {
+    "name": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "category": { "enum": ["primitive", "composite"] },
+    "description": { "type": "string" },
+    "status": { "enum": ["draft", "stable"], "default": "draft" },
+
+    "anatomy": {
+      "type": "array",
+      "description": "Named structural parts, in source order.",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+
+    "props": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/prop" }
+    },
+
+    "base": {
+      "$ref": "#/$defs/partStyles",
+      "description": "Style applied to every instance, keyed by anatomy part, before variants and states."
+    },
+
+    "variants": {
+      "type": "object",
+      "description": "Keyed by prop name, then by prop value → per-part style delta.",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": { "$ref": "#/$defs/partStyles" }
+      }
+    },
+
+    "states": {
+      "type": "object",
+      "description": "Interaction-state per-part style deltas. Focus and disabled are required for interactive components.",
+      "properties": {
+        "hover": { "$ref": "#/$defs/partStyles" },
+        "active": { "$ref": "#/$defs/partStyles" },
+        "focus": { "$ref": "#/$defs/partStyles" },
+        "disabled": { "$ref": "#/$defs/partStyles" }
+      },
+      "additionalProperties": false
+    },
+
+    "a11y": {
+      "type": "object",
+      "required": ["notes"],
+      "properties": {
+        "role": { "type": "string" },
+        "nameFrom": { "type": "array", "items": { "type": "string" } },
+        "focusVisible": { "type": "boolean" },
+        "targetSize": { "type": "string" },
+        "contrast": { "type": "string" },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+
+    "elementor": {
+      "type": "object",
+      "required": ["widget"],
+      "properties": {
+        "widget": { "type": "string", "description": "The Elementor Pro widget this compiles to." },
+        "notes": { "type": "string" },
+        "mapping": {
+          "type": "object",
+          "description": "How props and token bindings project onto the widget's settings.",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "dependencies": {
+      "type": "array",
+      "description": "Other components this one composes (for composites).",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": false,
+
+  "$defs": {
+    "prop": {
+      "type": "object",
+      "required": ["type", "description"],
+      "properties": {
+        "type": { "enum": ["enum", "boolean", "string", "number"] },
+        "values": { "type": "array", "description": "Allowed values when type is enum." },
+        "default": {},
+        "required": { "type": "boolean" },
+        "description": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "partStyles": {
+      "type": "object",
+      "description": "Map of anatomy part name → style bindings.",
+      "additionalProperties": { "$ref": "#/$defs/style" }
+    },
+    "style": {
+      "type": "object",
+      "description": "Style bindings. Keys are a controlled vocabulary; values are token references or law-constant literals.",
+      "propertyNames": {
+        "enum": [
+          "typography", "color", "background", "borderColor", "borderWidth",
+          "radius", "paddingX", "paddingY", "gap", "elevation", "zIndex",
+          "opacity", "outlineColor", "outlineWidth", "outlineOffset",
+          "width", "height", "minHeight", "maxWidth", "aspectRatio", "objectFit"
+        ]
+      },
+      "additionalProperties": {
+        "type": ["string", "number"]
+      }
+    }
+  }
+}

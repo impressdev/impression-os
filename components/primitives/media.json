@@ -1,0 +1,76 @@
+{
+  "name": "media",
+  "category": "primitive",
+  "status": "draft",
+  "description": "A responsive image (or image-like media) with a controlled aspect ratio and radius. Alt text is a required decision, not an afterthought.",
+  "anatomy": ["root", "image", "caption"],
+
+  "props": {
+    "ratio": {
+      "type": "enum",
+      "values": ["auto", "square", "video", "portrait", "wide"],
+      "default": "video",
+      "description": "Aspect ratio of the media frame."
+    },
+    "fit": {
+      "type": "enum",
+      "values": ["cover", "contain"],
+      "default": "cover",
+      "description": "How the image fills the frame."
+    },
+    "rounded": {
+      "type": "enum",
+      "values": ["none", "card", "pill"],
+      "default": "card",
+      "description": "Corner radius role."
+    },
+    "decorative": {
+      "type": "boolean",
+      "default": false,
+      "description": "When true, empty alt is emitted; when false, descriptive alt is required."
+    }
+  },
+
+  "base": {
+    "root": { "radius": "{radius.card}", "aspectRatio": "16 / 9" },
+    "image": { "objectFit": "cover", "width": "100%", "height": "100%" }
+  },
+
+  "variants": {
+    "ratio": {
+      "auto":     { "root": { "aspectRatio": "auto" } },
+      "square":   { "root": { "aspectRatio": "1 / 1" } },
+      "video":    { "root": { "aspectRatio": "16 / 9" } },
+      "portrait": { "root": { "aspectRatio": "3 / 4" } },
+      "wide":     { "root": { "aspectRatio": "21 / 9" } }
+    },
+    "fit": {
+      "cover":   { "image": { "objectFit": "cover" } },
+      "contain": { "image": { "objectFit": "contain" } }
+    },
+    "rounded": {
+      "none": { "root": { "radius": "0rem" } },
+      "card": { "root": { "radius": "{radius.card}" } },
+      "pill": { "root": { "radius": "{radius.pill}" } }
+    }
+  },
+
+  "a11y": {
+    "contrast": "n/a — media is not text; overlaid text is the responsibility of the composing recipe.",
+    "notes": [
+      "Meaningful images require descriptive alt text; decorative images emit empty alt so assistive tech skips them.",
+      "The frame reserves space via aspect-ratio to prevent layout shift on load."
+    ]
+  },
+
+  "elementor": {
+    "widget": "image",
+    "notes": "Compiles to the Elementor Image widget inside an aspect-ratio container.",
+    "mapping": {
+      "ratio": "Container → aspect-ratio",
+      "fit": "Style → object-fit",
+      "rounded": "Style → Border Radius, bound to a radius role",
+      "decorative": "Content → Alt text (empty vs. descriptive)"
+    }
+  }
+}

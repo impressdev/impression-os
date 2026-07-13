@@ -36,16 +36,16 @@ Turn tokens into enforceable design principles.
 - ✅ Hierarchy and layout primitives ([`foundation/hierarchy/`](foundation/hierarchy/)).
 - ✅ Accessibility contracts: contrast, semantics, focus order, motion ([`foundation/accessibility/`](foundation/accessibility/)).
 
-> **You are here.** Tokens and the design laws are complete. Next up: Components.
-
-## Phase 3 — Components: the atomic units ⬜
+## Phase 3 — Components: the atomic units ✅
 
 Author the reusable building blocks, each mapped to Elementor widgets.
 
-- ⬜ Component specification format (props, states, token bindings, a11y notes).
-- ⬜ Primitive components: button, heading, text, media, icon, badge.
-- ⬜ Composite components: card, list item, form field, navigation item.
-- ⬜ Component-level accessibility and state coverage.
+- ✅ Component specification format (props, states, token bindings, a11y notes) ([`components/schema/`](components/schema/component.schema.json)).
+- ✅ Primitive components: button, heading, text, media, icon, badge ([`components/primitives/`](components/primitives/)).
+- ✅ Composite components: card, list item, form field, navigation item ([`components/composites/`](components/composites/)).
+- ✅ Component-level accessibility and state coverage (`a11y` block + focus/disabled states per spec).
+
+> **You are here.** Tokens, foundation, and components are complete. Next up: Recipes.
 
 ## Phase 4 — Recipes: composed sections ⬜
 

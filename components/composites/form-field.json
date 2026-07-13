@@ -1,0 +1,79 @@
+{
+  "name": "form-field",
+  "category": "composite",
+  "status": "draft",
+  "description": "A labelled form control with hint and error slots. Validation state is conveyed by text and icon, never by color alone.",
+  "anatomy": ["root", "label", "control", "hint", "error"],
+  "dependencies": ["text", "icon"],
+
+  "props": {
+    "type": {
+      "type": "enum",
+      "values": ["text", "email", "tel", "textarea", "select"],
+      "default": "text",
+      "description": "The underlying control type."
+    },
+    "label":    { "type": "string", "required": true, "description": "Visible label text (always present)." },
+    "required": { "type": "boolean", "default": false, "description": "Whether the field must be completed." },
+    "state": {
+      "type": "enum",
+      "values": ["default", "error", "success"],
+      "default": "default",
+      "description": "Validation state."
+    },
+    "hint": { "type": "boolean", "default": false, "description": "Show a helper text line beneath the control." }
+  },
+
+  "base": {
+    "root": { "gap": "{space.2}" },
+    "label": { "typography": "{text.small}", "color": "{color.text.default}" },
+    "control": {
+      "typography": "{text.body}",
+      "color": "{color.text.default}",
+      "background": "{color.surface.page}",
+      "borderColor": "{color.border.default}",
+      "borderWidth": "{space.px}",
+      "radius": "{radius.control}",
+      "paddingX": "{space.3}",
+      "paddingY": "{space.2}"
+    },
+    "hint":  { "typography": "{text.small}", "color": "{color.text.muted}" },
+    "error": { "typography": "{text.small}", "color": "{color.feedback.danger.text}" }
+  },
+
+  "variants": {
+    "state": {
+      "default": { "control": { "borderColor": "{color.border.default}" } },
+      "error":   { "control": { "borderColor": "{color.feedback.danger.border}" } },
+      "success": { "control": { "borderColor": "{color.feedback.success.border}" } }
+    }
+  },
+
+  "states": {
+    "focus":    { "control": { "outlineColor": "{color.border.focus}", "outlineWidth": "{space.0.5}", "outlineOffset": "{space.0.5}" } },
+    "disabled": { "control": { "opacity": 0.5 } }
+  },
+
+  "a11y": {
+    "focusVisible": true,
+    "contrast": "Control text and border meet their AA thresholds; error text meets 4.5:1.",
+    "notes": [
+      "The label is programmatically associated with the control (for/id).",
+      "Error state sets aria-invalid and links the error text via aria-describedby.",
+      "Required is indicated in text/attribute, not by color alone (WCAG 1.4.1).",
+      "The placeholder is never used as a substitute for the label."
+    ]
+  },
+
+  "elementor": {
+    "widget": "form",
+    "notes": "Compiles to a field within the Elementor Pro Form widget; label, required, and validation map to native field settings.",
+    "mapping": {
+      "type": "Field → Type",
+      "label": "Field → Label (shown)",
+      "required": "Field → Required + aria",
+      "state": "Style → border, bound to feedback Global Colors",
+      "hint": "Field → Description"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "name": "badge",
+  "category": "primitive",
+  "status": "draft",
+  "description": "A small status or category label. Color is never the sole carrier of meaning — the text label always states the status.",
+  "anatomy": ["root", "label"],
+
+  "props": {
+    "variant": {
+      "type": "enum",
+      "values": ["neutral", "accent", "success", "warning", "danger", "info"],
+      "default": "neutral",
+      "description": "Semantic status color."
+    }
+  },
+
+  "base": {
+    "root": {
+      "typography": "{text.caption}",
+      "radius": "{radius.pill}",
+      "paddingX": "{space.2}",
+      "paddingY": "{space.0.5}",
+      "background": "{color.surface.sunken}",
+      "color": "{color.text.muted}",
+      "borderColor": "{color.border.default}",
+      "borderWidth": "{space.px}"
+    }
+  },
+
+  "variants": {
+    "variant": {
+      "neutral": { "root": { "background": "{color.surface.sunken}", "color": "{color.text.muted}", "borderColor": "{color.border.default}" } },
+      "accent":  { "root": { "background": "{color.accent.subtle}", "color": "{color.accent.default}", "borderColor": "{color.accent.default}" } },
+      "success": { "root": { "background": "{color.feedback.success.surface}", "color": "{color.feedback.success.text}", "borderColor": "{color.feedback.success.border}" } },
+      "warning": { "root": { "background": "{color.feedback.warning.surface}", "color": "{color.feedback.warning.text}", "borderColor": "{color.feedback.warning.border}" } },
+      "danger":  { "root": { "background": "{color.feedback.danger.surface}", "color": "{color.feedback.danger.text}", "borderColor": "{color.feedback.danger.border}" } },
+      "info":    { "root": { "background": "{color.feedback.info.surface}", "color": "{color.feedback.info.text}", "borderColor": "{color.feedback.info.border}" } }
+    }
+  },
+
+  "a11y": {
+    "contrast": "Label text meets 4.5:1 on the badge surface for every variant.",
+    "notes": [
+      "The status is always conveyed by the label text, not by color alone (WCAG 1.4.1).",
+      "Badges are not interactive; do not attach actions to them."
+    ]
+  },
+
+  "elementor": {
+    "widget": "text-editor",
+    "notes": "Compiles to a styled inline Text Editor (or Heading) element; there is no native badge widget.",
+    "mapping": {
+      "variant": "Style → Background/Text/Border, bound to Global Colors"
+    }
+  }
+}
