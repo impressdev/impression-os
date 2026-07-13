@@ -1,0 +1,10 @@
+{
+  "$description": "Semantic elevation roles bound to the primitive shadow scale. Higher roles read as physically closer to the viewer.",
+  "elevation": {
+    "$type": "shadow",
+    "flat":    { "$value": "{shadow.none}", "$description": "No elevation; flush with the surface." },
+    "raised":  { "$value": "{shadow.sm}",   "$description": "Subtle lift for cards at rest." },
+    "overlay": { "$value": "{shadow.lg}",   "$description": "Dropdowns, popovers, and hover states." },
+    "modal":   { "$value": "{shadow.2xl}",  "$description": "Dialogs and the highest floating surfaces." }
+  }
+}

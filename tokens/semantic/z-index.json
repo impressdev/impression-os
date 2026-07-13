@@ -1,0 +1,13 @@
+{
+  "$description": "Semantic stacking roles bound to the primitive z-index ladder. Every floating layer in the system draws its z-index from exactly one of these roles — never a raw integer.",
+  "layer": {
+    "$type": "number",
+    "base":     { "$value": "{z-index.0}",    "$description": "In-flow content." },
+    "dropdown": { "$value": "{z-index.1000}",  "$description": "Menus and select popouts." },
+    "sticky":   { "$value": "{z-index.1100}",  "$description": "Sticky headers and bars." },
+    "overlay":  { "$value": "{z-index.1200}",  "$description": "Scrims behind modals." },
+    "modal":    { "$value": "{z-index.1300}",  "$description": "Dialogs and drawers." },
+    "popover":  { "$value": "{z-index.1400}",  "$description": "Popovers above modals." },
+    "toast":    { "$value": "{z-index.1500}",  "$description": "Toasts and the topmost notifications." }
+  }
+}

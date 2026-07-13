@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://impression.os/schemas/token.schema.json",
+  "title": "Impression OS Token File",
+  "description": "Validates a token file in the W3C Design Tokens (DTCG) subset used by Impression OS, plus local conventions. A file is a tree of groups and tokens. A token has a $value; a group has child tokens/groups. References use the {dot.path} syntax.",
+  "type": "object",
+  "properties": {
+    "$description": { "type": "string" },
+    "$type": { "$ref": "#/$defs/type" },
+    "$extends": {
+      "type": "string",
+      "description": "Optional. Names a base theme this file layers over (e.g. \"light\"). Only meaningful for theme deltas. Resolution merges this file's roles onto the named base."
+    }
+  },
+  "additionalProperties": { "$ref": "#/$defs/node" },
+  "$defs": {
+    "type": {
+      "enum": [
+        "color",
+        "dimension",
+        "number",
+        "fontFamily",
+        "fontWeight",
+        "shadow",
+        "typography"
+      ]
+    },
+    "reference": {
+      "type": "string",
+      "pattern": "^\\{[a-zA-Z0-9._-]+\\}$",
+      "description": "A reference to another token, e.g. {color.brand.600}."
+    },
+    "node": {
+      "description": "Either a token (has $value) or a group (has nested nodes).",
+      "oneOf": [
+        { "$ref": "#/$defs/token" },
+        { "$ref": "#/$defs/group" }
+      ]
+    },
+    "token": {
+      "type": "object",
+      "required": ["$value"],
+      "properties": {
+        "$value": {
+          "description": "The token value: a literal appropriate to $type, or a {reference}. Composite types (typography) take an object of references.",
+          "anyOf": [
+            { "type": "string" },
+            { "type": "number" },
+            { "type": "array" },
+            { "type": "object" }
+          ]
+        },
+        "$type": { "$ref": "#/$defs/type" },
+        "$description": { "type": "string" },
+        "$extensions": { "type": "object" }
+      },
+      "additionalProperties": false
+    },
+    "group": {
+      "type": "object",
+      "not": { "required": ["$value"] },
+      "properties": {
+        "$type": { "$ref": "#/$defs/type" },
+        "$description": { "type": "string" }
+      },
+      "patternProperties": {
+        "^(?!\\$).+": { "$ref": "#/$defs/node" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "impression-os-tokens",
+  "version": "0.1.0",
+  "description": "Declares the token sources and the order in which they must be resolved. The builder loads sources in this order so that every {reference} resolves against an already-loaded layer. Later layers may override roles defined by earlier ones.",
+  "format": "w3c-design-tokens",
+  "resolution": {
+    "order": ["primitives", "semantic", "themes"],
+    "notes": "primitives depend on nothing. semantic references primitives. themes reference primitives and define/override semantic color roles. A theme with $extends layers onto the named base theme."
+  },
+  "layers": {
+    "primitives": [
+      "primitives/color.json",
+      "primitives/typography.json",
+      "primitives/space.json",
+      "primitives/radius.json",
+      "primitives/shadow.json",
+      "primitives/breakpoint.json",
+      "primitives/z-index.json"
+    ],
+    "semantic": [
+      "semantic/typography.json",
+      "semantic/space.json",
+      "semantic/radius.json",
+      "semantic/shadow.json",
+      "semantic/z-index.json"
+    ],
+    "themes": [
+      "themes/light.json",
+      "themes/dark.json",
+      "themes/brand.example.json"
+    ]
+  },
+  "themes": {
+    "default": "light",
+    "available": ["light", "dark", "brand.example"]
+  },
+  "schema": "schema/token.schema.json"
+}

@@ -1,0 +1,30 @@
+{
+  "$description": "Semantic spacing roles: purpose-named gaps and insets that bind the raw scale to intent. Theme-independent. Recipes and components reference these role names, so rhythm can be tuned system-wide from one place.",
+  "space": {
+    "$type": "dimension",
+
+    "gap": {
+      "$description": "Spacing between sibling elements in a stack or cluster.",
+      "xs": { "$value": "{space.2}" },
+      "sm": { "$value": "{space.3}" },
+      "md": { "$value": "{space.4}" },
+      "lg": { "$value": "{space.6}" },
+      "xl": { "$value": "{space.8}" }
+    },
+
+    "inset": {
+      "$description": "Internal padding for surfaces (cards, panels, controls).",
+      "xs": { "$value": "{space.2}" },
+      "sm": { "$value": "{space.4}" },
+      "md": { "$value": "{space.6}" },
+      "lg": { "$value": "{space.8}" }
+    },
+
+    "section": {
+      "$description": "Vertical rhythm between and within page sections.",
+      "sm": { "$value": "{space.16}" },
+      "md": { "$value": "{space.24}" },
+      "lg": { "$value": "{space.32}" }
+    }
+  }
+}

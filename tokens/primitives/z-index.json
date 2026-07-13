@@ -1,0 +1,18 @@
+{
+  "$description": "Primitive stacking ladder. Raw integers have no meaning on their own — reference the named roles in semantic/z-index.json instead.",
+  "z-index": {
+    "$type": "number",
+    "0":    { "$value": 0 },
+    "10":   { "$value": 10 },
+    "20":   { "$value": 20 },
+    "30":   { "$value": 30 },
+    "40":   { "$value": 40 },
+    "50":   { "$value": 50 },
+    "1000": { "$value": 1000 },
+    "1100": { "$value": 1100 },
+    "1200": { "$value": 1200 },
+    "1300": { "$value": 1300 },
+    "1400": { "$value": 1400 },
+    "1500": { "$value": 1500 }
+  }
+}

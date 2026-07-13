@@ -1,0 +1,60 @@
+{
+  "$description": "Dark theme — a complete override of the semantic color roles defined in light.json. Same role names, dark-adapted bindings. In dark mode, elevation reads as *lighter*, not shadowed. Contrast targets WCAG 2.1 AA for text roles.",
+  "color": {
+    "$type": "color",
+
+    "surface": {
+      "page":    { "$value": "{color.neutral.950}" },
+      "raised":  { "$value": "{color.neutral.800}", "$description": "Elevated surfaces are lighter than the page." },
+      "sunken":  { "$value": "{color.black}" },
+      "inverse": { "$value": "{color.neutral.50}",  "$description": "Light surface within a dark page." }
+    },
+
+    "text": {
+      "default":  { "$value": "{color.neutral.50}",  "$description": "≈18:1 on surface.page." },
+      "muted":    { "$value": "{color.neutral.300}", "$description": "≈12:1 on surface.page." },
+      "subtle":   { "$value": "{color.neutral.400}", "$description": "≈7:1 on surface.page." },
+      "inverse":  { "$value": "{color.neutral.900}" },
+      "link":     { "$value": "{color.brand.300}" },
+      "onAccent": { "$value": "{color.white}" }
+    },
+
+    "border": {
+      "default": { "$value": "{color.neutral.800}" },
+      "muted":   { "$value": "{color.neutral.900}" },
+      "strong":  { "$value": "{color.neutral.700}" },
+      "focus":   { "$value": "{color.brand.400}" }
+    },
+
+    "accent": {
+      "default":  { "$value": "{color.brand.500}" },
+      "hover":    { "$value": "{color.brand.400}" },
+      "active":   { "$value": "{color.brand.300}" },
+      "subtle":   { "$value": "{color.brand.950}" },
+      "onAccent": { "$value": "{color.white}" }
+    },
+
+    "feedback": {
+      "success": {
+        "surface": { "$value": "{color.success.950}" },
+        "text":    { "$value": "{color.success.300}" },
+        "border":  { "$value": "{color.success.800}" }
+      },
+      "warning": {
+        "surface": { "$value": "{color.warning.950}" },
+        "text":    { "$value": "{color.warning.300}" },
+        "border":  { "$value": "{color.warning.800}" }
+      },
+      "danger": {
+        "surface": { "$value": "{color.danger.950}" },
+        "text":    { "$value": "{color.danger.300}" },
+        "border":  { "$value": "{color.danger.800}" }
+      },
+      "info": {
+        "surface": { "$value": "{color.info.950}" },
+        "text":    { "$value": "{color.info.300}" },
+        "border":  { "$value": "{color.info.800}" }
+      }
+    }
+  }
+}

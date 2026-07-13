@@ -1,0 +1,64 @@
+{
+  "$description": "Light theme — the base semantic color mapping. This is the single source of truth for semantic color roles; dark and brand themes are deltas layered on top. Contrast targets WCAG 2.1 AA for text roles.",
+  "color": {
+    "$type": "color",
+
+    "surface": {
+      "$description": "Backgrounds, from the page up through elevated surfaces.",
+      "page":    { "$value": "{color.white}" },
+      "raised":  { "$value": "{color.neutral.50}" },
+      "sunken":  { "$value": "{color.neutral.100}" },
+      "inverse": { "$value": "{color.neutral.900}", "$description": "Dark surface within a light page." }
+    },
+
+    "text": {
+      "$description": "Foreground text roles, in descending emphasis.",
+      "default":  { "$value": "{color.neutral.900}", "$description": "≈17:1 on surface.page." },
+      "muted":    { "$value": "{color.neutral.600}", "$description": "≈7.5:1 on surface.page." },
+      "subtle":   { "$value": "{color.neutral.500}", "$description": "≈4.8:1 on surface.page — AA for body." },
+      "inverse":  { "$value": "{color.neutral.50}",  "$description": "Text on surface.inverse." },
+      "link":     { "$value": "{color.brand.600}" },
+      "onAccent": { "$value": "{color.white}",       "$description": "Text/icon on an accent fill." }
+    },
+
+    "border": {
+      "default": { "$value": "{color.neutral.200}" },
+      "muted":   { "$value": "{color.neutral.100}" },
+      "strong":  { "$value": "{color.neutral.300}" },
+      "focus":   { "$value": "{color.brand.500}", "$description": "Focus ring." }
+    },
+
+    "accent": {
+      "$description": "Primary brand-driven interaction color.",
+      "default":  { "$value": "{color.brand.600}" },
+      "hover":    { "$value": "{color.brand.700}" },
+      "active":   { "$value": "{color.brand.800}" },
+      "subtle":   { "$value": "{color.brand.50}",  "$description": "Tinted background for accent surfaces." },
+      "onAccent": { "$value": "{color.white}" }
+    },
+
+    "feedback": {
+      "$description": "Status surfaces: tinted background, readable text, matching border.",
+      "success": {
+        "surface": { "$value": "{color.success.50}" },
+        "text":    { "$value": "{color.success.700}" },
+        "border":  { "$value": "{color.success.200}" }
+      },
+      "warning": {
+        "surface": { "$value": "{color.warning.50}" },
+        "text":    { "$value": "{color.warning.800}" },
+        "border":  { "$value": "{color.warning.200}" }
+      },
+      "danger": {
+        "surface": { "$value": "{color.danger.50}" },
+        "text":    { "$value": "{color.danger.700}" },
+        "border":  { "$value": "{color.danger.200}" }
+      },
+      "info": {
+        "surface": { "$value": "{color.info.50}" },
+        "text":    { "$value": "{color.info.700}" },
+        "border":  { "$value": "{color.info.200}" }
+      }
+    }
+  }
+}

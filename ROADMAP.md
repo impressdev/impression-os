@@ -17,17 +17,17 @@ Establish the architecture, vocabulary, and rules before any code exists.
 - ✅ Project charter, agent operating guide, and roadmap.
 - ✅ Layer definitions and dependency contract.
 
-> **You are here.** Everything below is not started.
-
-## Phase 1 — Tokens: the source of truth ⬜
+## Phase 1 — Tokens: the source of truth ✅
 
 Encode every design decision as versioned, machine-legible data.
 
-- ⬜ Token schema and validation rules.
-- ⬜ Core token sets: color, typography, spacing, radius, shadow, breakpoints, z-index.
-- ⬜ Semantic token layer (roles: `surface`, `text`, `accent`, `muted`, …) on top of primitives.
-- ⬜ Theming model: light/dark and brand overrides.
-- ⬜ Mapping strategy from tokens to Elementor Pro global styles.
+- ✅ Token schema and validation rules ([`tokens/schema/`](tokens/schema/token.schema.json)).
+- ✅ Core token sets: color, typography, spacing, radius, shadow, breakpoints, z-index ([`tokens/primitives/`](tokens/primitives/)).
+- ✅ Semantic token layer (roles: `surface`, `text`, `accent`, `muted`, …) on top of primitives ([`tokens/semantic/`](tokens/semantic/) + [`tokens/themes/`](tokens/themes/)).
+- ✅ Theming model: light/dark and brand overrides ([`tokens/themes/`](tokens/themes/)).
+- ✅ Mapping strategy from tokens to Elementor Pro global styles ([docs](docs/architecture/token-to-elementor-mapping.md)).
+
+> **You are here.** The token layer is complete. Next up: Foundation.
 
 ## Phase 2 — Foundation: the design laws ⬜
 

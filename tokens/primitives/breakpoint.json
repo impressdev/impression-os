@@ -1,0 +1,11 @@
+{
+  "$description": "Responsive breakpoints. Consumed by foundation/grid and by recipe responsive rules. Aligned to Elementor Pro's default device stops where practical.",
+  "breakpoint": {
+    "$type": "dimension",
+    "sm": { "$value": "640px",  "$description": "Large phone / small tablet." },
+    "md": { "$value": "768px",  "$description": "Tablet portrait." },
+    "lg": { "$value": "1024px", "$description": "Tablet landscape / small laptop." },
+    "xl": { "$value": "1280px", "$description": "Desktop." },
+    "2xl":{ "$value": "1536px", "$description": "Large desktop." }
+  }
+}
