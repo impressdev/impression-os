@@ -11,7 +11,7 @@
     },
     "about": {
       "description": "Company / about page.",
-      "sections": ["header", "hero", "feature-grid", "testimonial", "cta", "footer"]
+      "sections": ["header", "hero", "feature-grid", "team", "testimonial", "cta", "footer"]
     },
     "lead": {
       "description": "Conversion-focused page ending in a contact form.",

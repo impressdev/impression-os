@@ -59,6 +59,28 @@ test('logo-cloud compiles one image per logo, with alt text', () => {
   assert.deepEqual(images.map((i) => i.settings.image.alt), ['Meridian', 'Halcyon', 'Northgate', 'Brightline']);
 });
 
+test('team compiles a portrait, name, and role per member', () => {
+  const teamPlan = {
+    theme: 'light',
+    sections: [{
+      recipe: 'team',
+      content: {
+        heading: 'The crew',
+        members: [
+          { name: 'Ada Nkemdirim', role: 'Founder & CEO', avatar: { url: '/ada.jpg', alt: 'Ada Nkemdirim' } },
+          { name: 'Ravi Patel', role: 'Head of Engineering', avatar: { url: '/ravi.jpg', alt: 'Ravi Patel' } },
+        ],
+      },
+    }],
+  };
+  const { templates } = build(root, teamPlan);
+  const t = templates[0].template;
+  const names = collect(t, (n) => n.widgetType === 'heading' && n.settings.header_size === 'h3');
+  assert.deepEqual(names.map((h) => h.settings.title), ['Ada Nkemdirim', 'Ravi Patel']);
+  const portraits = collect(t, (n) => n.widgetType === 'image');
+  assert.deepEqual(portraits.map((i) => i.settings.image.alt), ['Ada Nkemdirim', 'Ravi Patel']);
+});
+
 test('contact compiles a single Elementor form from the fields list', () => {
   const contactPlan = {
     theme: 'light',

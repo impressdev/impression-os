@@ -1,0 +1,75 @@
+{
+  "name": "team",
+  "category": "section",
+  "status": "draft",
+  "description": "A grid of people — the faces behind the company. Each member is a portrait, a name, and a role. Common on about pages.",
+  "landmark": "section",
+  "container": "default",
+  "sectionSpacing": "default",
+
+  "layout": {
+    "primitive": "stack",
+    "regions": {
+      "header": {
+        "primitive": "center",
+        "gap": "{space.gap.sm}",
+        "align": "center",
+        "components": ["heading?", "text:lead?"]
+      },
+      "grid": {
+        "primitive": "grid",
+        "columns": 3,
+        "gap": "{space.gap.lg}",
+        "regions": {
+          "member": {
+            "primitive": "stack",
+            "gap": "{space.gap.sm}",
+            "align": "center",
+            "repeat": true,
+            "components": ["media", "heading:h3", "text:small"]
+          }
+        }
+      }
+    }
+  },
+
+  "content": {
+    "heading": { "type": "string", "required": false, "description": "Section heading (h2)." },
+    "intro":   { "type": "richtext", "required": false, "description": "Optional intro." },
+    "members": {
+      "type": "list",
+      "required": true,
+      "max": 12,
+      "description": "The people.",
+      "of": {
+        "name":   { "type": "string", "required": true, "description": "Person's name (h3)." },
+        "role":   { "type": "string", "required": true, "description": "Title / role." },
+        "avatar": { "type": "image", "required": false, "description": "Portrait; alt is the person's name." }
+      }
+    }
+  },
+
+  "responsive": {
+    "base": "One per row.",
+    "md": "Two per row.",
+    "lg": "Three per row (or as set by columns)."
+  },
+
+  "components": ["heading", "text", "media"],
+
+  "a11y": {
+    "headingLevel": "h2 for the section (optional); each name is h3.",
+    "notes": [
+      "Portraits are meaningful images — alt text is the person's name, not empty.",
+      "Name and role read together; role is conveyed in text, not by styling."
+    ]
+  },
+
+  "elementor": {
+    "widget": "container",
+    "notes": "A stack container with a nested grid of member stacks (portrait, name, role).",
+    "mapping": {
+      "members": "Repeated member stack, one per person"
+    }
+  }
+}

@@ -48,8 +48,8 @@ Depends on [`components/`](../components/), [`foundation/`](../foundation/), and
 
 ## Status
 
-✅ **Implemented (draft)** — nine section recipes (hero, logo-cloud, feature-grid,
-stats, testimonial, pricing, faq, cta, contact), two chrome recipes (header,
+✅ **Implemented (draft)** — ten section recipes (hero, logo-cloud, feature-grid,
+stats, testimonial, team, pricing, faq, cta, contact), two chrome recipes (header,
 footer), and the recipe specification schema are in place. Each recipe composes components via the
 foundation layout primitives, declares an explicit content contract, defines
 responsive behavior, and states its accessibility + Elementor contract. See
