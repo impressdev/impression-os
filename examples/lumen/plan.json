@@ -1,0 +1,80 @@
+{
+  "meta": { "name": "Lumen — lead page", "brief": "examples/lumen/brief/brief.json" },
+  "theme": "brand.teal",
+  "sections": [
+    {
+      "recipe": "header",
+      "content": {
+        "logo": { "url": "/assets/lumen-logo.svg", "alt": "Lumen" },
+        "links": [
+          { "label": "Features", "href": "/features" },
+          { "label": "Pricing", "href": "/pricing" },
+          { "label": "Stories", "href": "/stories" }
+        ],
+        "cta": { "label": "Start free trial", "href": "/signup" }
+      }
+    },
+    {
+      "recipe": "hero",
+      "content": {
+        "eyebrow": "Scheduling that runs itself",
+        "heading": "Fewer phone calls. Fuller calendars.",
+        "subheading": "Lumen takes the bookings, plans the routes, and texts the reminders — so your crew shows up on time and your phone stops ringing off the hook.",
+        "primaryCta": { "label": "Start free trial", "href": "/signup" },
+        "secondaryCta": { "label": "Watch a 2-min tour", "href": "/tour" },
+        "media": { "url": "/assets/lumen-app.png", "alt": "The Lumen scheduling board" }
+      }
+    },
+    {
+      "recipe": "feature-grid",
+      "content": {
+        "heading": "Everything the workday needs",
+        "features": [
+          { "icon": "calendar-check", "title": "Online booking", "body": "Customers pick a slot themselves — 24/7, no back-and-forth." },
+          { "icon": "route", "title": "Smart routing", "body": "Jobs are ordered to cut drive time across the whole crew." },
+          { "icon": "comment-sms", "title": "Automatic reminders", "body": "Texts go out before every visit, so no-shows drop." },
+          { "icon": "mobile-screen", "title": "Works in the field", "body": "Your crew sees the day and updates jobs from their phones." }
+        ]
+      }
+    },
+    {
+      "recipe": "stats",
+      "content": {
+        "heading": "What it changes",
+        "stats": [
+          { "value": "9 hrs", "label": "Saved on scheduling each week" },
+          { "value": "38%", "label": "Fewer no-shows with reminders" },
+          { "value": "24/7", "label": "Bookings taken automatically" },
+          { "value": "2 min", "label": "To set up your first crew" }
+        ]
+      }
+    },
+    {
+      "recipe": "contact",
+      "content": {
+        "heading": "See your week on Lumen",
+        "subheading": "Tell us about your crew and we will set up a live demo on your own jobs.",
+        "fields": [
+          { "label": "Your name", "type": "text", "required": true },
+          { "label": "Work email", "type": "email", "required": true },
+          { "label": "Crew size", "type": "text" },
+          { "label": "What eats your time today?", "type": "textarea" }
+        ],
+        "submitLabel": "Book my demo"
+      }
+    },
+    {
+      "recipe": "footer",
+      "content": {
+        "logo": { "url": "/assets/lumen-logo.svg", "alt": "Lumen" },
+        "blurb": "Scheduling for home-service crews.",
+        "columns": [
+          { "title": "Product", "links": [{ "label": "Features", "href": "/features" }, { "label": "Pricing", "href": "/pricing" }] },
+          { "title": "Company", "links": [{ "label": "About", "href": "/about" }, { "label": "Contact", "href": "/contact" }] }
+        ],
+        "legal": "© 2026 Lumen, Inc.",
+        "legalLinks": [{ "label": "Privacy", "href": "/privacy" }, { "label": "Terms", "href": "/terms" }]
+      }
+    }
+  ]
+}

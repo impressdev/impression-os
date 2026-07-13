@@ -1,0 +1,43 @@
+{
+  "business": {
+    "name": "Lumen",
+    "industry": "SaaS — scheduling for home-service businesses",
+    "description": "Lumen books, routes, and reminds — so plumbers, electricians, and cleaners spend the day on jobs, not on the phone.",
+    "tone": "warm, practical, down-to-earth"
+  },
+  "goals": {
+    "primary": "Start free trials",
+    "secondary": ["Show it saves time", "Make signup feel effortless"]
+  },
+  "audience": "Owners of small home-service businesses (1–20 crew).",
+  "brand": {
+    "theme": "brand.teal",
+    "accent": "friendly teal",
+    "logo": "/assets/lumen-logo.svg",
+    "voice": "Plain words. Short sentences. Talk about the workday, not the software."
+  },
+  "pages": [{ "type": "lead", "path": "/" }],
+  "content": {
+    "eyebrow": "Scheduling that runs itself",
+    "headline": "Fewer phone calls. Fuller calendars.",
+    "valueProposition": "Lumen takes the bookings, plans the routes, and texts the reminders — so your crew shows up on time and your phone stops ringing off the hook.",
+    "primaryCta": { "label": "Start free trial", "href": "/signup" },
+    "secondaryCta": { "label": "Watch a 2-min tour", "href": "/tour" },
+    "heroMedia": { "url": "/assets/lumen-app.png", "alt": "The Lumen scheduling board" },
+    "features": [
+      { "icon": "calendar-check", "title": "Online booking", "body": "Customers pick a slot themselves — 24/7, no back-and-forth." },
+      { "icon": "route", "title": "Smart routing", "body": "Jobs are ordered to cut drive time across the whole crew." },
+      { "icon": "comment-sms", "title": "Automatic reminders", "body": "Texts go out before every visit, so no-shows drop." },
+      { "icon": "mobile-screen", "title": "Works in the field", "body": "Your crew sees the day and updates jobs from their phones." }
+    ],
+    "nav": [
+      { "label": "Features", "href": "/features" },
+      { "label": "Pricing", "href": "/pricing" },
+      { "label": "Stories", "href": "/stories" }
+    ],
+    "footerColumns": [
+      { "title": "Product", "links": [{ "label": "Features", "href": "/features" }, { "label": "Pricing", "href": "/pricing" }] },
+      { "title": "Company", "links": [{ "label": "About", "href": "/about" }, { "label": "Contact", "href": "/contact" }] }
+    ]
+  }
+}

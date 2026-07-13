@@ -1,0 +1,21 @@
+{
+  "$description": "Provenance for the Lumen example. Regenerate and compare the checksum to verify byte-stable reproduction.",
+  "generator": "@impression-os/builder",
+  "version": "0.1.0",
+  "engine": "node >=20",
+  "theme": "brand.teal",
+  "blueprint": "lead",
+  "source": {
+    "brief": "brief/brief.json",
+    "plan": "plan.json"
+  },
+  "command": "node builder/bin/impression-build.js --brief examples/lumen/plan.json --out examples/lumen/kit --root .",
+  "output": {
+    "sections": 6,
+    "widgets": 41
+  },
+  "checksum": {
+    "algorithm": "sha256",
+    "value": "ba54fd7c490e0111aa59afc625951ac682e796c0ca34c3af89a6ede86d8eb639"
+  }
+}

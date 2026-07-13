@@ -1,0 +1,194 @@
+{
+  "version": "0.4",
+  "title": "footer",
+  "type": "section",
+  "content": [
+    {
+      "id": "de4add4",
+      "elType": "container",
+      "settings": {
+        "flex_direction": "column"
+      },
+      "elements": [
+        {
+          "id": "98b39d6",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "1.5",
+              "row": "1.5",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "container_type": "grid",
+            "grid_template_columns": "repeat(4, 1fr)"
+          },
+          "elements": [
+            {
+              "id": "b50c7ac",
+              "elType": "container",
+              "settings": {
+                "flex_gap": {
+                  "column": "0.75",
+                  "row": "0.75",
+                  "unit": "rem",
+                  "isLinked": true
+                },
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "6ce8d0e",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "/assets/lumen-logo.svg",
+                      "alt": "Lumen"
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "6ce8d0f",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p>Scheduling for home-service crews.</p>"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "64f0ad2",
+              "elType": "container",
+              "settings": {
+                "flex_gap": {
+                  "column": "0.5",
+                  "row": "0.5",
+                  "unit": "rem",
+                  "isLinked": true
+                },
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "ddec674",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Product",
+                    "header_size": "h4"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "ddec675",
+                  "elType": "widget",
+                  "widgetType": "icon-list",
+                  "settings": {
+                    "icon_list": [
+                      {
+                        "text": "Features",
+                        "link": {
+                          "url": "/features"
+                        }
+                      },
+                      {
+                        "text": "Pricing",
+                        "link": {
+                          "url": "/pricing"
+                        }
+                      }
+                    ]
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "64f0ad3",
+              "elType": "container",
+              "settings": {
+                "flex_gap": {
+                  "column": "0.5",
+                  "row": "0.5",
+                  "unit": "rem",
+                  "isLinked": true
+                },
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "ddf52d5",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Company",
+                    "header_size": "h4"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "ddf52d6",
+                  "elType": "widget",
+                  "widgetType": "icon-list",
+                  "settings": {
+                    "icon_list": [
+                      {
+                        "text": "About",
+                        "link": {
+                          "url": "/about"
+                        }
+                      },
+                      {
+                        "text": "Contact",
+                        "link": {
+                          "url": "/contact"
+                        }
+                      }
+                    ]
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": true
+        },
+        {
+          "id": "8aaae28",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "0.75",
+              "row": "0.75",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "flex_direction": "row",
+            "flex_wrap": "wrap",
+            "align_items": "center"
+          },
+          "elements": [
+            {
+              "id": "feab20a",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<p>Scheduling for home-service crews.</p>"
+              },
+              "elements": []
+            }
+          ],
+          "isInner": true
+        }
+      ],
+      "isInner": true
+    }
+  ]
+}

@@ -47,7 +47,8 @@ Produced by the full pipeline: [`prompts/`](../prompts/) →
 
 | Example | What it demonstrates |
 | ------- | -------------------- |
-| [`northwind/`](northwind/) | A full landing page (8 sections, 59 widgets) generated end-to-end from a single brief; byte-stable and CI-verified. |
+| [`northwind/`](northwind/) | A full `landing` page (8 sections, 59 widgets) on the default light theme; byte-stable and CI-verified. |
+| [`lumen/`](lumen/) | A `lead` page (6 sections, 41 widgets) ending in a contact form, on the `brand.teal` theme. |
 
 ## Status
 

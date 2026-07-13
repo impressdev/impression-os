@@ -1,0 +1,130 @@
+{
+  "version": "0.4",
+  "title": "hero",
+  "type": "section",
+  "content": [
+    {
+      "id": "c97d3b3",
+      "elType": "container",
+      "settings": {
+        "flex_direction": "row",
+        "align_items": "center"
+      },
+      "elements": [
+        {
+          "id": "78de81d",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "1",
+              "row": "1",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "flex_direction": "column"
+          },
+          "elements": [
+            {
+              "id": "7b5a3df",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<span class=\"badge\">Scheduling that runs itself</span>"
+              },
+              "elements": []
+            },
+            {
+              "id": "7b5a3e0",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "Fewer phone calls. Fuller calendars.",
+                "header_size": "h1"
+              },
+              "elements": []
+            },
+            {
+              "id": "7b5a3e1",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<p>Lumen takes the bookings, plans the routes, and texts the reminders — so your crew shows up on time and your phone stops ringing off the hook.</p>"
+              },
+              "elements": []
+            },
+            {
+              "id": "7531add",
+              "elType": "container",
+              "settings": {
+                "flex_gap": {
+                  "column": "0.75",
+                  "row": "0.75",
+                  "unit": "rem",
+                  "isLinked": true
+                },
+                "flex_direction": "row",
+                "flex_wrap": "wrap",
+                "align_items": "center"
+              },
+              "elements": [
+                {
+                  "id": "92ede9f",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "Start free trial",
+                    "link": {
+                      "url": "/signup",
+                      "is_external": "",
+                      "nofollow": ""
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "92edea0",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "Watch a 2-min tour",
+                    "link": {
+                      "url": "/tour",
+                      "is_external": "",
+                      "nofollow": ""
+                    }
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": true
+        },
+        {
+          "id": "a728c02",
+          "elType": "container",
+          "settings": {
+            "flex_direction": "column"
+          },
+          "elements": [
+            {
+              "id": "9f8f9a4",
+              "elType": "widget",
+              "widgetType": "image",
+              "settings": {
+                "image": {
+                  "url": "/assets/lumen-app.png",
+                  "alt": "The Lumen scheduling board"
+                }
+              },
+              "elements": []
+            }
+          ],
+          "isInner": true
+        }
+      ],
+      "isInner": true
+    }
+  ]
+}

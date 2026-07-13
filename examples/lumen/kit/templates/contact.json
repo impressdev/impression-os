@@ -1,0 +1,113 @@
+{
+  "version": "0.4",
+  "title": "contact",
+  "type": "section",
+  "content": [
+    {
+      "id": "3798711",
+      "elType": "container",
+      "settings": {
+        "flex_direction": "row",
+        "align_items": "center"
+      },
+      "elements": [
+        {
+          "id": "824197b",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "1",
+              "row": "1",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "flex_direction": "column"
+          },
+          "elements": [
+            {
+              "id": "39dc07d",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "See your week on Lumen",
+                "header_size": "h2"
+              },
+              "elements": []
+            },
+            {
+              "id": "39dc07e",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<p>Tell us about your crew and we will set up a live demo on your own jobs.</p>"
+              },
+              "elements": []
+            }
+          ],
+          "isInner": true
+        },
+        {
+          "id": "ab9ef54",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "1",
+              "row": "1",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "flex_direction": "column"
+          },
+          "elements": [
+            {
+              "id": "f5673b6",
+              "elType": "widget",
+              "widgetType": "form",
+              "settings": {
+                "form_name": "Contact",
+                "form_fields": [
+                  {
+                    "_id": "0b533f5",
+                    "custom_id": "your-name",
+                    "field_label": "Your name",
+                    "field_type": "text",
+                    "required": "true",
+                    "placeholder": ""
+                  },
+                  {
+                    "_id": "f0cee50",
+                    "custom_id": "work-email",
+                    "field_label": "Work email",
+                    "field_type": "email",
+                    "required": "true",
+                    "placeholder": ""
+                  },
+                  {
+                    "_id": "ed1dd31",
+                    "custom_id": "crew-size",
+                    "field_label": "Crew size",
+                    "field_type": "text",
+                    "required": "",
+                    "placeholder": ""
+                  },
+                  {
+                    "_id": "cf04224",
+                    "custom_id": "what-eats-your-time-today",
+                    "field_label": "What eats your time today?",
+                    "field_type": "textarea",
+                    "required": "",
+                    "placeholder": ""
+                  }
+                ],
+                "button_text": "Book my demo"
+              },
+              "elements": []
+            }
+          ],
+          "isInner": true
+        }
+      ],
+      "isInner": true
+    }
+  ]
+}
