@@ -65,8 +65,10 @@ node builder/bin/impression-build.js \
   --out dist --root .
 ```
 
-Produces `dist/kit.json` (the Elementor Site Settings kit) and
-`dist/templates/<section>.json` (one importable template per section). Or use the
+Produces `dist/kit.json` (the Elementor Site Settings kit),
+`dist/templates/<section>.json` (one importable template per section), and
+`dist/page.json` (page metadata — title, meta description, Open Graph — derived
+from the plan's `seo` block or from `meta.name` + the hero content). Or use the
 API:
 
 ```js

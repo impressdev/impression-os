@@ -1,0 +1,9 @@
+{
+  "title": "Northwind — landing",
+  "description": "Northwind turns scattered operational data into one live picture — so your team acts early, not after the outage.",
+  "og": {
+    "title": "Northwind — landing",
+    "description": "Northwind turns scattered operational data into one live picture — so your team acts early, not after the outage.",
+    "image": "/assets/dashboard.png"
+  }
+}

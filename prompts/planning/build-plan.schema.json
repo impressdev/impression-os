@@ -18,6 +18,16 @@
       "type": "string",
       "description": "A theme name that exists in tokens/manifest.json (light | dark | brand.example | …)."
     },
+    "seo": {
+      "type": "object",
+      "description": "Optional page metadata. Anything omitted is derived deterministically from meta.name and the hero content.",
+      "properties": {
+        "title": { "type": "string", "description": "Page <title>." },
+        "description": { "type": "string", "description": "Meta description (aim for 50–160 chars)." },
+        "ogImage": { "type": "string", "description": "Open Graph image URL." }
+      },
+      "additionalProperties": false
+    },
     "sections": {
       "type": "array",
       "minItems": 1,

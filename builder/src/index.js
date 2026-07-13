@@ -5,6 +5,7 @@ import { loadSources } from './load.js';
 import { resolveTheme } from './resolve.js';
 import { buildKit } from './kit.js';
 import { compileRecipe } from './template.js';
+import { buildPage } from './page.js';
 
 export { loadSources } from './load.js';
 export { resolveTheme } from './resolve.js';
@@ -19,6 +20,7 @@ export { resolveTheme } from './resolve.js';
  * @typedef {Object} Build
  * @property {string} theme
  * @property {any} kit
+ * @property {any} page
  * @property {Record<string, import('./resolve.js').Resolved>} tokens
  * @property {{name:string, template:any}[]} templates
  */
@@ -37,6 +39,7 @@ export function build(root, brief) {
 
   const tokens = resolveTheme(sources, theme);
   const kit = buildKit(tokens, sources.grid, theme);
+  const page = buildPage(brief);
 
   const templates = (brief.sections ?? []).map((s) => {
     const recipe = sources.recipes[s.recipe];
@@ -44,7 +47,7 @@ export function build(root, brief) {
     return { name: s.recipe, template: compileRecipe(recipe, s.content ?? {}, tokens) };
   });
 
-  return { theme, kit, tokens, templates };
+  return { theme, kit, page, tokens, templates };
 }
 
 /**
@@ -54,6 +57,7 @@ export function build(root, brief) {
 export function writeBuild(result, outDir) {
   mkdirSync(join(outDir, 'templates'), { recursive: true });
   writeFileSync(join(outDir, 'kit.json'), JSON.stringify(result.kit, null, 2) + '\n');
+  writeFileSync(join(outDir, 'page.json'), JSON.stringify(result.page, null, 2) + '\n');
   for (const t of result.templates) {
     writeFileSync(join(outDir, 'templates', `${t.name}.json`), JSON.stringify(t.template, null, 2) + '\n');
   }
