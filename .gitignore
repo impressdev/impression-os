@@ -1,0 +1,12 @@
+# Build output
+dist/
+build/
+
+# Dependencies (the builder is zero-dependency; this guards tooling added later)
+node_modules/
+
+# OS / editor cruft
+.DS_Store
+*.log
+.idea/
+.vscode/

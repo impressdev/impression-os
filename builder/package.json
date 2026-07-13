@@ -1,0 +1,19 @@
+{
+  "name": "@impression-os/builder",
+  "version": "0.1.0",
+  "description": "The Impression OS compiler: resolves tokens, foundation, components, and recipes into an Elementor Pro kit.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "exports": "./src/index.js",
+  "bin": {
+    "impression-build": "bin/impression-build.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node bin/impression-build.js",
+    "test": "node --test"
+  }
+}

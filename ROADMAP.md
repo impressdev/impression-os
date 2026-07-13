@@ -54,16 +54,16 @@ Compose components into complete, opinionated sections.
 - ✅ Responsive behavior definitions per recipe (`responsive` block).
 - ✅ Content-shape validation (each recipe's `content` contract; component references linted).
 
-> **You are here.** Tokens, foundation, components, and recipes are complete. Next up: the Builder.
-
-## Phase 5 — Builder: the compiler ⬜
+## Phase 5 — Builder: the compiler ✅
 
 Build the engine that resolves the layers into an Elementor Pro kit.
 
-- ⬜ Resolve a build plan against tokens, foundation, components, and recipes.
-- ⬜ Emit Elementor Pro global styles (kit) from semantic tokens.
-- ⬜ Emit importable section/page templates from recipes.
-- ⬜ Deterministic, reproducible output guarantees.
+- ✅ Resolve a build plan against tokens, foundation, components, and recipes ([`builder/src/`](builder/src/)).
+- ✅ Emit Elementor Pro global styles (kit) from semantic tokens ([`builder/src/kit.js`](builder/src/kit.js)).
+- ✅ Emit importable section/page templates from recipes ([`builder/src/template.js`](builder/src/template.js)).
+- ✅ Deterministic, reproducible output guarantees (hash-derived ids; byte-stability asserted in [`builder/test/`](builder/test/)).
+
+> **You are here.** The full compile path (tokens → Elementor kit + templates) runs and is deterministic. Next up: Prompts.
 
 ## Phase 6 — Prompts: the intent layer ⬜
 

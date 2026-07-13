@@ -35,29 +35,81 @@ build plan ─▶ resolve (tokens · foundation · components · recipes)
            ─▶ Elementor Pro Kit  ─▶  import into WordPress
 ```
 
-## Planned structure
+## Implementation
+
+The builder is **Node.js (ESM, JavaScript with JSDoc types), zero dependencies,
+no build step** — the pragmatic production choice for a pure-JSON toolchain that
+must run and be verified anywhere Node ≥ 20 exists. See
+[ADR-0005](../docs/decisions/0005-builder-runtime-and-architecture.md).
 
 ```
 builder/
-├── resolve/    Turn a plan + layers into a fully-resolved model
-├── emit/       Render the resolved model to Elementor Pro kit + templates
-└── kit/        Elementor kit format helpers and output contracts
+├── src/
+│   ├── index.js      Public API: build(root, brief) → { kit, tokens, templates }
+│   ├── load.js       Read tokens (via manifest), components, recipes, grid
+│   ├── resolve.js    Resolve a theme's tokens into concrete values ($extends, deref)
+│   ├── kit.js        Resolved tokens → Elementor Pro kit (global colors + fonts + layout)
+│   ├── template.js   Recipe + content → Elementor template tree
+│   ├── elementor.js  Element factories + deterministic ids
+│   └── util.js       readJSON, hashId, parseDimension, stableStringify
+├── bin/impression-build.js   CLI
+└── test/             Smoke tests (determinism + invariants)
+```
+
+## Usage
+
+```bash
+# from the repo root
+node builder/bin/impression-build.js \
+  --brief builder/test/fixtures/landing.brief.json \
+  --out dist --root .
+```
+
+Produces `dist/kit.json` (the Elementor Site Settings kit) and
+`dist/templates/<section>.json` (one importable template per section). Or use the
+API:
+
+```js
+import { build, writeBuild } from './builder/src/index.js';
+const result = build('.', { theme: 'light', sections: [{ recipe: 'hero', content }] });
+writeBuild(result, 'dist');
+```
+
+## The pipeline
+
+```
+brief ─▶ load ─▶ resolve(theme) ─▶ ┌ kit.js       → kit.json (globals)
+                                   └ template.js  → templates/*.json
 ```
 
 ## Conventions
 
-- **Deterministic only.** No randomness, no wall-clock or environment dependence.
-- **Clean output.** Generated kits must be fully editable in Elementor Pro.
+- **Deterministic only.** Ids derive from a hash of each element's path; there is
+  no randomness or wall-clock dependence. The same root + brief is byte-stable
+  (asserted in `test/`).
+- **Clean output.** Kits are standard Elementor Site Settings; templates are
+  standard element trees — fully editable, no custom runtime.
 - **No design decisions here.** The builder *renders* decisions; it never *makes*
   them. Every value it emits traces back to a token.
 
+## Scope of this phase
+
+Fully implemented: token resolution (per theme, with `$extends` and dereferencing)
+and the kit emitter (global colors, fonts, and layout defaults). The recipe →
+template compiler emits the full container/widget tree from a recipe's layout and
+binds content to widgets by a documented field-matching heuristic; the complete
+brief → content mapping is the job of [`prompts/`](../prompts/)
+([Phase 6](../ROADMAP.md#phase-6--prompts-the-intent-layer)).
+
 ## Dependencies
 
-Consumes a build plan from [`prompts/`](../prompts/) and reads
-[`recipes/`](../recipes/), [`components/`](../components/),
-[`foundation/`](../foundation/), and [`tokens/`](../tokens/). Its output is
-validated by [`tests/`](../tests/).
+Reads [`recipes/`](../recipes/), [`components/`](../components/),
+[`foundation/`](../foundation/), and [`tokens/`](../tokens/); consumes a build
+plan/brief that [`prompts/`](../prompts/) will produce. Output is validated by
+[`tests/`](../tests/).
 
 ## Status
 
-⬜ Not started — see [Phase 5](../ROADMAP.md#phase-5--builder-the-compiler).
+✅ **Implemented** — resolver, kit emitter, recipe→template compiler, CLI, and a
+passing smoke test (6 checks incl. byte-stability). See
+[Phase 5](../ROADMAP.md#phase-5--builder-the-compiler).

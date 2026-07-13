@@ -14,7 +14,7 @@
         "primitive": "stack",
         "gap": "{space.gap.md}",
         "align": "start",
-        "components": ["badge?", "heading", "text:lead"],
+        "components": ["badge?", "heading:h1", "text:lead"],
         "regions": {
           "actions": {
             "primitive": "cluster",

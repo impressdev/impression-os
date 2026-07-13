@@ -1,0 +1,36 @@
+{
+  "theme": "light",
+  "sections": [
+    {
+      "recipe": "hero",
+      "content": {
+        "eyebrow": "New",
+        "heading": "Ship websites, not guesswork",
+        "subheading": "Impression OS turns a brief into a professional, accessible site — deterministically.",
+        "primaryCta": { "label": "Get started", "href": "/start" },
+        "secondaryCta": { "label": "See how it works", "href": "/how" },
+        "media": { "url": "/assets/hero.jpg", "alt": "" }
+      }
+    },
+    {
+      "recipe": "feature-grid",
+      "content": {
+        "heading": "Why teams choose Impression OS",
+        "intro": "One system, every page.",
+        "features": [
+          { "icon": "bolt", "title": "Fast", "body": "From brief to build in minutes." },
+          { "icon": "shield", "title": "Accessible", "body": "WCAG 2.1 AA is enforced, not reviewed." },
+          { "icon": "wand-magic-sparkles", "title": "Consistent", "body": "Tokens keep every page in lockstep." }
+        ]
+      }
+    },
+    {
+      "recipe": "cta",
+      "content": {
+        "heading": "Ready to build?",
+        "subheading": "Start your first site today.",
+        "primaryCta": { "label": "Start free", "href": "/signup" }
+      }
+    }
+  ]
+}
