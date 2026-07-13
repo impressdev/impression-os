@@ -1,0 +1,74 @@
+{
+  "name": "faq",
+  "category": "section",
+  "status": "draft",
+  "description": "A list of question-and-answer pairs, rendered as an accessible accordion. Introduced by an optional section heading.",
+  "landmark": "section",
+  "container": "default",
+  "sectionSpacing": "default",
+
+  "layout": {
+    "primitive": "stack",
+    "regions": {
+      "header": {
+        "primitive": "center",
+        "gap": "{space.gap.sm}",
+        "align": "center",
+        "components": ["heading", "text:lead?"]
+      },
+      "items": {
+        "primitive": "stack",
+        "gap": "{space.gap.sm}",
+        "regions": {
+          "item": {
+            "primitive": "stack",
+            "gap": "{space.gap.xs}",
+            "repeat": true,
+            "components": ["heading:h3", "text"]
+          }
+        }
+      }
+    }
+  },
+
+  "content": {
+    "heading": { "type": "string", "required": false, "description": "Section heading (h2)." },
+    "intro":   { "type": "richtext", "required": false, "description": "Optional intro." },
+    "items": {
+      "type": "list",
+      "required": true,
+      "max": 20,
+      "description": "The Q&A pairs.",
+      "of": {
+        "question": { "type": "string", "required": true, "description": "The question (h3, acts as the disclosure trigger)." },
+        "answer":   { "type": "richtext", "required": true, "description": "The answer." }
+      }
+    }
+  },
+
+  "responsive": {
+    "base": "Single column list.",
+    "lg": "Single column, capped at the reading measure."
+  },
+
+  "components": ["heading", "text"],
+
+  "a11y": {
+    "headingLevel": "h2 for the section; each question is h3.",
+    "notes": [
+      "Each disclosure uses a button as the trigger, with aria-expanded and aria-controls linking to its answer panel.",
+      "Questions remain reachable and readable when collapsed; the accordion is keyboard-operable.",
+      "Answers respect the reading measure."
+    ]
+  },
+
+  "elementor": {
+    "widget": "accordion",
+    "notes": "Compiles to the Elementor Accordion/Toggle widget; each item is a heading trigger + answer panel.",
+    "mapping": {
+      "items": "Accordion items, one per Q&A pair",
+      "question": "Item title (button trigger, h3)",
+      "answer": "Item content"
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "name": "footer",
+  "category": "chrome",
+  "status": "draft",
+  "description": "The site footer: brand, grouped navigation columns, and a legal/meta row. The site's contentinfo landmark.",
+  "landmark": "contentinfo",
+  "container": "wide",
+  "sectionSpacing": "default",
+
+  "layout": {
+    "primitive": "stack",
+    "regions": {
+      "top": {
+        "primitive": "grid",
+        "columns": 4,
+        "gap": "{space.gap.lg}",
+        "regions": {
+          "brand": {
+            "primitive": "stack",
+            "gap": "{space.gap.sm}",
+            "components": ["media", "text:small"]
+          },
+          "column": {
+            "primitive": "stack",
+            "gap": "{space.gap.xs}",
+            "repeat": true,
+            "components": ["heading:h4", "nav-item"]
+          }
+        }
+      },
+      "legal": {
+        "primitive": "cluster",
+        "gap": "{space.gap.sm}",
+        "components": ["text:small", "nav-item"]
+      }
+    }
+  },
+
+  "content": {
+    "logo":    { "type": "image", "required": false, "description": "Brand logo." },
+    "blurb":   { "type": "string", "required": false, "description": "Short brand line." },
+    "columns": {
+      "type": "list",
+      "required": true,
+      "max": 4,
+      "description": "Grouped link columns.",
+      "of": {
+        "title": { "type": "string", "required": true, "description": "Column heading (h4)." },
+        "links": { "type": "list", "required": true, "description": "Links in the column.", "of": { "label": { "type": "string", "required": true, "description": "Link label." }, "href": { "type": "string", "required": true, "description": "Destination." } } }
+      }
+    },
+    "legal":   { "type": "string", "required": false, "description": "Copyright / legal line." },
+    "legalLinks": { "type": "list", "required": false, "description": "Privacy, terms, etc.", "of": { "label": { "type": "string", "required": true, "description": "Link label." }, "href": { "type": "string", "required": true, "description": "Destination." } } }
+  },
+
+  "responsive": {
+    "base": "Single column; link groups stack.",
+    "md": "Two columns.",
+    "lg": "Brand + link columns across one row; legal row beneath."
+  },
+
+  "components": ["media", "heading", "text", "nav-item"],
+
+  "a11y": {
+    "landmarkNote": "Rendered as <footer> with role contentinfo; each link group is a <nav> with an accessible name from its heading.",
+    "notes": [
+      "Footer nav items use the muted emphasis but still meet 4.5:1 contrast.",
+      "The legal row is readable and its links are distinguishable without relying on color alone."
+    ]
+  },
+
+  "elementor": {
+    "widget": "container",
+    "notes": "Compiles to an Elementor footer template: a wide grid of link columns above a legal cluster.",
+    "mapping": {
+      "columns": "Repeated stack (heading + nav items), one per column",
+      "legalLinks": "Nav items in the legal cluster"
+    }
+  }
+}

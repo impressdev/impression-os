@@ -48,4 +48,15 @@ Depends on [`components/`](../components/), [`foundation/`](../foundation/), and
 
 ## Status
 
-⬜ Not started — see [Phase 4](../ROADMAP.md#phase-4--recipes-composed-sections).
+✅ **Implemented (draft)** — six section recipes (hero, feature-grid, pricing,
+testimonial, faq, cta), two chrome recipes (header, footer), and the recipe
+specification schema are in place. Each recipe composes components via the
+foundation layout primitives, declares an explicit content contract, defines
+responsive behavior, and states its accessibility + Elementor contract. See
+[Phase 4](../ROADMAP.md#phase-4--recipes-composed-sections), the
+[sections catalog](sections/README.md), and the
+[chrome catalog](chrome/README.md).
+
+Next: [`builder/`](../builder/) compiles tokens, foundation, components, and
+recipes into an Elementor Pro kit
+([Phase 5](../ROADMAP.md#phase-5--builder-the-compiler)).

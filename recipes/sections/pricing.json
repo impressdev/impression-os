@@ -1,0 +1,84 @@
+{
+  "name": "pricing",
+  "category": "section",
+  "status": "draft",
+  "description": "A row of pricing tiers, each a card with a name, price, feature list, and call to action. One tier may be highlighted as recommended.",
+  "landmark": "section",
+  "container": "default",
+  "sectionSpacing": "default",
+
+  "layout": {
+    "primitive": "stack",
+    "regions": {
+      "header": {
+        "primitive": "center",
+        "gap": "{space.gap.sm}",
+        "align": "center",
+        "components": ["heading", "text:lead?"]
+      },
+      "tiers": {
+        "primitive": "grid",
+        "columns": 3,
+        "gap": "{space.gap.lg}",
+        "regions": {
+          "tier": {
+            "repeat": true,
+            "components": ["card"],
+            "regions": {
+              "body": {
+                "primitive": "stack",
+                "gap": "{space.gap.md}",
+                "components": ["badge?", "heading:h3", "text", "list-item", "button:primary"]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "content": {
+    "heading": { "type": "string", "required": false, "description": "Section heading (h2)." },
+    "intro":   { "type": "richtext", "required": false, "description": "Optional intro." },
+    "tiers": {
+      "type": "list",
+      "required": true,
+      "max": 4,
+      "description": "The pricing tiers.",
+      "of": {
+        "name":        { "type": "string", "required": true, "description": "Tier name (h3)." },
+        "price":       { "type": "string", "required": true, "description": "Formatted price." },
+        "period":      { "type": "string", "required": false, "description": "Billing period, e.g. /month." },
+        "description": { "type": "string", "required": false, "description": "One-line positioning." },
+        "features":    { "type": "list", "required": true, "description": "Included features (each a list-item).", "of": { "label": { "type": "string", "required": true, "description": "Feature label." } } },
+        "cta":         { "type": "action", "required": true, "description": "Tier call to action." },
+        "highlighted": { "type": "boolean", "required": false, "description": "Marks the recommended tier." }
+      }
+    }
+  },
+
+  "responsive": {
+    "base": "One column; the highlighted tier appears first.",
+    "md": "Two columns.",
+    "lg": "All tiers in a single row."
+  },
+
+  "components": ["card", "heading", "text", "list-item", "button", "badge"],
+
+  "a11y": {
+    "headingLevel": "h2 for the section; each tier name is h3.",
+    "notes": [
+      "The highlighted tier is conveyed by a visible label/badge and structure, not by color alone.",
+      "Each tier's CTA has an accessible name that includes the tier (e.g. \"Choose Pro\")."
+    ]
+  },
+
+  "elementor": {
+    "widget": "container",
+    "notes": "A grid of card containers, one per tier, each holding a stacked body.",
+    "mapping": {
+      "tiers": "Repeated card, one per content tier",
+      "highlighted": "Card variant = elevated + badge"
+    }
+  }
+}

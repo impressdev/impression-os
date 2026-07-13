@@ -1,0 +1,75 @@
+{
+  "name": "feature-grid",
+  "category": "section",
+  "status": "draft",
+  "description": "A responsive grid of feature cards, each with an icon, a title, and a short description. Introduced by an optional section heading and intro.",
+  "landmark": "section",
+  "container": "default",
+  "sectionSpacing": "default",
+
+  "layout": {
+    "primitive": "stack",
+    "regions": {
+      "header": {
+        "primitive": "center",
+        "gap": "{space.gap.sm}",
+        "align": "center",
+        "components": ["heading", "text:lead?"]
+      },
+      "grid": {
+        "primitive": "grid",
+        "columns": 3,
+        "gap": "{space.gap.lg}",
+        "regions": {
+          "feature": {
+            "primitive": "stack",
+            "gap": "{space.gap.sm}",
+            "repeat": true,
+            "components": ["icon", "heading:h3", "text"]
+          }
+        }
+      }
+    }
+  },
+
+  "content": {
+    "heading": { "type": "string", "required": false, "description": "Section heading (h2)." },
+    "intro":   { "type": "richtext", "required": false, "description": "Optional intro beneath the heading." },
+    "features": {
+      "type": "list",
+      "required": true,
+      "max": 12,
+      "description": "The feature items.",
+      "of": {
+        "icon":  { "type": "string", "required": true, "description": "Icon name." },
+        "title": { "type": "string", "required": true, "description": "Feature title (h3)." },
+        "body":  { "type": "richtext", "required": true, "description": "Short description." }
+      }
+    }
+  },
+
+  "responsive": {
+    "base": "One column.",
+    "md": "Two columns.",
+    "lg": "Three columns (or as set by columns)."
+  },
+
+  "components": ["heading", "text", "icon"],
+
+  "a11y": {
+    "headingLevel": "h2 for the section; each feature title is h3.",
+    "notes": [
+      "Feature icons are decorative; the meaning is carried by the title and body text.",
+      "Grid order follows source order, which is the tab and mobile-stacking order."
+    ]
+  },
+
+  "elementor": {
+    "widget": "container",
+    "notes": "A stack container with a nested grid container repeated per feature.",
+    "mapping": {
+      "layout.grid": "Grid container; columns collapse per the responsive rules",
+      "features": "Repeated feature stack, one per content item"
+    }
+  }
+}

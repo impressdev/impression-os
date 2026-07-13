@@ -45,16 +45,16 @@ Author the reusable building blocks, each mapped to Elementor widgets.
 - ✅ Composite components: card, list item, form field, navigation item ([`components/composites/`](components/composites/)).
 - ✅ Component-level accessibility and state coverage (`a11y` block + focus/disabled states per spec).
 
-> **You are here.** Tokens, foundation, and components are complete. Next up: Recipes.
-
-## Phase 4 — Recipes: composed sections ⬜
+## Phase 4 — Recipes: composed sections ✅
 
 Compose components into complete, opinionated sections.
 
-- ⬜ Recipe specification format and content contracts.
-- ⬜ Core sections: hero, feature grid, pricing, testimonial, FAQ, CTA, footer, header.
-- ⬜ Responsive behavior definitions per recipe.
-- ⬜ Content-shape validation (what a recipe needs to render well).
+- ✅ Recipe specification format and content contracts ([`recipes/schema/`](recipes/schema/recipe.schema.json)).
+- ✅ Core sections: hero, feature grid, pricing, testimonial, FAQ, CTA, footer, header ([`recipes/sections/`](recipes/sections/), [`recipes/chrome/`](recipes/chrome/)).
+- ✅ Responsive behavior definitions per recipe (`responsive` block).
+- ✅ Content-shape validation (each recipe's `content` contract; component references linted).
+
+> **You are here.** Tokens, foundation, components, and recipes are complete. Next up: the Builder.
 
 ## Phase 5 — Builder: the compiler ⬜
 

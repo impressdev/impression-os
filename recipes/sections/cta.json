@@ -1,0 +1,60 @@
+{
+  "name": "cta",
+  "category": "section",
+  "status": "draft",
+  "description": "A focused call-to-action banner: a headline, optional supporting line, and one primary action (plus an optional secondary). Used to close a page or a section of the funnel.",
+  "landmark": "section",
+  "container": "default",
+  "sectionSpacing": "default",
+
+  "layout": {
+    "primitive": "center",
+    "regions": {
+      "content": {
+        "primitive": "stack",
+        "gap": "{space.gap.md}",
+        "align": "center",
+        "components": ["heading", "text:lead?"],
+        "regions": {
+          "actions": {
+            "primitive": "cluster",
+            "gap": "{space.gap.sm}",
+            "align": "center",
+            "components": ["button:primary", "button:secondary?"]
+          }
+        }
+      }
+    }
+  },
+
+  "content": {
+    "heading":      { "type": "string", "required": true, "description": "The CTA headline (h2)." },
+    "subheading":   { "type": "richtext", "required": false, "description": "Optional supporting line." },
+    "primaryCta":   { "type": "action", "required": true, "description": "The single primary action." },
+    "secondaryCta": { "type": "action", "required": false, "description": "Optional secondary action." }
+  },
+
+  "responsive": {
+    "base": "Centered stack; actions wrap.",
+    "lg": "Centered content capped at the reading measure."
+  },
+
+  "components": ["heading", "text", "button"],
+
+  "a11y": {
+    "headingLevel": "h2 — a CTA never claims the page h1.",
+    "notes": [
+      "Exactly one primary action; the secondary is visibly subordinate.",
+      "Action labels are specific (\"Start free trial\"), never generic (\"Click here\")."
+    ]
+  },
+
+  "elementor": {
+    "widget": "container",
+    "notes": "A centered container, optionally on an accent-subtle background.",
+    "mapping": {
+      "layout.center": "Centered inner container capped at the measure",
+      "actions": "Clustered buttons that wrap on small screens"
+    }
+  }
+}

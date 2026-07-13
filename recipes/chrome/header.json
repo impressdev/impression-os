@@ -1,0 +1,60 @@
+{
+  "name": "header",
+  "category": "chrome",
+  "status": "draft",
+  "description": "The site header: brand, primary navigation, and a prominent action. Sticky by default, and the site's banner landmark.",
+  "landmark": "banner",
+  "container": "wide",
+  "sectionSpacing": "compact",
+
+  "layout": {
+    "primitive": "cluster",
+    "regions": {
+      "brand": {
+        "components": ["media"]
+      },
+      "nav": {
+        "primitive": "cluster",
+        "gap": "{space.gap.sm}",
+        "components": ["nav-item"]
+      },
+      "actions": {
+        "primitive": "cluster",
+        "gap": "{space.gap.sm}",
+        "components": ["button:primary"]
+      }
+    }
+  },
+
+  "content": {
+    "logo":   { "type": "image", "required": true, "description": "Brand logo (links to home)." },
+    "links":  { "type": "list", "required": true, "max": 7, "description": "Primary nav links.", "of": { "label": { "type": "string", "required": true, "description": "Link label." }, "href": { "type": "string", "required": true, "description": "Destination." } } },
+    "cta":    { "type": "action", "required": false, "description": "Header call to action." }
+  },
+
+  "responsive": {
+    "base": "Brand + a menu toggle; nav collapses into a disclosure.",
+    "lg": "Brand left, nav centered/right, action far right on one row."
+  },
+
+  "components": ["media", "nav-item", "button"],
+
+  "a11y": {
+    "landmarkNote": "Rendered as <header> with role banner; nav is a <nav> landmark.",
+    "notes": [
+      "The mobile menu toggle exposes aria-expanded and controls the nav panel.",
+      "The current page's nav item sets aria-current=\"page\".",
+      "The logo link has an accessible name (e.g. \"Home\")."
+    ]
+  },
+
+  "elementor": {
+    "widget": "nav-menu",
+    "notes": "Compiles to an Elementor header template: a wide container with brand, Nav Menu widget, and a button.",
+    "mapping": {
+      "logo": "Site Logo widget",
+      "links": "Nav Menu items",
+      "cta": "Button widget"
+    }
+  }
+}

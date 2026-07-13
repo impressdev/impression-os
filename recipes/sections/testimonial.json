@@ -1,0 +1,86 @@
+{
+  "name": "testimonial",
+  "category": "section",
+  "status": "draft",
+  "description": "Social proof: one or more customer quotes with attribution (name, role, and optional avatar). Renders as a single feature quote or a grid of cards.",
+  "landmark": "section",
+  "container": "default",
+  "sectionSpacing": "default",
+
+  "layout": {
+    "primitive": "stack",
+    "regions": {
+      "header": {
+        "primitive": "center",
+        "gap": "{space.gap.sm}",
+        "align": "center",
+        "components": ["heading?"]
+      },
+      "quotes": {
+        "primitive": "grid",
+        "columns": 3,
+        "gap": "{space.gap.lg}",
+        "regions": {
+          "quote": {
+            "repeat": true,
+            "components": ["card"],
+            "regions": {
+              "body": {
+                "primitive": "stack",
+                "gap": "{space.gap.md}",
+                "components": ["text:lead"],
+                "regions": {
+                  "attribution": {
+                    "primitive": "cluster",
+                    "gap": "{space.gap.sm}",
+                    "components": ["media?", "text:small"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "content": {
+    "heading": { "type": "string", "required": false, "description": "Section heading (h2)." },
+    "testimonials": {
+      "type": "list",
+      "required": true,
+      "max": 9,
+      "description": "The quotes.",
+      "of": {
+        "quote":  { "type": "richtext", "required": true, "description": "The testimonial text." },
+        "author": { "type": "string", "required": true, "description": "Person's name." },
+        "role":   { "type": "string", "required": false, "description": "Role / company." },
+        "avatar": { "type": "image", "required": false, "description": "Portrait." }
+      }
+    }
+  },
+
+  "responsive": {
+    "base": "One column, quotes stacked.",
+    "lg": "Grid of up to three columns."
+  },
+
+  "components": ["card", "heading", "text", "media"],
+
+  "a11y": {
+    "headingLevel": "h2 for the section (optional).",
+    "notes": [
+      "The quote is marked up as a blockquote with its attribution in a cite/footer.",
+      "Avatars are decorative (the author name carries the identity) and emit empty alt."
+    ]
+  },
+
+  "elementor": {
+    "widget": "container",
+    "notes": "A grid of card containers, each a blockquote with clustered attribution.",
+    "mapping": {
+      "testimonials": "Repeated card, one per quote",
+      "avatar": "media (image) with rounded=pill"
+    }
+  }
+}

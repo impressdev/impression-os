@@ -1,0 +1,67 @@
+{
+  "name": "hero",
+  "category": "section",
+  "status": "draft",
+  "description": "The opening statement of a page: eyebrow, headline, supporting text, primary and optional secondary action, and optional media. Owns the page's single h1.",
+  "landmark": "section",
+  "container": "default",
+  "sectionSpacing": "spacious",
+
+  "layout": {
+    "primitive": "split",
+    "regions": {
+      "content": {
+        "primitive": "stack",
+        "gap": "{space.gap.md}",
+        "align": "start",
+        "components": ["badge?", "heading", "text:lead"],
+        "regions": {
+          "actions": {
+            "primitive": "cluster",
+            "gap": "{space.gap.sm}",
+            "components": ["button:primary", "button:secondary?"]
+          }
+        }
+      },
+      "media": {
+        "components": ["media"]
+      }
+    }
+  },
+
+  "content": {
+    "eyebrow":      { "type": "string", "required": false, "description": "Short kicker above the headline (renders as a badge/caption)." },
+    "heading":     { "type": "string", "required": true, "description": "The h1 headline." },
+    "subheading":  { "type": "richtext", "required": false, "description": "One or two sentences of supporting text." },
+    "primaryCta":  { "type": "action", "required": true, "description": "The single primary action." },
+    "secondaryCta":{ "type": "action", "required": false, "description": "Optional lower-emphasis action." },
+    "media":       { "type": "image", "required": false, "description": "Supporting visual; omit for a centered text-only hero." }
+  },
+
+  "responsive": {
+    "base": "Single column: content stacked, media below.",
+    "lg": "Split into two columns — content and media side by side (foundation split primitive)."
+  },
+
+  "components": ["heading", "text", "button", "badge", "media"],
+
+  "a11y": {
+    "headingLevel": "h1 — the hero provides the page's one and only h1.",
+    "landmarkNote": "Rendered as the first section inside <main>.",
+    "notes": [
+      "Primary CTA is visually and structurally first among the actions.",
+      "If media is decorative it emits empty alt; if it carries meaning it requires descriptive alt.",
+      "Reading order matches source order: eyebrow → heading → text → actions → media."
+    ]
+  },
+
+  "elementor": {
+    "widget": "container",
+    "notes": "Compiles to a full-width section shell with an inner capped container split into content + media columns.",
+    "mapping": {
+      "container": "Inner container max-width from grid.container.default",
+      "sectionSpacing": "Section padding block from rhythm.section.spacious",
+      "layout.split": "Two flex columns that stack below lg"
+    }
+  }
+}

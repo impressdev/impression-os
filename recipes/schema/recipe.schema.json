@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://impression.os/schemas/recipe.schema.json",
+  "title": "Impression OS Recipe Specification",
+  "description": "A recipe composes components into a complete section. It declares the container and section rhythm, a layout built from foundation layout primitives, a content contract (the shape of content it needs to render well), responsive behavior, and an accessibility contract.",
+  "type": "object",
+  "required": ["name", "category", "description", "container", "layout", "content", "responsive", "components", "a11y", "elementor"],
+  "properties": {
+    "name": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "category": { "enum": ["section", "chrome"] },
+    "description": { "type": "string" },
+    "status": { "enum": ["draft", "stable"], "default": "draft" },
+
+    "landmark": {
+      "enum": ["section", "banner", "contentinfo", "navigation", "main", "region", "complementary"],
+      "description": "The HTML/ARIA landmark this recipe renders as."
+    },
+
+    "container": {
+      "enum": ["default", "wide", "full"],
+      "description": "Grid container width (foundation/grid)."
+    },
+
+    "sectionSpacing": {
+      "enum": ["none", "compact", "default", "spacious"],
+      "default": "default",
+      "description": "Vertical section rhythm (foundation/spacing rhythm.section)."
+    },
+
+    "layout": {
+      "type": "object",
+      "required": ["primitive", "regions"],
+      "properties": {
+        "primitive": { "$ref": "#/$defs/layoutPrimitive" },
+        "regions": {
+          "type": "object",
+          "description": "Named regions in source order (= reading, tab, and mobile-stacking order).",
+          "additionalProperties": { "$ref": "#/$defs/region" }
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "content": {
+      "type": "object",
+      "description": "The content contract. Keys are content fields the recipe consumes.",
+      "additionalProperties": { "$ref": "#/$defs/contentField" }
+    },
+
+    "responsive": {
+      "type": "object",
+      "description": "Per-breakpoint layout behavior. Keys are breakpoints; values describe the rule.",
+      "propertyNames": { "enum": ["base", "sm", "md", "lg", "xl", "2xl"] },
+      "additionalProperties": { "type": "string" }
+    },
+
+    "components": {
+      "type": "array",
+      "description": "Component dependencies (by name).",
+      "items": { "type": "string" }
+    },
+
+    "a11y": {
+      "type": "object",
+      "required": ["notes"],
+      "properties": {
+        "headingLevel": { "type": "string", "description": "Expected heading level(s) this section contributes to the page outline." },
+        "landmarkNote": { "type": "string" },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+
+    "elementor": {
+      "type": "object",
+      "required": ["widget"],
+      "properties": {
+        "widget": { "type": "string" },
+        "notes": { "type": "string" },
+        "mapping": { "type": "object", "additionalProperties": { "type": "string" } }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+
+  "$defs": {
+    "layoutPrimitive": {
+      "enum": ["stack", "cluster", "grid", "center", "cover", "split"],
+      "description": "A named layout primitive from foundation/hierarchy."
+    },
+    "region": {
+      "type": "object",
+      "description": "A layout region. Renders its `components` first, then any nested `regions`, in that source order. Must declare at least one of the two.",
+      "anyOf": [
+        { "required": ["components"] },
+        { "required": ["regions"] }
+      ],
+      "properties": {
+        "primitive": { "$ref": "#/$defs/layoutPrimitive" },
+        "gap": { "type": "string", "description": "Token reference for the region's gap." },
+        "align": { "enum": ["start", "center", "end", "stretch"] },
+        "columns": { "type": "integer", "description": "Column count when primitive is grid." },
+        "repeat": { "type": "boolean", "description": "Region renders once per item of a list content field." },
+        "components": {
+          "type": "array",
+          "description": "Component references only. A name may carry an optional '?' (optional) or ':variant' hint, e.g. button:secondary, badge?.",
+          "items": { "type": "string" }
+        },
+        "regions": {
+          "type": "object",
+          "description": "Nested regions, in source order.",
+          "additionalProperties": { "$ref": "#/$defs/region" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "contentField": {
+      "type": "object",
+      "required": ["type", "description"],
+      "properties": {
+        "type": { "enum": ["string", "richtext", "action", "image", "list", "boolean", "number"] },
+        "required": { "type": "boolean", "default": false },
+        "max": { "type": "integer", "description": "Upper bound for list length or string length, where meaningful." },
+        "of": {
+          "type": "object",
+          "description": "Item shape when type is list.",
+          "additionalProperties": { "$ref": "#/$defs/contentField" }
+        },
+        "description": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}
