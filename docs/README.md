@@ -23,15 +23,17 @@ unwinding it.
 - **Authoring guides** — how to add a token, a component, a recipe correctly.
 - **Concepts** — the vocabulary and mental models the system relies on.
 
-## Planned structure
+## Structure
 
 ```
 docs/
-├── architecture/   Deep dives into the layer model and pipeline
-├── decisions/      Architecture decision records (ADRs)
-├── guides/         How-to guides for authoring and shipping
-└── concepts/       Vocabulary and mental models
+├── architecture/   Deep dives (e.g. token → Elementor mapping)
+├── decisions/      Architecture decision records — ADR-0001 … ADR-0009
+├── guides/         How-to guides: adding a token / component / recipe / theme
+└── concepts/       Vocabulary and mental models (planned)
 ```
+
+See also [CONTRIBUTING.md](../CONTRIBUTING.md) for the contribution workflow.
 
 ## Conventions
 
