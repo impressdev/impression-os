@@ -1,0 +1,49 @@
+{
+  "$description": "Machine-checkable guardrails for a build plan. The tests/ harness runs these against every plan; each rule references artifacts that define what 'exists'.",
+  "version": "0.1.0",
+  "rules": [
+    {
+      "id": "recipe-exists",
+      "severity": "error",
+      "description": "Every section.recipe must name a recipe that exists in recipes/.",
+      "check": "section.recipe ∈ recipeNames"
+    },
+    {
+      "id": "theme-exists",
+      "severity": "error",
+      "description": "plan.theme must exist in tokens/manifest.json themes.available.",
+      "check": "plan.theme ∈ manifest.themes.available"
+    },
+    {
+      "id": "required-content-present",
+      "severity": "error",
+      "description": "For each section, every required content field of its recipe must be present.",
+      "check": "∀ field where recipe.content[field].required ⇒ field ∈ section.content"
+    },
+    {
+      "id": "single-h1",
+      "severity": "error",
+      "description": "Exactly one section may contribute the page h1 (the hero).",
+      "check": "count(section.recipe == 'hero') == 1"
+    },
+    {
+      "id": "header-footer-bookends",
+      "severity": "error",
+      "description": "A page opens with header (banner) and closes with footer (contentinfo).",
+      "check": "sections[0].recipe == 'header' ∧ sections[-1].recipe == 'footer'"
+    },
+    {
+      "id": "no-design-values-in-content",
+      "severity": "error",
+      "description": "Content must not carry design values (hex colors, px/rem sizes, style props).",
+      "check": "no content string matches /#[0-9a-f]{3,8}|\\d+(px|rem|em)\\b/ and no key ∈ styleVocabulary"
+    },
+    {
+      "id": "meaningful-cta-text",
+      "severity": "warn",
+      "description": "CTA labels should be specific, not generic.",
+      "check": "action.label ∉ {'click here','read more','learn more','submit'}"
+    }
+  ],
+  "styleVocabulary": ["color", "background", "font", "fontSize", "padding", "margin", "radius", "shadow", "border", "width", "height"]
+}

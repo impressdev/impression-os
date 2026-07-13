@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://impression.os/schemas/brief.schema.json",
+  "title": "Impression OS Client Brief",
+  "description": "The structured intent a site is generated from: who the client is, what the site must achieve, the brand direction, and the raw content. A brief is human-authored input; the planner turns it into a deterministic build plan.",
+  "type": "object",
+  "required": ["business", "goals", "brand", "content"],
+  "properties": {
+    "business": {
+      "type": "object",
+      "required": ["name", "description"],
+      "properties": {
+        "name": { "type": "string" },
+        "industry": { "type": "string" },
+        "description": { "type": "string", "description": "What the business does, in a sentence or two." },
+        "tone": { "type": "string", "description": "Desired voice, e.g. \"confident and plain-spoken\"." }
+      },
+      "additionalProperties": false
+    },
+
+    "goals": {
+      "type": "object",
+      "required": ["primary"],
+      "properties": {
+        "primary": { "type": "string", "description": "The single most important outcome (e.g. \"book demos\")." },
+        "secondary": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+
+    "audience": { "type": "string", "description": "Who the site speaks to." },
+
+    "brand": {
+      "type": "object",
+      "properties": {
+        "theme": { "type": "string", "description": "Requested theme name (light | dark | a brand theme). The planner defaults to the manifest default if omitted." },
+        "accent": { "type": "string", "description": "Optional accent direction in words (e.g. \"trustworthy blue\"). Mapped to an existing theme, never to an invented color." },
+        "logo": { "type": "string", "description": "Logo asset URL." },
+        "voice": { "type": "string", "description": "Copy voice guidance." }
+      },
+      "additionalProperties": false
+    },
+
+    "pages": {
+      "type": "array",
+      "description": "Optional sitemap. Each page names an archetype the planner expands via a blueprint. Defaults to a single landing page.",
+      "items": {
+        "type": "object",
+        "required": ["type"],
+        "properties": {
+          "type": { "type": "string", "description": "Archetype key (see planning/blueprints.json), e.g. landing." },
+          "path": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+
+    "content": {
+      "type": "object",
+      "description": "The raw material the planner assigns to sections. All copy is provided here — the system composes, it does not write.",
+      "required": ["valueProposition", "primaryCta"],
+      "properties": {
+        "eyebrow": { "type": "string" },
+        "headline": { "type": "string", "description": "Hero headline; defaults to the value proposition." },
+        "valueProposition": { "type": "string" },
+        "primaryCta": { "$ref": "#/$defs/action" },
+        "secondaryCta": { "$ref": "#/$defs/action" },
+        "heroMedia": { "$ref": "#/$defs/image" },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["title", "body"],
+            "properties": {
+              "icon": { "type": "string" },
+              "title": { "type": "string" },
+              "body": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "pricingTiers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "price", "features", "cta"],
+            "properties": {
+              "name": { "type": "string" },
+              "price": { "type": "string" },
+              "period": { "type": "string" },
+              "description": { "type": "string" },
+              "features": { "type": "array", "items": { "type": "string" } },
+              "cta": { "$ref": "#/$defs/action" },
+              "highlighted": { "type": "boolean" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "testimonials": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["quote", "author"],
+            "properties": {
+              "quote": { "type": "string" },
+              "author": { "type": "string" },
+              "role": { "type": "string" },
+              "avatar": { "$ref": "#/$defs/image" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "faqs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["question", "answer"],
+            "properties": {
+              "question": { "type": "string" },
+              "answer": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "nav": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/action" }
+        },
+        "footerColumns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["title", "links"],
+            "properties": {
+              "title": { "type": "string" },
+              "links": { "type": "array", "items": { "$ref": "#/$defs/action" } }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+
+  "$defs": {
+    "action": {
+      "type": "object",
+      "required": ["label", "href"],
+      "properties": {
+        "label": { "type": "string" },
+        "href": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "image": {
+      "type": "object",
+      "required": ["url"],
+      "properties": {
+        "url": { "type": "string" },
+        "alt": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

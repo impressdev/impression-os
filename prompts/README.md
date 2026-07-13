@@ -51,4 +51,14 @@ plan) is consumed by [`builder/`](../builder/).
 
 ## Status
 
-⬜ Not started — see [Phase 6](../ROADMAP.md#phase-6--prompts-the-intent-layer).
+✅ **Implemented** — the brief schema, the build-plan contract, the planner
+prompts (system + task), the page blueprints, and the guardrails (prose +
+machine-checkable) are all in place. A reference [example brief](brief/example.brief.json)
+and [example plan](planning/example.plan.json) are verified: the plan passes every
+machine-checkable guardrail and compiles cleanly through the builder into eight
+section templates. See [Phase 6](../ROADMAP.md#phase-6--prompts-the-intent-layer),
+the [brief](brief/README.md), [planning](planning/README.md), and
+[guardrails](guardrails/README.md) catalogs.
+
+Next: the [`tests/`](../tests/) harness turns the guardrails and schemas into a CI
+gate ([Phase 7](../ROADMAP.md#phase-7--quality-harness)).

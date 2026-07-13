@@ -63,15 +63,15 @@ Build the engine that resolves the layers into an Elementor Pro kit.
 - ✅ Emit importable section/page templates from recipes ([`builder/src/template.js`](builder/src/template.js)).
 - ✅ Deterministic, reproducible output guarantees (hash-derived ids; byte-stability asserted in [`builder/test/`](builder/test/)).
 
-> **You are here.** The full compile path (tokens → Elementor kit + templates) runs and is deterministic. Next up: Prompts.
-
-## Phase 6 — Prompts: the intent layer ⬜
+## Phase 6 — Prompts: the intent layer ✅
 
 Define how a client brief becomes a deterministic build plan.
 
-- ⬜ Brief schema (client, goals, content, brand inputs).
-- ⬜ Prompt library that maps intent to recipes, content, and theme.
-- ⬜ Guardrails that keep generation inside the system.
+- ✅ Brief schema (client, goals, content, brand inputs) ([`prompts/brief/`](prompts/brief/brief.schema.json)).
+- ✅ Prompt library that maps intent to recipes, content, and theme ([`prompts/planning/`](prompts/planning/) — system + task prompts, blueprints, build-plan contract).
+- ✅ Guardrails that keep generation inside the system ([`prompts/guardrails/`](prompts/guardrails/) — prose + machine-checkable).
+
+> **You are here.** A brief maps to a deterministic build plan; the reference plan passes all guardrails and compiles to eight templates. Next up: the Quality harness.
 
 ## Phase 7 — Quality harness ⬜
 

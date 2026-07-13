@@ -1,0 +1,27 @@
+{
+  "$description": "Page archetypes mapped to an ordered sequence of recipes. The planner selects a blueprint per page and drops sections whose required content the brief does not supply. Blueprints encode composition taste; they never invent recipes.",
+  "blueprints": {
+    "landing": {
+      "description": "Full marketing landing page.",
+      "sections": ["header", "hero", "feature-grid", "testimonial", "pricing", "faq", "cta", "footer"]
+    },
+    "product": {
+      "description": "Focused product or feature page.",
+      "sections": ["header", "hero", "feature-grid", "pricing", "cta", "footer"]
+    },
+    "about": {
+      "description": "Company / about page.",
+      "sections": ["header", "hero", "feature-grid", "testimonial", "cta", "footer"]
+    },
+    "minimal": {
+      "description": "Single-message page: hero and a call to action.",
+      "sections": ["header", "hero", "cta", "footer"]
+    }
+  },
+  "rules": [
+    "A page always opens with header and closes with footer.",
+    "Exactly one hero per page; it owns the page h1.",
+    "A section is dropped (not improvised) when the brief lacks its required content.",
+    "Section order is preserved as given — it is the reading and tab order."
+  ]
+}
