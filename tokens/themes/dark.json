@@ -27,9 +27,9 @@
     },
 
     "accent": {
-      "default":  { "$value": "{color.brand.500}" },
-      "hover":    { "$value": "{color.brand.400}" },
-      "active":   { "$value": "{color.brand.300}" },
+      "default":  { "$value": "{color.brand.600}", "$description": "White label meets AA (≈5.9:1) on this fill." },
+      "hover":    { "$value": "{color.brand.500}" },
+      "active":   { "$value": "{color.brand.700}" },
       "subtle":   { "$value": "{color.brand.950}" },
       "onAccent": { "$value": "{color.white}" }
     },

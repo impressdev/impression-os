@@ -1,0 +1,18 @@
+{
+  "meta": { "name": "Intentionally invalid plan (negative fixture)" },
+  "theme": "midnight",
+  "sections": [
+    {
+      "recipe": "hero",
+      "content": {
+        "heading": "Hi",
+        "primaryCta": { "label": "click here", "href": "/x" },
+        "subheading": "Try our #ff0000 plan and save 12px of effort"
+      }
+    },
+    {
+      "recipe": "sparkle",
+      "content": {}
+    }
+  ]
+}

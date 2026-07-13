@@ -1,0 +1,282 @@
+{
+  "version": "0.4",
+  "title": "Impression OS — light",
+  "type": "kit",
+  "theme": "light",
+  "settings": {
+    "system_colors": [
+      {
+        "_id": "primary",
+        "title": "Primary",
+        "color": "#4f46e5"
+      },
+      {
+        "_id": "secondary",
+        "title": "Secondary",
+        "color": "#4338ca"
+      },
+      {
+        "_id": "text",
+        "title": "Text",
+        "color": "#0f172a"
+      },
+      {
+        "_id": "accent",
+        "title": "Accent",
+        "color": "#4f46e5"
+      }
+    ],
+    "custom_colors": [
+      {
+        "_id": "827ebc2",
+        "title": "Text Muted",
+        "color": "#475569"
+      },
+      {
+        "_id": "6b77969",
+        "title": "On Accent",
+        "color": "#ffffff"
+      },
+      {
+        "_id": "09d3747",
+        "title": "Surface",
+        "color": "#ffffff"
+      },
+      {
+        "_id": "ea0d05f",
+        "title": "Surface Raised",
+        "color": "#f8fafc"
+      },
+      {
+        "_id": "86c94fc",
+        "title": "Border",
+        "color": "#e2e8f0"
+      },
+      {
+        "_id": "7cf4fbe",
+        "title": "Focus",
+        "color": "#6366f1"
+      },
+      {
+        "_id": "f8c35b7",
+        "title": "Success",
+        "color": "#047857"
+      },
+      {
+        "_id": "5e38434",
+        "title": "Warning",
+        "color": "#92400e"
+      },
+      {
+        "_id": "c176a6f",
+        "title": "Danger",
+        "color": "#b91c1c"
+      },
+      {
+        "_id": "22eb32a",
+        "title": "Info",
+        "color": "#0369a1"
+      }
+    ],
+    "system_typography": [
+      {
+        "_id": "primary",
+        "title": "Primary",
+        "typography_typography": "custom",
+        "typography_font_family": "Inter",
+        "typography_font_weight": "700",
+        "typography_font_size": {
+          "unit": "rem",
+          "size": 3
+        },
+        "typography_line_height": {
+          "unit": "em",
+          "size": 1.1
+        },
+        "typography_letter_spacing": {
+          "unit": "em",
+          "size": -0.025
+        }
+      },
+      {
+        "_id": "secondary",
+        "title": "Secondary",
+        "typography_typography": "custom",
+        "typography_font_family": "Inter",
+        "typography_font_weight": "600",
+        "typography_font_size": {
+          "unit": "rem",
+          "size": 2.25
+        },
+        "typography_line_height": {
+          "unit": "em",
+          "size": 1.25
+        },
+        "typography_letter_spacing": {
+          "unit": "em",
+          "size": -0.025
+        }
+      },
+      {
+        "_id": "text",
+        "title": "Text",
+        "typography_typography": "custom",
+        "typography_font_family": "Inter",
+        "typography_font_weight": "400",
+        "typography_font_size": {
+          "unit": "rem",
+          "size": 1
+        },
+        "typography_line_height": {
+          "unit": "em",
+          "size": 1.5
+        },
+        "typography_letter_spacing": {
+          "unit": "em",
+          "size": 0
+        }
+      },
+      {
+        "_id": "accent",
+        "title": "Accent",
+        "typography_typography": "custom",
+        "typography_font_family": "Inter",
+        "typography_font_weight": "400",
+        "typography_font_size": {
+          "unit": "rem",
+          "size": 1.25
+        },
+        "typography_line_height": {
+          "unit": "em",
+          "size": 1.625
+        },
+        "typography_letter_spacing": {
+          "unit": "em",
+          "size": 0
+        }
+      }
+    ],
+    "custom_typography": [
+      {
+        "_id": "0232117",
+        "title": "Display",
+        "typography_typography": "custom",
+        "typography_font_family": "Inter",
+        "typography_font_weight": "700",
+        "typography_font_size": {
+          "unit": "rem",
+          "size": 3.75
+        },
+        "typography_line_height": {
+          "unit": "em",
+          "size": 1.1
+        },
+        "typography_letter_spacing": {
+          "unit": "em",
+          "size": -0.05
+        }
+      },
+      {
+        "_id": "0949564",
+        "title": "Heading 3",
+        "typography_typography": "custom",
+        "typography_font_family": "Inter",
+        "typography_font_weight": "600",
+        "typography_font_size": {
+          "unit": "rem",
+          "size": 1.875
+        },
+        "typography_line_height": {
+          "unit": "em",
+          "size": 1.25
+        },
+        "typography_letter_spacing": {
+          "unit": "em",
+          "size": 0
+        }
+      },
+      {
+        "_id": "0949565",
+        "title": "Heading 4",
+        "typography_typography": "custom",
+        "typography_font_family": "Inter",
+        "typography_font_weight": "600",
+        "typography_font_size": {
+          "unit": "rem",
+          "size": 1.5
+        },
+        "typography_line_height": {
+          "unit": "em",
+          "size": 1.25
+        },
+        "typography_letter_spacing": {
+          "unit": "em",
+          "size": 0
+        }
+      },
+      {
+        "_id": "236bcda",
+        "title": "Small",
+        "typography_typography": "custom",
+        "typography_font_family": "Inter",
+        "typography_font_weight": "400",
+        "typography_font_size": {
+          "unit": "rem",
+          "size": 0.875
+        },
+        "typography_line_height": {
+          "unit": "em",
+          "size": 1.5
+        },
+        "typography_letter_spacing": {
+          "unit": "em",
+          "size": 0
+        }
+      },
+      {
+        "_id": "04b7c4f",
+        "title": "Caption",
+        "typography_typography": "custom",
+        "typography_font_family": "Inter",
+        "typography_font_weight": "500",
+        "typography_font_size": {
+          "unit": "rem",
+          "size": 0.75
+        },
+        "typography_line_height": {
+          "unit": "em",
+          "size": 1.5
+        },
+        "typography_letter_spacing": {
+          "unit": "em",
+          "size": 0.025
+        }
+      },
+      {
+        "_id": "2f1297c",
+        "title": "Code",
+        "typography_typography": "custom",
+        "typography_font_family": "JetBrains Mono",
+        "typography_font_weight": "400",
+        "typography_font_size": {
+          "unit": "rem",
+          "size": 0.875
+        },
+        "typography_line_height": {
+          "unit": "em",
+          "size": 1.5
+        },
+        "typography_letter_spacing": {
+          "unit": "em",
+          "size": 0
+        }
+      }
+    ],
+    "container_width": {
+      "unit": "px",
+      "size": 1280
+    },
+    "viewport_md": 768,
+    "viewport_lg": 1024
+  }
+}

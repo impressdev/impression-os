@@ -31,7 +31,9 @@ export function listJSON(dir) {
 export function hashId(str) {
   let h = 5381;
   for (let i = 0; i < str.length; i++) h = ((h << 5) + h + str.charCodeAt(i)) >>> 0;
-  return h.toString(16).padStart(8, '0').slice(0, 7);
+  // Keep the low (most-varying) 7 hex nibbles: paths that differ only in a
+  // trailing index char differ in the low bits, so this avoids collisions.
+  return h.toString(16).padStart(8, '0').slice(-7);
 }
 
 /**

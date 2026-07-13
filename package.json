@@ -1,0 +1,15 @@
+{
+  "name": "impression-os",
+  "version": "0.0.1",
+  "description": "An AI-native operating system for generating professional WordPress websites with Elementor Pro.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test",
+    "build": "node builder/bin/impression-build.js"
+  }
+}

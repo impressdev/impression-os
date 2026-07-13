@@ -71,16 +71,16 @@ Define how a client brief becomes a deterministic build plan.
 - ✅ Prompt library that maps intent to recipes, content, and theme ([`prompts/planning/`](prompts/planning/) — system + task prompts, blueprints, build-plan contract).
 - ✅ Guardrails that keep generation inside the system ([`prompts/guardrails/`](prompts/guardrails/) — prose + machine-checkable).
 
-> **You are here.** A brief maps to a deterministic build plan; the reference plan passes all guardrails and compiles to eight templates. Next up: the Quality harness.
-
-## Phase 7 — Quality harness ⬜
+## Phase 7 — Quality harness ✅
 
 Make "professional" a testable property.
 
-- ⬜ Schema validation for tokens, components, and recipes.
-- ⬜ Automated accessibility checks (contrast, semantics, focus).
-- ⬜ Visual regression against reference renders.
-- ⬜ CI that gates every change on the full harness.
+- ✅ Schema validation for tokens, components, and recipes (plus briefs and plans) — zero-dependency validator ([`tests/lib/jsonschema.js`](tests/lib/jsonschema.js), [`tests/schema.test.mjs`](tests/schema.test.mjs)).
+- ✅ Automated accessibility checks — contrast contracts per theme ([`tests/accessibility.test.mjs`](tests/accessibility.test.mjs)).
+- ✅ Regression against reference output — snapshot baselines ([`tests/visual/`](tests/visual/)); pixel regression awaits a renderer.
+- ✅ CI that gates every change on the full harness ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
+
+> **You are here.** Six suites (schema, references, accessibility, determinism, guardrails, regression) gate every change; they caught and fixed two real defects on first run. Next up: the first generated site.
 
 ## Phase 8 — First generated site ⬜
 

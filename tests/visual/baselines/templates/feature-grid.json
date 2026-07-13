@@ -1,0 +1,249 @@
+{
+  "version": "0.4",
+  "title": "feature-grid",
+  "type": "section",
+  "content": [
+    {
+      "id": "818caa4",
+      "elType": "container",
+      "settings": {
+        "flex_direction": "column"
+      },
+      "elements": [
+        {
+          "id": "522257c",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "0.75",
+              "row": "0.75",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "flex_direction": "column",
+            "align_items": "center"
+          },
+          "elements": [
+            {
+              "id": "e70d8de",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "One live picture of your operation",
+                "header_size": "h2"
+              },
+              "elements": []
+            }
+          ],
+          "isInner": true
+        },
+        {
+          "id": "b41feb9",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "1.5",
+              "row": "1.5",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "container_type": "grid",
+            "grid_template_columns": "repeat(3, 1fr)"
+          },
+          "elements": [
+            {
+              "id": "bc1fa53",
+              "elType": "container",
+              "settings": {
+                "flex_gap": {
+                  "column": "0.75",
+                  "row": "0.75",
+                  "unit": "rem",
+                  "isLinked": true
+                },
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "9661255",
+                  "elType": "widget",
+                  "widgetType": "icon",
+                  "settings": {
+                    "selected_icon": {
+                      "value": "fas fa-chart-line",
+                      "library": "fa-solid"
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "9661256",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Live signal",
+                    "header_size": "h3"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "9661257",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p>Every feed in one place, updated continuously — no more stale spreadsheets.</p>"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "bc1fa54",
+              "elType": "container",
+              "settings": {
+                "flex_gap": {
+                  "column": "0.75",
+                  "row": "0.75",
+                  "unit": "rem",
+                  "isLinked": true
+                },
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "9669eb6",
+                  "elType": "widget",
+                  "widgetType": "icon",
+                  "settings": {
+                    "selected_icon": {
+                      "value": "fas fa-bell",
+                      "library": "fa-solid"
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "9669eb7",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Early warning",
+                    "header_size": "h3"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "9669eb8",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p>Anomaly alerts fire before a delay turns into a stockout.</p>"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "bc1fa55",
+              "elType": "container",
+              "settings": {
+                "flex_gap": {
+                  "column": "0.75",
+                  "row": "0.75",
+                  "unit": "rem",
+                  "isLinked": true
+                },
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "9672b17",
+                  "elType": "widget",
+                  "widgetType": "icon",
+                  "settings": {
+                    "selected_icon": {
+                      "value": "fas fa-plug",
+                      "library": "fa-solid"
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "9672b18",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Connects to everything",
+                    "header_size": "h3"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "9672b19",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p>ERP, WMS, and logistics APIs, live in minutes.</p>"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "bc1fa56",
+              "elType": "container",
+              "settings": {
+                "flex_gap": {
+                  "column": "0.75",
+                  "row": "0.75",
+                  "unit": "rem",
+                  "isLinked": true
+                },
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "967b778",
+                  "elType": "widget",
+                  "widgetType": "icon",
+                  "settings": {
+                    "selected_icon": {
+                      "value": "fas fa-lock",
+                      "library": "fa-solid"
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "967b779",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Enterprise-ready",
+                    "header_size": "h3"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "967b77a",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p>SOC 2, SSO, and role-based access out of the box.</p>"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": true
+        }
+      ],
+      "isInner": true
+    }
+  ]
+}

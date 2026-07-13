@@ -1,0 +1,85 @@
+{
+  "version": "0.4",
+  "title": "cta",
+  "type": "section",
+  "content": [
+    {
+      "id": "b88675d",
+      "elType": "container",
+      "settings": {
+        "flex_direction": "column",
+        "align_items": "center"
+      },
+      "elements": [
+        {
+          "id": "60485c7",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "1",
+              "row": "1",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "flex_direction": "column"
+          },
+          "elements": [
+            {
+              "id": "0e05949",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "See the problem before it ships",
+                "header_size": "h2"
+              },
+              "elements": []
+            },
+            {
+              "id": "0e0594a",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<p>Book a 30-minute demo and connect your first data source live.</p>"
+              },
+              "elements": []
+            },
+            {
+              "id": "7b9c287",
+              "elType": "container",
+              "settings": {
+                "flex_gap": {
+                  "column": "0.75",
+                  "row": "0.75",
+                  "unit": "rem",
+                  "isLinked": true
+                },
+                "flex_direction": "row",
+                "flex_wrap": "wrap",
+                "align_items": "center"
+              },
+              "elements": [
+                {
+                  "id": "3c55e09",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "Book a demo",
+                    "link": {
+                      "url": "/demo",
+                      "is_external": "",
+                      "nofollow": ""
+                    }
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": true
+        }
+      ],
+      "isInner": true
+    }
+  ]
+}
