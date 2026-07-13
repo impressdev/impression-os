@@ -1,0 +1,165 @@
+{
+  "version": "0.4",
+  "title": "faq",
+  "type": "section",
+  "content": [
+    {
+      "id": "b8871bd",
+      "elType": "container",
+      "settings": {
+        "flex_direction": "column"
+      },
+      "elements": [
+        {
+          "id": "9fdb675",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "0.75",
+              "row": "0.75",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "flex_direction": "column",
+            "align_items": "center"
+          },
+          "elements": [
+            {
+              "id": "8eaf337",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "Questions, answered",
+                "header_size": "h2"
+              },
+              "elements": []
+            }
+          ],
+          "isInner": true
+        },
+        {
+          "id": "067e60e",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "0.75",
+              "row": "0.75",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "flex_direction": "column"
+          },
+          "elements": [
+            {
+              "id": "6adee6b",
+              "elType": "container",
+              "settings": {
+                "flex_gap": {
+                  "column": "0.5",
+                  "row": "0.5",
+                  "unit": "rem",
+                  "isLinked": true
+                },
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "64aaf6d",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "How long does setup take?",
+                    "header_size": "h3"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "64aaf6e",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p>Most teams connect their first data sources and see live signal within a day.</p>"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "6adee6c",
+              "elType": "container",
+              "settings": {
+                "flex_gap": {
+                  "column": "0.5",
+                  "row": "0.5",
+                  "unit": "rem",
+                  "isLinked": true
+                },
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "64b3bce",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Do you support on-prem systems?",
+                    "header_size": "h3"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "64b3bcf",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p>Yes — the Enterprise plan includes on-prem connectors and a dedicated integration engineer.</p>"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "6adee6d",
+              "elType": "container",
+              "settings": {
+                "flex_gap": {
+                  "column": "0.5",
+                  "row": "0.5",
+                  "unit": "rem",
+                  "isLinked": true
+                },
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "64bc82f",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Is my data secure?",
+                    "header_size": "h3"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "64bc830",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p>Northwind is SOC 2 Type II certified, with SSO and role-based access on every paid plan.</p>"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": true
+        }
+      ],
+      "isInner": true
+    }
+  ]
+}

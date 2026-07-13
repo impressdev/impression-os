@@ -1,0 +1,185 @@
+{
+  "version": "0.4",
+  "title": "testimonial",
+  "type": "section",
+  "content": [
+    {
+      "id": "c4e59ae",
+      "elType": "container",
+      "settings": {
+        "flex_direction": "column"
+      },
+      "elements": [
+        {
+          "id": "c332546",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "0.75",
+              "row": "0.75",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "flex_direction": "column",
+            "align_items": "center"
+          },
+          "elements": [
+            {
+              "id": "7c43c68",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "Trusted on the floor",
+                "header_size": "h2"
+              },
+              "elements": []
+            }
+          ],
+          "isInner": true
+        },
+        {
+          "id": "25b0c5e",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "1.5",
+              "row": "1.5",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "container_type": "grid",
+            "grid_template_columns": "repeat(3, 1fr)"
+          },
+          "elements": [
+            {
+              "id": "be8f23a",
+              "elType": "container",
+              "settings": {
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "82588d7",
+                  "elType": "container",
+                  "settings": {
+                    "flex_gap": {
+                      "column": "1",
+                      "row": "1",
+                      "unit": "rem",
+                      "isLinked": true
+                    },
+                    "flex_direction": "column"
+                  },
+                  "elements": [
+                    {
+                      "id": "d0f4259",
+                      "elType": "widget",
+                      "widgetType": "text-editor",
+                      "settings": {
+                        "editor": "<p>We caught a supplier delay four days early. That one alert paid for the year.</p>"
+                      },
+                      "elements": []
+                    },
+                    {
+                      "id": "4922e7b",
+                      "elType": "container",
+                      "settings": {
+                        "flex_gap": {
+                          "column": "0.75",
+                          "row": "0.75",
+                          "unit": "rem",
+                          "isLinked": true
+                        },
+                        "flex_direction": "row",
+                        "flex_wrap": "wrap",
+                        "align_items": "center"
+                      },
+                      "elements": [
+                        {
+                          "id": "ccfb57e",
+                          "elType": "widget",
+                          "widgetType": "text-editor",
+                          "settings": {
+                            "editor": "<p>We caught a supplier delay four days early. That one alert paid for the year.</p>"
+                          },
+                          "elements": []
+                        }
+                      ],
+                      "isInner": true
+                    }
+                  ],
+                  "isInner": true
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "be8f23b",
+              "elType": "container",
+              "settings": {
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "a7ab178",
+                  "elType": "container",
+                  "settings": {
+                    "flex_gap": {
+                      "column": "1",
+                      "row": "1",
+                      "unit": "rem",
+                      "isLinked": true
+                    },
+                    "flex_direction": "column"
+                  },
+                  "elements": [
+                    {
+                      "id": "18bb35a",
+                      "elType": "widget",
+                      "widgetType": "text-editor",
+                      "settings": {
+                        "editor": "<p>Finally, one dashboard the whole floor trusts.</p>"
+                      },
+                      "elements": []
+                    },
+                    {
+                      "id": "2a8509c",
+                      "elType": "container",
+                      "settings": {
+                        "flex_gap": {
+                          "column": "0.75",
+                          "row": "0.75",
+                          "unit": "rem",
+                          "isLinked": true
+                        },
+                        "flex_direction": "row",
+                        "flex_wrap": "wrap",
+                        "align_items": "center"
+                      },
+                      "elements": [
+                        {
+                          "id": "ddcafff",
+                          "elType": "widget",
+                          "widgetType": "text-editor",
+                          "settings": {
+                            "editor": "<p>Finally, one dashboard the whole floor trusts.</p>"
+                          },
+                          "elements": []
+                        }
+                      ],
+                      "isInner": true
+                    }
+                  ],
+                  "isInner": true
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": true
+        }
+      ],
+      "isInner": true
+    }
+  ]
+}

@@ -80,16 +80,33 @@ Make "professional" a testable property.
 - ✅ Regression against reference output — snapshot baselines ([`tests/visual/`](tests/visual/)); pixel regression awaits a renderer.
 - ✅ CI that gates every change on the full harness ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
 
-> **You are here.** Six suites (schema, references, accessibility, determinism, guardrails, regression) gate every change; they caught and fixed two real defects on first run. Next up: the first generated site.
-
-## Phase 8 — First generated site ⬜
+## Phase 8 — First generated site ✅
 
 Prove the whole pipeline end to end.
 
-- ⬜ A structured brief → a full Elementor Pro kit.
-- ⬜ Import into WordPress; verify it is clean and fully editable.
-- ⬜ Commit the result to [`examples/`](examples/) as living proof.
-- ⬜ Reproduce byte-stable from the same brief and version.
+- ✅ A structured brief → a full Elementor Pro kit ([`examples/northwind/`](examples/northwind/): 8 sections, 59 widgets).
+- ◑ Import into WordPress; verify it is clean and fully editable — **manual step documented** with an import guide + verification checklist ([example README](examples/northwind/README.md)); live WordPress verification needs a WP environment ([ADR-0008](docs/decisions/0008-example-as-living-proof.md)).
+- ✅ Commit the result to [`examples/`](examples/) as living proof.
+- ✅ Reproduce byte-stable from the same brief and version (provenance checksum, verified in [`tests/example.test.mjs`](tests/example.test.mjs)).
+
+> **You are here.** The full pipeline runs end-to-end and is committed as a
+> reproducible, CI-verified example. The one remaining step — rendering the kit in
+> a live WordPress + Elementor environment — is documented as a manual procedure.
+
+---
+
+## Post-roadmap: what's next
+
+The eight phases establish the system end-to-end. Natural next investments:
+
+- A **WordPress + Elementor render harness** to automate import and upgrade
+  visual regression from output snapshots to pixel checks.
+- **More recipes and components** (navbars with dropdowns, logo clouds, stats,
+  contact forms) and additional **blueprints**.
+- **Brand theming at scale** — per-client theme generation and richer dark-mode
+  packaging (the open questions in the
+  [token → Elementor mapping](docs/architecture/token-to-elementor-mapping.md)).
+- A first-class **CLI** in [`tools/`](tools/) wrapping the builder and the harness.
 
 ## Tooling & docs (continuous)
 

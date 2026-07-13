@@ -43,7 +43,18 @@ examples/
 Produced by the full pipeline: [`prompts/`](../prompts/) →
 [`builder/`](../builder/), validated by [`tests/`](../tests/).
 
+## Examples
+
+| Example | What it demonstrates |
+| ------- | -------------------- |
+| [`northwind/`](northwind/) | A full landing page (8 sections, 59 widgets) generated end-to-end from a single brief; byte-stable and CI-verified. |
+
 ## Status
 
-⬜ Not started — the first example is the milestone that closes
-[Phase 8](../ROADMAP.md#phase-8--first-generated-site).
+✅ **Implemented** — the [Northwind example](northwind/) closes
+[Phase 8](../ROADMAP.md#phase-8--first-generated-site): a brief compiled to a
+complete Elementor Pro kit, committed as reproducible proof and verified by
+`tests/example.test.mjs`. Live WordPress import + screenshot verification is the
+one remaining manual step (it needs a WordPress environment); the import
+instructions and a verification checklist live in the
+[example README](northwind/README.md).

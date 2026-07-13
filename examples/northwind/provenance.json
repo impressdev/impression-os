@@ -1,0 +1,22 @@
+{
+  "$description": "Provenance for the Northwind example. Regenerate and compare the checksum to verify byte-stable reproduction.",
+  "generator": "@impression-os/builder",
+  "version": "0.1.0",
+  "engine": "node >=20",
+  "theme": "light",
+  "source": {
+    "brief": "brief/brief.json",
+    "plan": "plan.json"
+  },
+  "command": "node builder/bin/impression-build.js --brief examples/northwind/plan.json --out examples/northwind/kit --root .",
+  "output": {
+    "sections": 8,
+    "globalColors": 14,
+    "globalFonts": 10,
+    "widgets": 59
+  },
+  "checksum": {
+    "algorithm": "sha256",
+    "value": "974f5af60f1bb6040407c51f75613a58a029c2ffb1e16321649ff8a72d44d451"
+  }
+}

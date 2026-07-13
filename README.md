@@ -2,8 +2,8 @@
 
 **An AI-native operating system for generating professional WordPress websites with Elementor Pro.**
 
-[![Status](https://img.shields.io/badge/status-pre--alpha-orange)](ROADMAP.md)
-[![Version](https://img.shields.io/badge/version-0.0.1-blue)](ROADMAP.md)
+[![Status](https://img.shields.io/badge/status-alpha-yellow)](ROADMAP.md)
+[![Version](https://img.shields.io/badge/version-0.1.0-blue)](ROADMAP.md)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 ---
@@ -85,10 +85,24 @@ WordPress. **Tools**, **Examples**, and **Tests** support and prove the pipeline
 
 ## Status
 
-Impression OS is in **pre-alpha**. This repository currently defines the
-architecture and documentation only. No components, recipes, or builder code have
-been implemented yet — see the [Roadmap](ROADMAP.md) for what comes next and
-[PROJECT.md](PROJECT.md) for the full vision and scope.
+Impression OS is in **alpha**. All eight foundational phases are implemented: the
+token system, the design-law foundation, components, recipes, the intent/prompt
+layer, the builder (a zero-dependency compiler), a CI-gated quality harness, and a
+first site generated end-to-end.
+
+A single brief compiles to a complete, byte-stable Elementor Pro kit — see the
+[Northwind example](examples/northwind/), reproduced and verified on every change.
+The one remaining manual step is importing a kit into a live WordPress + Elementor
+environment (documented, not yet automated). See the [Roadmap](ROADMAP.md) for
+what's next and [PROJECT.md](PROJECT.md) for the full vision.
+
+**Quick start:**
+
+```bash
+node builder/bin/impression-build.js \
+  --brief examples/northwind/plan.json --out dist --root .   # generate a kit
+node --test                                                  # run the quality harness
+```
 
 ## Documentation
 

@@ -1,0 +1,96 @@
+{
+  "meta": { "name": "Northwind — landing", "brief": "prompts/brief/example.brief.json" },
+  "theme": "light",
+  "sections": [
+    {
+      "recipe": "header",
+      "content": {
+        "logo": { "url": "/assets/northwind-logo.svg", "alt": "Northwind" },
+        "links": [
+          { "label": "Product", "href": "/product" },
+          { "label": "Pricing", "href": "/pricing" },
+          { "label": "Customers", "href": "/customers" },
+          { "label": "Docs", "href": "/docs" }
+        ],
+        "cta": { "label": "Book a demo", "href": "/demo" }
+      }
+    },
+    {
+      "recipe": "hero",
+      "content": {
+        "eyebrow": "Operations analytics",
+        "heading": "See the problem before it ships",
+        "subheading": "Northwind turns scattered operational data into one live picture — so your team acts early, not after the outage.",
+        "primaryCta": { "label": "Book a demo", "href": "/demo" },
+        "secondaryCta": { "label": "See how it works", "href": "/product" },
+        "media": { "url": "/assets/dashboard.png", "alt": "The Northwind operations dashboard" }
+      }
+    },
+    {
+      "recipe": "feature-grid",
+      "content": {
+        "heading": "One live picture of your operation",
+        "features": [
+          { "icon": "chart-line", "title": "Live signal", "body": "Every feed in one place, updated continuously — no more stale spreadsheets." },
+          { "icon": "bell", "title": "Early warning", "body": "Anomaly alerts fire before a delay turns into a stockout." },
+          { "icon": "plug", "title": "Connects to everything", "body": "ERP, WMS, and logistics APIs, live in minutes." },
+          { "icon": "lock", "title": "Enterprise-ready", "body": "SOC 2, SSO, and role-based access out of the box." }
+        ]
+      }
+    },
+    {
+      "recipe": "testimonial",
+      "content": {
+        "heading": "Trusted on the floor",
+        "testimonials": [
+          { "quote": "We caught a supplier delay four days early. That one alert paid for the year.", "author": "Dana Reyes", "role": "VP Operations, Meridian Parts" },
+          { "quote": "Finally, one dashboard the whole floor trusts.", "author": "Sam Okafor", "role": "Supply Chain Lead, Halcyon Foods" }
+        ]
+      }
+    },
+    {
+      "recipe": "pricing",
+      "content": {
+        "heading": "Simple, scalable pricing",
+        "tiers": [
+          { "name": "Starter", "price": "$0", "period": "/mo", "description": "For a single team getting started.", "features": [{ "label": "1 workspace" }, { "label": "3 data sources" }, { "label": "Email alerts" }], "cta": { "label": "Start free", "href": "/signup" } },
+          { "name": "Growth", "price": "$490", "period": "/mo", "description": "For scaling operations.", "features": [{ "label": "Unlimited workspaces" }, { "label": "20 data sources" }, { "label": "Anomaly detection" }, { "label": "SSO" }], "cta": { "label": "Book a demo", "href": "/demo" }, "highlighted": true },
+          { "name": "Enterprise", "price": "Custom", "description": "For complex, multi-site operations.", "features": [{ "label": "Unlimited data sources" }, { "label": "Dedicated support" }, { "label": "Custom SLAs" }, { "label": "On-prem option" }], "cta": { "label": "Contact sales", "href": "/contact" } }
+        ]
+      }
+    },
+    {
+      "recipe": "faq",
+      "content": {
+        "heading": "Questions, answered",
+        "items": [
+          { "question": "How long does setup take?", "answer": "Most teams connect their first data sources and see live signal within a day." },
+          { "question": "Do you support on-prem systems?", "answer": "Yes — the Enterprise plan includes on-prem connectors and a dedicated integration engineer." },
+          { "question": "Is my data secure?", "answer": "Northwind is SOC 2 Type II certified, with SSO and role-based access on every paid plan." }
+        ]
+      }
+    },
+    {
+      "recipe": "cta",
+      "content": {
+        "heading": "See the problem before it ships",
+        "subheading": "Book a 30-minute demo and connect your first data source live.",
+        "primaryCta": { "label": "Book a demo", "href": "/demo" }
+      }
+    },
+    {
+      "recipe": "footer",
+      "content": {
+        "logo": { "url": "/assets/northwind-logo.svg", "alt": "Northwind" },
+        "blurb": "Operations analytics for teams that act early.",
+        "columns": [
+          { "title": "Product", "links": [{ "label": "Overview", "href": "/product" }, { "label": "Pricing", "href": "/pricing" }, { "label": "Security", "href": "/security" }] },
+          { "title": "Company", "links": [{ "label": "About", "href": "/about" }, { "label": "Careers", "href": "/careers" }, { "label": "Contact", "href": "/contact" }] },
+          { "title": "Resources", "links": [{ "label": "Docs", "href": "/docs" }, { "label": "Blog", "href": "/blog" }, { "label": "Status", "href": "/status" }] }
+        ],
+        "legal": "© 2026 Northwind, Inc.",
+        "legalLinks": [{ "label": "Privacy", "href": "/privacy" }, { "label": "Terms", "href": "/terms" }]
+      }
+    }
+  ]
+}
