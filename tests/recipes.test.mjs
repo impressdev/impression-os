@@ -58,3 +58,30 @@ test('logo-cloud compiles one image per logo, with alt text', () => {
   assert.equal(images.length, 4);
   assert.deepEqual(images.map((i) => i.settings.image.alt), ['Meridian', 'Halcyon', 'Northgate', 'Brightline']);
 });
+
+test('contact compiles a single Elementor form from the fields list', () => {
+  const contactPlan = {
+    theme: 'light',
+    sections: [{
+      recipe: 'contact',
+      content: {
+        heading: 'Book a demo',
+        subheading: 'See it on your own data.',
+        fields: [
+          { label: 'Full name', type: 'text', required: true },
+          { label: 'Work email', type: 'email', required: true },
+          { label: 'What do you want to solve?', type: 'textarea' },
+        ],
+        submitLabel: 'Request demo',
+      },
+    }],
+  };
+  const { templates } = build(root, contactPlan);
+  const forms = collect(templates[0].template, (n) => n.widgetType === 'form');
+  assert.equal(forms.length, 1, 'exactly one form widget');
+  const form = forms[0];
+  assert.equal(form.settings.form_fields.length, 3);
+  assert.deepEqual(form.settings.form_fields.map((f) => f.field_type), ['text', 'email', 'textarea']);
+  assert.equal(form.settings.form_fields[1].required, 'true');
+  assert.equal(form.settings.button_text, 'Request demo');
+});

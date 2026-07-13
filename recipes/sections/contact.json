@@ -1,0 +1,70 @@
+{
+  "name": "contact",
+  "category": "section",
+  "status": "draft",
+  "description": "A lead-capture section: a short pitch beside a form. Drives the primary conversion goal. Composed from the form-field component.",
+  "landmark": "section",
+  "container": "default",
+  "sectionSpacing": "default",
+
+  "layout": {
+    "primitive": "split",
+    "regions": {
+      "content": {
+        "primitive": "stack",
+        "gap": "{space.gap.md}",
+        "align": "start",
+        "components": ["heading", "text:lead?"]
+      },
+      "form": {
+        "primitive": "stack",
+        "gap": "{space.gap.md}",
+        "components": ["form-field"]
+      }
+    }
+  },
+
+  "content": {
+    "heading":    { "type": "string", "required": true, "description": "Section heading (h2)." },
+    "subheading": { "type": "richtext", "required": false, "description": "Why to get in touch." },
+    "fields": {
+      "type": "list",
+      "required": true,
+      "max": 8,
+      "description": "The form fields, in order.",
+      "of": {
+        "label":       { "type": "string", "required": true, "description": "Field label (always visible)." },
+        "type":        { "type": "string", "required": false, "description": "text | email | tel | textarea | select. Defaults to text." },
+        "required":    { "type": "boolean", "required": false, "description": "Whether the field must be completed." },
+        "placeholder": { "type": "string", "required": false, "description": "Optional placeholder (never a substitute for the label)." }
+      }
+    },
+    "submitLabel": { "type": "string", "required": false, "description": "Submit button text. Defaults to \"Send\"." }
+  },
+
+  "responsive": {
+    "base": "Single column: pitch above the form.",
+    "lg": "Split into two columns — pitch and form side by side."
+  },
+
+  "components": ["heading", "text", "form-field"],
+
+  "a11y": {
+    "headingLevel": "h2 for the section.",
+    "notes": [
+      "Every field has a visible label programmatically associated with its control.",
+      "Required fields are indicated in text/attribute, not by color alone.",
+      "The form exposes an accessible name; errors set aria-invalid and aria-describedby.",
+      "The submit control has a specific, action-oriented label."
+    ]
+  },
+
+  "elementor": {
+    "widget": "form",
+    "notes": "Compiles to a single Elementor Pro Form widget; content.fields become the form's fields and submitLabel its button text.",
+    "mapping": {
+      "fields": "Form → Form Fields (label, type, required, placeholder)",
+      "submitLabel": "Form → Submit button text"
+    }
+  }
+}

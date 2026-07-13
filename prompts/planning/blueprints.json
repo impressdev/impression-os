@@ -13,6 +13,10 @@
       "description": "Company / about page.",
       "sections": ["header", "hero", "feature-grid", "testimonial", "cta", "footer"]
     },
+    "lead": {
+      "description": "Conversion-focused page ending in a contact form.",
+      "sections": ["header", "hero", "feature-grid", "stats", "contact", "footer"]
+    },
     "minimal": {
       "description": "Single-message page: hero and a call to action.",
       "sections": ["header", "hero", "cta", "footer"]

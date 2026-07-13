@@ -15,6 +15,7 @@ and declares its content contract.
 | [`testimonial`](testimonial.json)   | Social proof quotes. | testimonials[] (quote, author, role, avatar) |
 | [`faq`](faq.json)                   | Q&A accordion. | items[] (question, answer) |
 | [`cta`](cta.json)                   | Focused conversion banner. | heading, subheading, CTAs |
+| [`contact`](contact.json)           | Lead-capture form beside a pitch. | heading, fields[] (label, type, required) |
 
 ## Conventions
 

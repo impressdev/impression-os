@@ -1,6 +1,6 @@
 // @ts-check
 import { container, widget, layoutSettings } from './elementor.js';
-import { pick } from './util.js';
+import { pick, hashId } from './util.js';
 
 /**
  * Compile a recipe + a content object into an Elementor template.
@@ -138,6 +138,24 @@ function bindComponent(path, ref, scope, ctx) {
       }
       return null;
     }
+    case 'form-field': {
+      // The whole form: one Elementor Form widget built from the fields list
+      // (mirrors how list-item expands a list into a single icon-list widget).
+      const fields = pick(scope, ['fields']);
+      if (!Array.isArray(fields)) return null;
+      return widget(path, 'form', {
+        form_name: String(pick(scope, ['formName']) ?? 'Contact'),
+        form_fields: fields.map((f) => ({
+          _id: hashId(`${path}/${f.label}`),
+          custom_id: slug(String(f.label ?? 'field')),
+          field_label: String(f.label ?? ''),
+          field_type: fieldType(f.type),
+          required: f.required ? 'true' : '',
+          placeholder: String(f.placeholder ?? ''),
+        })),
+        button_text: String(pick(scope, ['submitLabel']) ?? 'Send'),
+      });
+    }
     case 'nav-item': {
       const links = pick(scope, ['links']);
       if (Array.isArray(links)) {
@@ -177,4 +195,13 @@ function resolveGap(tokens, ref) {
 
 function escapeHtml(s) {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/** Map a content field type onto an Elementor form field type. */
+function fieldType(t) {
+  return ['text', 'email', 'tel', 'textarea', 'select'].includes(t) ? t : 'text';
+}
+
+function slug(s) {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'field';
 }
