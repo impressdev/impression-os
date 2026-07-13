@@ -31,6 +31,19 @@ The planner:
    the brief — dropping any section whose required content is missing.
 4. **Emits a build plan** and nothing else. Order is page/reading/tab order.
 
+## Two planners, one contract
+
+Because the plan is a contract (not a prompt), a plan can be produced two ways:
+
+- **The LLM planner** (the prompts here) — for briefs that need judgement.
+- **The deterministic planner** (`impression plan <brief>`) — expands a
+  blueprint and maps brief content onto recipes in code, no LLM, byte-stable. It
+  handles the standard case entirely and is the reference for what a good plan
+  looks like.
+
+Both emit the same [build-plan schema](build-plan.schema.json), so the builder
+neither knows nor cares which produced the plan.
+
 ## Why a separate plan artifact
 
 The brief is *intent*; the plan is *decision*. Separating them means the plan is a

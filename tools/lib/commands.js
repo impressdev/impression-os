@@ -7,6 +7,7 @@ import { lintPlan } from './guardrails.js';
 import { generateBrandTheme } from './theme.js';
 import { synthesizeRamp } from './ramp.js';
 import { resolveTheme } from './accent.js';
+import { planFromBrief } from './plan.js';
 import { readJSON, listJSON } from './fs.js';
 import { existsSync } from 'node:fs';
 
@@ -123,7 +124,11 @@ function slug(s) {
  * @returns {{theme:string, ramp:string|null, via:string, hint?:string}}
  */
 export function resolveThemeCmd(root, briefPath) {
-  const brief = readJSON(briefPath);
+  return resolveThemeForBrief(root, readJSON(briefPath));
+}
+
+/** Shared brand-direction → theme resolution used by resolve-theme and plan. */
+function resolveThemeForBrief(root, brief) {
   const manifest = readJSON(`${root}/tokens/manifest.json`);
   const { lexicon } = readJSON(`${root}/prompts/planning/accent-lexicon.json`);
 
@@ -145,6 +150,29 @@ export function resolveThemeCmd(root, briefPath) {
     themeRamps,
     lexicon,
   });
+}
+
+/**
+ * Deterministically expand a brief into a build plan (no LLM). Resolves the
+ * theme, expands the page's blueprint, and maps brief content onto each recipe.
+ * @returns {{plan:any, out:string|null, theme:string}}
+ */
+export function planCmd(root, briefPath, { out } = {}) {
+  const brief = readJSON(briefPath);
+  const { theme } = resolveThemeForBrief(root, brief);
+  const blueprints = readJSON(`${root}/prompts/planning/blueprints.json`);
+
+  /** @type {Record<string,any>} */
+  const recipes = {};
+  for (const f of listJSON(`${root}/recipes`)) {
+    if (f.includes('/schema/')) continue;
+    const r = readJSON(f);
+    recipes[r.name] = r;
+  }
+
+  const plan = planFromBrief(brief, { blueprints, recipes, theme });
+  if (out) writeFileSync(out, JSON.stringify(plan, null, 2) + '\n');
+  return { plan, out: out ?? null, theme };
 }
 
 /** Scaffold a minimal, schema-valid brief. @returns {string} the written path */

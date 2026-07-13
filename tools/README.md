@@ -37,6 +37,7 @@ node tools/bin/impression.js <command>
 | `new <name> [--out <brief.json>]` | Scaffold a minimal, schema-valid brief. |
 | `theme <name> (--accent <ramp> \| --hex <#color>) [--base light\|dark]` | Generate a brand theme; accent steps chosen by contrast to meet WCAG AA. |
 | `resolve-theme <brief.json>` | Resolve a brief's brand direction to a concrete theme (via the accent lexicon). |
+| `plan <brief.json> [--out <plan.json>]` | Expand a brief into a build plan deterministically — no LLM. |
 | `help` | Usage. |
 
 Examples:
@@ -48,7 +49,26 @@ node tools/bin/impression.js new Acme --out acme.brief.json
 node tools/bin/impression.js build examples/northwind/plan.json --out dist --theme dark
 node tools/bin/impression.js theme acme --accent violet --base dark
 node tools/bin/impression.js theme sunset --hex "#ff5a1f"
+node tools/bin/impression.js plan brief.json --out plan.json    # brief → plan, no LLM
 ```
+
+### The deterministic planner
+
+`impression plan` runs the whole intent step **in code**: it resolves the theme
+(via the accent lexicon), expands the page's blueprint, and maps the brief's
+content onto each recipe's content contract — dropping any section whose required
+content the brief doesn't supply, never inventing copy. For standard briefs this
+makes the full pipeline **brief → plan → kit** runnable without an LLM, and
+byte-stable:
+
+```bash
+node tools/bin/impression.js plan brief.json --out plan.json
+node tools/bin/impression.js lint plan.json
+node tools/bin/impression.js build plan.json --out dist
+```
+
+The LLM planner ([`prompts/planning/`](../prompts/planning/)) remains the path for
+briefs that need judgement beyond the blueprint mapping.
 
 The `theme` command **selects the accent, link, and focus steps by contrast** so
 the result is guaranteed to meet WCAG 2.1 AA, writes

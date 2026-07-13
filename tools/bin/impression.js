@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // @ts-check
 import { resolve } from 'node:path';
-import { buildCmd, validateCmd, lintCmd, listCmd, newCmd, themeCmd, resolveThemeCmd } from '../lib/commands.js';
+import { buildCmd, validateCmd, lintCmd, listCmd, newCmd, themeCmd, resolveThemeCmd, planCmd } from '../lib/commands.js';
 
 const HELP = `impression — the Impression OS CLI
 
@@ -13,6 +13,7 @@ Usage:
   impression new <name> [--out <brief.json>]
   impression theme <name> (--accent <ramp> | --hex <#color>) [--base light|dark] [--root <repo>]
   impression resolve-theme <brief.json> [--root <repo>]
+  impression plan <brief.json> [--out <plan.json>] [--root <repo>]
   impression help
 
 Commands:
@@ -23,6 +24,7 @@ Commands:
   new            Scaffold a minimal, schema-valid brief.
   theme          Generate a brand theme (accent chosen by contrast to meet WCAG AA).
   resolve-theme  Resolve a brief's brand direction to a concrete theme.
+  plan           Expand a brief into a build plan deterministically (no LLM).
 `;
 
 function main(argv) {
@@ -82,6 +84,13 @@ function main(argv) {
       log(`Theme: ${r.theme}`);
       log(`  ${r.via}`);
       if (r.hint) log(`  hint: ${r.hint}`);
+      break;
+    }
+    case 'plan': {
+      requireArg(positionals[0], 'plan needs a <brief.json>');
+      const r = planCmd(root, resolve(positionals[0]), { out: flags.out ? resolve(flags.out) : undefined });
+      if (r.out) log(`Wrote build plan (theme "${r.theme}", ${r.plan.sections.length} sections): ${r.out}`);
+      else log(JSON.stringify(r.plan, null, 2));
       break;
     }
     case 'help':
