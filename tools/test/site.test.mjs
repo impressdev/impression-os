@@ -1,0 +1,54 @@
+// @ts-check
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve, join } from 'node:path';
+import { planSiteCmd } from '../lib/commands.js';
+import { lintPlan } from '../lib/guardrails.js';
+import { validate } from '../lib/jsonschema.js';
+import { build } from '../../builder/src/index.js';
+import { stableStringify } from '../../builder/src/util.js';
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
+const siteSchema = JSON.parse(readFileSync(`${root}/prompts/planning/site-plan.schema.json`, 'utf8'));
+
+/** A multi-page brief derived from the example brief. */
+function multiPageBriefPath() {
+  const brief = JSON.parse(readFileSync(`${root}/prompts/brief/example.brief.json`, 'utf8'));
+  brief.pages = [{ type: 'landing', path: '/' }, { type: 'about', path: '/about' }, { type: 'minimal', path: '/start' }];
+  const dir = mkdtempSync(join(tmpdir(), 'ios-site-'));
+  const p = join(dir, 'multi.brief.json');
+  writeFileSync(p, JSON.stringify(brief));
+  return p;
+}
+
+const briefPath = multiPageBriefPath();
+const site = planSiteCmd(root, briefPath, {}).plan;
+
+test('a multi-page brief expands to a schema-valid site plan', () => {
+  assert.deepEqual(validate(siteSchema, site), []);
+  assert.equal(site.pages.length, 3);
+  assert.deepEqual(site.pages.map((p) => p.path), ['/', '/about', '/start']);
+});
+
+test('every page shares the theme, passes guardrails, and builds', () => {
+  for (const page of site.pages) {
+    const asPlan = { theme: site.theme, sections: page.sections };
+    assert.deepEqual(lintPlan(root, asPlan).filter((v) => v.severity === 'error'), [], `${page.path} guardrails`);
+    const { templates } = build(root, asPlan);
+    assert.equal(templates.length, page.sections.length, `${page.path} template count`);
+    assert.equal(page.sections[0].recipe, 'header');
+    assert.equal(page.sections.at(-1).recipe, 'footer');
+  }
+});
+
+test('pages differ by blueprint (landing is richer than minimal)', () => {
+  const byPath = Object.fromEntries(site.pages.map((p) => [p.path, p.sections.length]));
+  assert.ok(byPath['/'] > byPath['/start'], 'landing has more sections than minimal');
+});
+
+test('site planning is deterministic', () => {
+  assert.equal(stableStringify(planSiteCmd(root, briefPath, {}).plan), stableStringify(site));
+});

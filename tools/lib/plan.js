@@ -13,8 +13,33 @@
  */
 export function planFromBrief(brief, ctx) {
   const pageType = brief?.pages?.[0]?.type ?? 'landing';
-  const blueprint = ctx.blueprints.blueprints[pageType] ?? ctx.blueprints.blueprints.landing;
+  return {
+    meta: { name: `${brief?.business?.name ?? 'Site'} — ${pageType}` },
+    theme: ctx.theme,
+    sections: expandSections(pageType, brief, ctx),
+  };
+}
 
+/**
+ * Expand a brief into a multi-page site plan: one shared theme, one page per
+ * brief.pages entry (default a single landing page), each with its blueprint
+ * expanded and content mapped.
+ * @param {any} brief
+ * @param {{ blueprints:any, recipes:Record<string,any>, theme:string }} ctx
+ * @returns {any} a site plan
+ */
+export function planSiteFromBrief(brief, ctx) {
+  const pages = (brief?.pages?.length ? brief.pages : [{ type: 'landing', path: '/' }]).map((p) => ({
+    path: p.path ?? '/',
+    type: p.type ?? 'landing',
+    sections: expandSections(p.type ?? 'landing', brief, ctx),
+  }));
+  return { meta: { name: brief?.business?.name ?? 'Site' }, theme: ctx.theme, pages };
+}
+
+/** Expand one blueprint into sections, dropping those the brief can't fill. */
+function expandSections(pageType, brief, ctx) {
+  const blueprint = ctx.blueprints.blueprints[pageType] ?? ctx.blueprints.blueprints.landing;
   const sections = [];
   for (const recipeName of blueprint.sections) {
     const recipe = ctx.recipes[recipeName];
@@ -22,12 +47,7 @@ export function planFromBrief(brief, ctx) {
     const content = mapContent(recipeName, brief);
     if (hasRequired(recipe, content)) sections.push({ recipe: recipeName, content });
   }
-
-  return {
-    meta: { name: `${brief?.business?.name ?? 'Site'} — ${pageType}` },
-    theme: ctx.theme,
-    sections,
-  };
+  return sections;
 }
 
 /** True when every required content field of a recipe is present and non-empty. */

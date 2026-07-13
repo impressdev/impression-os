@@ -37,7 +37,8 @@ node tools/bin/impression.js <command>
 | `new <name> [--out <brief.json>]` | Scaffold a minimal, schema-valid brief. |
 | `theme <name> (--accent <ramp> \| --hex <#color>) [--base light\|dark]` | Generate a brand theme; accent steps chosen by contrast to meet WCAG AA. |
 | `resolve-theme <brief.json>` | Resolve a brief's brand direction to a concrete theme (via the accent lexicon). |
-| `plan <brief.json> [--out <plan.json>]` | Expand a brief into a build plan deterministically — no LLM. |
+| `plan <brief.json> [--out <plan.json>]` | Expand a brief into a single-page build plan — no LLM. |
+| `plan-site <brief.json> [--out <site.json>]` | Expand a brief into a multi-page site plan — no LLM. |
 | `help` | Usage. |
 
 Examples:
@@ -69,6 +70,15 @@ node tools/bin/impression.js build plan.json --out dist
 
 The LLM planner ([`prompts/planning/`](../prompts/planning/)) remains the path for
 briefs that need judgement beyond the blueprint mapping.
+
+**Multiple pages.** A brief's `pages` list expands into a **site plan** —
+one shared theme, one page per entry (each with its own blueprint and path):
+
+```bash
+node tools/bin/impression.js plan-site brief.json --out site.json
+```
+
+Each page is an ordinary section list, so it lints and builds like any plan.
 
 The `theme` command **selects the accent, link, and focus steps by contrast** so
 the result is guaranteed to meet WCAG 2.1 AA, writes

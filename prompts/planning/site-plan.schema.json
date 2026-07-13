@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://impression.os/schemas/site-plan.schema.json",
+  "title": "Impression OS Site Plan",
+  "description": "A multi-page plan: one shared theme and kit, plus an ordered list of pages. Each page carries its own path and section list. The builder emits one kit for the site and one set of templates (plus page metadata) per page.",
+  "type": "object",
+  "required": ["theme", "pages"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "brief": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "theme": {
+      "type": "string",
+      "description": "A theme name that exists in tokens/manifest.json. Shared across every page."
+    },
+    "pages": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Ordered pages. The first page is the home page.",
+      "items": {
+        "type": "object",
+        "required": ["path", "sections"],
+        "properties": {
+          "path": { "type": "string", "description": "Site-relative path, e.g. \"/\" or \"/about\"." },
+          "type": { "type": "string", "description": "The blueprint archetype this page was expanded from." },
+          "seo": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "description": { "type": "string" },
+              "ogImage": { "type": "string" }
+            },
+            "additionalProperties": false
+          },
+          "sections": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["recipe", "content"],
+              "properties": {
+                "recipe": { "type": "string" },
+                "content": { "type": "object" }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -7,7 +7,7 @@ import { lintPlan } from './guardrails.js';
 import { generateBrandTheme } from './theme.js';
 import { synthesizeRamp } from './ramp.js';
 import { resolveTheme } from './accent.js';
-import { planFromBrief } from './plan.js';
+import { planFromBrief, planSiteFromBrief } from './plan.js';
 import { readJSON, listJSON } from './fs.js';
 import { existsSync } from 'node:fs';
 
@@ -171,6 +171,28 @@ export function planCmd(root, briefPath, { out } = {}) {
   }
 
   const plan = planFromBrief(brief, { blueprints, recipes, theme });
+  if (out) writeFileSync(out, JSON.stringify(plan, null, 2) + '\n');
+  return { plan, out: out ?? null, theme };
+}
+
+/**
+ * Deterministically expand a brief into a multi-page site plan (no LLM).
+ * @returns {{plan:any, out:string|null, theme:string}}
+ */
+export function planSiteCmd(root, briefPath, { out } = {}) {
+  const brief = readJSON(briefPath);
+  const { theme } = resolveThemeForBrief(root, brief);
+  const blueprints = readJSON(`${root}/prompts/planning/blueprints.json`);
+
+  /** @type {Record<string,any>} */
+  const recipes = {};
+  for (const f of listJSON(`${root}/recipes`)) {
+    if (f.includes('/schema/')) continue;
+    const r = readJSON(f);
+    recipes[r.name] = r;
+  }
+
+  const plan = planSiteFromBrief(brief, { blueprints, recipes, theme });
   if (out) writeFileSync(out, JSON.stringify(plan, null, 2) + '\n');
   return { plan, out: out ?? null, theme };
 }

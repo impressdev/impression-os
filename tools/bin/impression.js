@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // @ts-check
 import { resolve } from 'node:path';
-import { buildCmd, validateCmd, lintCmd, listCmd, newCmd, themeCmd, resolveThemeCmd, planCmd } from '../lib/commands.js';
+import { buildCmd, validateCmd, lintCmd, listCmd, newCmd, themeCmd, resolveThemeCmd, planCmd, planSiteCmd } from '../lib/commands.js';
 
 const HELP = `impression — the Impression OS CLI
 
@@ -14,6 +14,7 @@ Usage:
   impression theme <name> (--accent <ramp> | --hex <#color>) [--base light|dark] [--root <repo>]
   impression resolve-theme <brief.json> [--root <repo>]
   impression plan <brief.json> [--out <plan.json>] [--root <repo>]
+  impression plan-site <brief.json> [--out <site.json>] [--root <repo>]
   impression help
 
 Commands:
@@ -25,6 +26,7 @@ Commands:
   theme          Generate a brand theme (accent chosen by contrast to meet WCAG AA).
   resolve-theme  Resolve a brief's brand direction to a concrete theme.
   plan           Expand a brief into a build plan deterministically (no LLM).
+  plan-site      Expand a brief into a multi-page site plan (no LLM).
 `;
 
 function main(argv) {
@@ -90,6 +92,13 @@ function main(argv) {
       requireArg(positionals[0], 'plan needs a <brief.json>');
       const r = planCmd(root, resolve(positionals[0]), { out: flags.out ? resolve(flags.out) : undefined });
       if (r.out) log(`Wrote build plan (theme "${r.theme}", ${r.plan.sections.length} sections): ${r.out}`);
+      else log(JSON.stringify(r.plan, null, 2));
+      break;
+    }
+    case 'plan-site': {
+      requireArg(positionals[0], 'plan-site needs a <brief.json>');
+      const r = planSiteCmd(root, resolve(positionals[0]), { out: flags.out ? resolve(flags.out) : undefined });
+      if (r.out) log(`Wrote site plan (theme "${r.theme}", ${r.plan.pages.length} pages): ${r.out}`);
       else log(JSON.stringify(r.plan, null, 2));
       break;
     }
