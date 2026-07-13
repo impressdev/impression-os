@@ -27,16 +27,16 @@ Encode every design decision as versioned, machine-legible data.
 - ✅ Theming model: light/dark and brand overrides ([`tokens/themes/`](tokens/themes/)).
 - ✅ Mapping strategy from tokens to Elementor Pro global styles ([docs](docs/architecture/token-to-elementor-mapping.md)).
 
-> **You are here.** The token layer is complete. Next up: Foundation.
-
-## Phase 2 — Foundation: the design laws ⬜
+## Phase 2 — Foundation: the design laws ✅
 
 Turn tokens into enforceable design principles.
 
-- ⬜ Spatial system: grid, container widths, spacing rhythm.
-- ⬜ Typographic system: type scale, line-length, vertical rhythm.
-- ⬜ Hierarchy and layout primitives.
-- ⬜ Accessibility contracts: contrast, semantics, focus order, motion.
+- ✅ Spatial system: grid, container widths, spacing rhythm ([`foundation/grid/`](foundation/grid/), [`foundation/spacing/`](foundation/spacing/)).
+- ✅ Typographic system: type scale, line-length, vertical rhythm ([`foundation/typography/`](foundation/typography/)).
+- ✅ Hierarchy and layout primitives ([`foundation/hierarchy/`](foundation/hierarchy/)).
+- ✅ Accessibility contracts: contrast, semantics, focus order, motion ([`foundation/accessibility/`](foundation/accessibility/)).
+
+> **You are here.** Tokens and the design laws are complete. Next up: Components.
 
 ## Phase 3 — Components: the atomic units ⬜
 

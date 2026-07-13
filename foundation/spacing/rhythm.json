@@ -1,0 +1,20 @@
+{
+  "$description": "Machine-legible vertical-rhythm contract. The baseline is the unit every vertical spacing value must be a multiple of; section spacing binds the three densities to semantic roles.",
+  "rhythm": {
+    "baseline": "{space.1}",
+    "rule": "Every vertical margin/padding resolves to a token that is a whole multiple of the baseline.",
+
+    "section": {
+      "compact":  "{space.section.sm}",
+      "default":  "{space.section.md}",
+      "spacious": "{space.section.lg}"
+    },
+
+    "stack": {
+      "$description": "Default gap for a vertical stack of related elements.",
+      "tight":   "{space.gap.sm}",
+      "default": "{space.gap.md}",
+      "loose":   "{space.gap.lg}"
+    }
+  }
+}

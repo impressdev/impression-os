@@ -25,16 +25,23 @@ behavior instead of re-deriving it.
 - **Accessibility contracts** — the non-negotiable rules for contrast, semantic
   structure, focus order, and motion that everything above must satisfy.
 
-## Planned structure
+## Structure
+
+Each sub-law pairs prose (the *why* and *how*) with a machine-legible contract
+(JSON that references tokens), so the same rule guides both authors and the
+[`tests/`](../tests/) harness.
 
 ```
 foundation/
-├── grid/           Columns, gutters, container widths, breakpoints in use
-├── spacing/        Rhythm and the rules for applying the spacing scale
-├── typography/     Type scale application, line-length, vertical rhythm
-├── hierarchy/      Emphasis, order, grouping, and layout primitives
-└── accessibility/  Contrast, semantics, focus, and motion contracts
+├── grid/           The spatial system — 12 columns, containers, gutters (grid.json)
+├── spacing/        Vertical rhythm — baseline unit, section spacing (rhythm.json)
+├── typography/     Type application, reading measure, heading map (type-system.json)
+├── hierarchy/      Emphasis rules and the layout primitives (primitives.json)
+└── accessibility/  WCAG 2.1 AA contracts: contrast, semantics, focus, motion (contracts.json)
 ```
+
+Structural law constants (column count, WCAG ratios, `ch` measures) are
+foundation's own; every *dimensional* value is a token reference.
 
 ## Conventions
 
@@ -50,4 +57,10 @@ Depends only on [`tokens/`](../tokens/). Consumed by
 
 ## Status
 
-⬜ Not started — see [Phase 2](../ROADMAP.md#phase-2--foundation-the-design-laws).
+✅ **Implemented** — grid, spacing rhythm, typographic system, hierarchy &
+layout primitives, and the WCAG 2.1 AA accessibility contracts are all in place,
+each with a machine-legible JSON contract. See
+[Phase 2](../ROADMAP.md#phase-2--foundation-the-design-laws).
+
+Next: the [`components/`](../components/) layer builds atomic units on these laws
+([Phase 3](../ROADMAP.md#phase-3--components-the-atomic-units)).

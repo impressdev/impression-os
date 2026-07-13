@@ -1,0 +1,32 @@
+{
+  "$description": "Machine-legible typographic contract. Measure is expressed in ch (a typographic law constant); the heading map references semantic type styles.",
+  "typography": {
+    "measure": {
+      "$description": "Target line length for running text, in characters.",
+      "min": "45ch",
+      "ideal": "65ch",
+      "max": "75ch"
+    },
+
+    "headingMap": {
+      "h1": "{text.h1}",
+      "h2": "{text.h2}",
+      "h3": "{text.h3}",
+      "h4": "{text.h4}"
+    },
+
+    "display": "{text.display}",
+
+    "body": {
+      "default": "{text.body}",
+      "lead": "{text.lead}",
+      "small": "{text.small}"
+    },
+
+    "rules": [
+      "Heading level is chosen by document structure, not by desired size.",
+      "Running text is capped at the measure.max; it is never allowed to run edge-to-edge.",
+      "Type styles are used whole; their line-height and tracking are not overridden."
+    ]
+  }
+}

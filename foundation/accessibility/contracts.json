@@ -1,0 +1,46 @@
+{
+  "$description": "Machine-legible accessibility contracts, baseline WCAG 2.1 AA. Numeric thresholds are law constants; color and spacing values reference tokens. The tests/ harness reads this file to gate every build.",
+  "standard": "WCAG 2.1 AA",
+
+  "contrast": {
+    "text": {
+      "normal": 4.5,
+      "large": 3.0,
+      "largeTextDefinition": "font-size >= 24px, or >= 18.66px when bold"
+    },
+    "nonText": 3.0,
+    "note": "Ratios verified against the semantic color roles the builder emits per theme."
+  },
+
+  "semantics": {
+    "landmarks": ["header", "nav", "main", "footer"],
+    "headingOrder": { "singleH1": true, "noSkippedLevels": true },
+    "images": { "meaningfulRequireAlt": true, "decorativeEmptyAlt": true },
+    "controls": { "accessibleNameRequired": true }
+  },
+
+  "focus": {
+    "visible": true,
+    "ring": {
+      "color": "{color.border.focus}",
+      "width": "{space.0.5}",
+      "offset": "{space.0.5}"
+    },
+    "orderFollowsReadingOrder": true,
+    "trapInModals": true,
+    "restoreOnClose": true
+  },
+
+  "target": {
+    "minSize": "24px",
+    "recommended": "44px",
+    "minSpacing": "{space.2}"
+  },
+
+  "motion": {
+    "respectReducedMotion": true,
+    "noAutoplayAudio": true,
+    "carouselsPausable": true,
+    "maxFlashesPerSecond": 3
+  }
+}

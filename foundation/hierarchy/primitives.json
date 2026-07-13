@@ -1,0 +1,34 @@
+{
+  "$description": "The named layout primitives every component and recipe composes from. Structural fields (axis, wrap, stacking behavior) are foundation's own law; gap values reference spacing tokens.",
+  "primitives": {
+    "stack": {
+      "purpose": "Vertical flow of related elements.",
+      "axis": "block",
+      "gap": "{space.gap.md}"
+    },
+    "cluster": {
+      "purpose": "Wrapping row of inline items (tags, buttons, metadata).",
+      "axis": "inline",
+      "wrap": true,
+      "gap": "{space.gap.sm}"
+    },
+    "grid": {
+      "purpose": "Responsive multi-column layout on the 12-column grid.",
+      "columns": 12,
+      "gap": "{space.gap.md}"
+    },
+    "center": {
+      "purpose": "Horizontally centered content capped at the reading measure.",
+      "maxWidth": "measure.ideal"
+    },
+    "cover": {
+      "purpose": "Full-height region with vertically centered content (heroes).",
+      "minHeight": "100svh"
+    },
+    "split": {
+      "purpose": "Two-panel content + media layout that stacks on small screens.",
+      "stacksBelow": "{breakpoint.lg}",
+      "gap": "{space.gap.lg}"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "$description": "Machine-legible grid contract. Structural constants (column count) are foundation's own law; every dimensional value references a token. Consumed by the builder to set Elementor container/column defaults and by tests to verify layouts stay on-grid.",
+  "grid": {
+    "columns": 12,
+
+    "gutter": {
+      "$description": "Space between columns. Scales up with the viewport.",
+      "base": "{space.4}",
+      "md": "{space.6}",
+      "lg": "{space.8}"
+    },
+
+    "margin": {
+      "$description": "Outer page inset (the gap between content and the viewport edge).",
+      "base": "{space.4}",
+      "md": "{space.6}",
+      "lg": "{space.8}"
+    },
+
+    "container": {
+      "default": { "maxWidth": "{breakpoint.xl}",  "purpose": "Standard section content." },
+      "wide":    { "maxWidth": "{breakpoint.2xl}", "purpose": "Media-forward / full-width feature sections." },
+      "full":    { "maxWidth": "100%",             "purpose": "Full-bleed section shell; inner content still capped." }
+    }
+  }
+}
