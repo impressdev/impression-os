@@ -1,0 +1,52 @@
+{
+  "name": "stat",
+  "category": "primitive",
+  "status": "draft",
+  "description": "A single headline metric: a prominent value with a describing label. Used in stat rows to make impact concrete.",
+  "anatomy": ["root", "value", "label"],
+
+  "props": {
+    "size": {
+      "type": "enum",
+      "values": ["md", "lg"],
+      "default": "md",
+      "description": "Visual scale of the value."
+    },
+    "align": {
+      "type": "enum",
+      "values": ["start", "center"],
+      "default": "center",
+      "description": "Alignment of the value and label."
+    }
+  },
+
+  "base": {
+    "root": { "gap": "{space.1}" },
+    "value": { "typography": "{text.h2}", "color": "{color.text.default}" },
+    "label": { "typography": "{text.small}", "color": "{color.text.muted}" }
+  },
+
+  "variants": {
+    "size": {
+      "md": { "value": { "typography": "{text.h2}" } },
+      "lg": { "value": { "typography": "{text.display}" } }
+    }
+  },
+
+  "a11y": {
+    "contrast": "Value meets 3:1 (large text); label meets 4.5:1 on its surface.",
+    "notes": [
+      "The value and label are read together as one figure; the label always states what the number means.",
+      "A unit or qualifier belongs in the value or label text, never conveyed by styling alone."
+    ]
+  },
+
+  "elementor": {
+    "widget": "container",
+    "notes": "Compiles to a small stack container: the value (heading) above the label (text).",
+    "mapping": {
+      "size": "Style → value Typography, bound to a Global Font",
+      "align": "Layout → alignment"
+    }
+  }
+}

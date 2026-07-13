@@ -45,8 +45,8 @@ Depends on [`tokens/`](../tokens/) and [`foundation/`](../foundation/). Consumed
 
 ## Status
 
-✅ **Implemented (draft)** — six primitives (button, heading, text, icon, badge,
-media), four composites (card, list-item, form-field, nav-item), and the
+✅ **Implemented (draft)** — seven primitives (button, heading, text, icon, badge,
+media, stat), four composites (card, list-item, form-field, nav-item), and the
 component specification schema are in place. Each component is authored as data,
 binds to tokens, and carries an accessibility contract and an Elementor mapping.
 See [Phase 3](../ROADMAP.md#phase-3--components-the-atomic-units), the

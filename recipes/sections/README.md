@@ -8,7 +8,9 @@ and declares its content contract.
 | Recipe | Purpose | Key content |
 | ------ | ------- | ----------- |
 | [`hero`](hero.json)                 | Page opener; owns the h1. | eyebrow, heading, subheading, CTAs, media |
+| [`logo-cloud`](logo-cloud.json)     | Customer/partner logo band. | logos[] (url, alt) |
 | [`feature-grid`](feature-grid.json) | Responsive grid of feature cards. | features[] (icon, title, body) |
+| [`stats`](stats.json)               | Headline-metrics band. | stats[] (value, label) |
 | [`pricing`](pricing.json)           | Pricing tiers with CTAs. | tiers[] (name, price, features[], cta) |
 | [`testimonial`](testimonial.json)   | Social proof quotes. | testimonials[] (quote, author, role, avatar) |
 | [`faq`](faq.json)                   | Q&A accordion. | items[] (question, answer) |

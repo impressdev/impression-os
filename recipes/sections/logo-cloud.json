@@ -1,0 +1,69 @@
+{
+  "name": "logo-cloud",
+  "category": "section",
+  "status": "draft",
+  "description": "A band of customer or partner logos — quiet, credibility-building social proof. An optional lead-in over a wrapping row of logos.",
+  "landmark": "section",
+  "container": "default",
+  "sectionSpacing": "compact",
+
+  "layout": {
+    "primitive": "stack",
+    "regions": {
+      "header": {
+        "primitive": "center",
+        "gap": "{space.gap.xs}",
+        "align": "center",
+        "components": ["heading:h4?"]
+      },
+      "logos": {
+        "primitive": "cluster",
+        "gap": "{space.gap.lg}",
+        "align": "center",
+        "regions": {
+          "logo": {
+            "repeat": true,
+            "components": ["media"]
+          }
+        }
+      }
+    }
+  },
+
+  "content": {
+    "heading": { "type": "string", "required": false, "description": "Lead-in line, e.g. \"Trusted by teams everywhere\" (h4)." },
+    "logos": {
+      "type": "list",
+      "required": true,
+      "max": 12,
+      "description": "Logo images.",
+      "of": {
+        "url": { "type": "string", "required": true, "description": "Logo asset URL." },
+        "alt": { "type": "string", "required": true, "description": "Company name (accessible)." }
+      }
+    }
+  },
+
+  "responsive": {
+    "base": "Logos wrap two or three per row.",
+    "lg": "Logos in a single centered row."
+  },
+
+  "components": ["heading", "media"],
+
+  "a11y": {
+    "headingLevel": "h4 lead-in (optional); contributes no h1/h2.",
+    "notes": [
+      "Each logo image carries the company name as alt text — it is meaningful, not decorative.",
+      "Logos are not links unless the brief provides destinations."
+    ]
+  },
+
+  "elementor": {
+    "widget": "container",
+    "notes": "A stack container with a nested wrapping cluster of image widgets.",
+    "mapping": {
+      "logos": "Repeated media (image), one per logo"
+    }
+  }
+}

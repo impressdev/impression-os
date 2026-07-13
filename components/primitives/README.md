@@ -12,6 +12,7 @@ every visual value to a token.
 | [`icon`](icon.json)       | Decorative or meaningful glyph, sized in em. | `icon` |
 | [`badge`](badge.json)     | Status/category label; meaning never by color alone. | `text-editor` |
 | [`media`](media.json)     | Responsive image with controlled ratio and radius. | `image` |
+| [`stat`](stat.json)       | A headline metric: prominent value + describing label. | `container` |
 
 ## Conventions
 

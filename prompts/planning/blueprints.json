@@ -3,11 +3,11 @@
   "blueprints": {
     "landing": {
       "description": "Full marketing landing page.",
-      "sections": ["header", "hero", "feature-grid", "testimonial", "pricing", "faq", "cta", "footer"]
+      "sections": ["header", "hero", "logo-cloud", "feature-grid", "stats", "testimonial", "pricing", "faq", "cta", "footer"]
     },
     "product": {
       "description": "Focused product or feature page.",
-      "sections": ["header", "hero", "feature-grid", "pricing", "cta", "footer"]
+      "sections": ["header", "hero", "feature-grid", "stats", "pricing", "cta", "footer"]
     },
     "about": {
       "description": "Company / about page.",

@@ -103,11 +103,21 @@ function bindComponent(path, ref, scope, ctx) {
       });
     }
     case 'media': {
-      const img = pick(scope, ['media', 'image', 'logo', 'avatar']);
+      // Either a named media field, or a scope that *is* the image (e.g. a logo item).
+      const img = pick(scope, ['media', 'image', 'logo', 'avatar']) ?? (scope && scope.url ? scope : undefined);
       if (!img) return null;
       return widget(path, 'image', {
         image: { url: String(img.url ?? img), alt: String(img.alt ?? '') },
       });
+    }
+    case 'stat': {
+      const value = pick(scope, ['value']);
+      const label = pick(scope, ['label']);
+      if (value == null && label == null) return optional ? null : null;
+      return container(path, layoutSettings('stack', {}), [
+        widget(`${path}/value`, 'heading', { title: String(value ?? ''), header_size: 'h3' }),
+        widget(`${path}/label`, 'text-editor', { editor: `<p>${escapeHtml(String(label ?? ''))}</p>` }),
+      ]);
     }
     case 'badge': {
       const b = pick(scope, ['eyebrow', 'badge']);

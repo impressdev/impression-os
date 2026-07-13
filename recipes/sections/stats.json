@@ -1,0 +1,71 @@
+{
+  "name": "stats",
+  "category": "section",
+  "status": "draft",
+  "description": "A row of headline metrics — the proof-in-numbers band. An optional heading over a responsive grid of stats.",
+  "landmark": "section",
+  "container": "default",
+  "sectionSpacing": "default",
+
+  "layout": {
+    "primitive": "stack",
+    "regions": {
+      "header": {
+        "primitive": "center",
+        "gap": "{space.gap.sm}",
+        "align": "center",
+        "components": ["heading?", "text:lead?"]
+      },
+      "grid": {
+        "primitive": "grid",
+        "columns": 4,
+        "gap": "{space.gap.lg}",
+        "regions": {
+          "stat": {
+            "repeat": true,
+            "components": ["stat"]
+          }
+        }
+      }
+    }
+  },
+
+  "content": {
+    "heading": { "type": "string", "required": false, "description": "Section heading (h2)." },
+    "intro":   { "type": "richtext", "required": false, "description": "Optional intro." },
+    "stats": {
+      "type": "list",
+      "required": true,
+      "max": 8,
+      "description": "The metrics.",
+      "of": {
+        "value": { "type": "string", "required": true, "description": "The number/figure, e.g. \"4 days\" or \"99.9%\"." },
+        "label": { "type": "string", "required": true, "description": "What the figure means." }
+      }
+    }
+  },
+
+  "responsive": {
+    "base": "Two per row.",
+    "md": "Three per row.",
+    "lg": "All in a single row (or as set by columns)."
+  },
+
+  "components": ["heading", "text", "stat"],
+
+  "a11y": {
+    "headingLevel": "h2 for the section (optional).",
+    "notes": [
+      "Each figure's meaning is carried by its label text, not by size or color alone.",
+      "Grid order follows source order."
+    ]
+  },
+
+  "elementor": {
+    "widget": "container",
+    "notes": "A stack container with a nested grid of stat containers.",
+    "mapping": {
+      "stats": "Repeated stat, one per content item"
+    }
+  }
+}
