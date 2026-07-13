@@ -1,0 +1,32 @@
+{
+  "$description": "Maps brand accent words (as written in a brief's brand.accent) to a primitive color ramp. The planner uses this to choose a theme deterministically — an accent word never invents a color, it selects a vetted ramp. Longer keys are matched before shorter ones.",
+  "lexicon": {
+    "indigo": "brand",
+    "blurple": "brand",
+    "sky": "info",
+    "azure": "info",
+    "blue": "info",
+    "cyan": "teal",
+    "teal": "teal",
+    "aqua": "teal",
+    "turquoise": "teal",
+    "violet": "violet",
+    "purple": "violet",
+    "grape": "violet",
+    "emerald": "success",
+    "green": "success",
+    "mint": "success",
+    "amber": "warning",
+    "gold": "warning",
+    "yellow": "warning",
+    "orange": "warning",
+    "crimson": "danger",
+    "scarlet": "danger",
+    "red": "danger",
+    "rose": "danger"
+  },
+  "notes": [
+    "If the accent word maps to a ramp that has no brand theme yet, generate one with `impression theme <name> --accent <ramp>` (or --hex for a custom color).",
+    "brand.accent is a description, never a hex — the system composes from vetted ramps."
+  ]
+}

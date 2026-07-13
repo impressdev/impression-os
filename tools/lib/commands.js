@@ -6,6 +6,7 @@ import { validateData } from './validate.js';
 import { lintPlan } from './guardrails.js';
 import { generateBrandTheme } from './theme.js';
 import { synthesizeRamp } from './ramp.js';
+import { resolveTheme } from './accent.js';
 import { readJSON, listJSON } from './fs.js';
 import { existsSync } from 'node:fs';
 
@@ -115,6 +116,35 @@ function toDTCG(ramp) {
 
 function slug(s) {
   return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'brand';
+}
+
+/**
+ * Resolve a brief to a concrete theme via the accent lexicon.
+ * @returns {{theme:string, ramp:string|null, via:string, hint?:string}}
+ */
+export function resolveThemeCmd(root, briefPath) {
+  const brief = readJSON(briefPath);
+  const manifest = readJSON(`${root}/tokens/manifest.json`);
+  const { lexicon } = readJSON(`${root}/prompts/planning/accent-lexicon.json`);
+
+  // Map each available theme to the primitive ramp its accent uses.
+  /** @type {Record<string,string>} */
+  const themeRamps = {};
+  for (const name of manifest.themes.available) {
+    try {
+      const doc = readJSON(`${root}/tokens/themes/${name}.json`);
+      const ref = doc?.color?.accent?.default?.$value ?? '';
+      const m = String(ref).match(/^\{color\.([a-z0-9-]+)\./);
+      if (m) themeRamps[name] = m[1];
+    } catch { /* base themes without an accent override inherit; skip */ }
+  }
+
+  return resolveTheme(brief, {
+    available: manifest.themes.available,
+    defaultTheme: manifest.themes.default,
+    themeRamps,
+    lexicon,
+  });
 }
 
 /** Scaffold a minimal, schema-valid brief. @returns {string} the written path */

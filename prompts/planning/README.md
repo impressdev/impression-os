@@ -10,6 +10,8 @@ operates in the pipeline — and its freedom is deliberately narrow.
 - [`plan.md`](plan.md) — the task prompt template (with `{{placeholders}}`).
 - [`blueprints.json`](blueprints.json) — page archetypes → ordered recipe
   sequences.
+- [`accent-lexicon.json`](accent-lexicon.json) — brand accent words → color ramps,
+  for deterministic theme selection (see `impression resolve-theme`).
 - [`build-plan.schema.json`](build-plan.schema.json) — the plan contract (= the
   builder's input).
 - [`example.plan.json`](example.plan.json) — the plan the planner should produce

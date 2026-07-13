@@ -42,8 +42,11 @@ Output the JSON and nothing else.
 ## How to plan
 
 1. **Choose the theme.** Use `brief.brand.theme` if it names a theme that exists
-   in the token manifest. Otherwise use the manifest default. Never invent a theme
-   or a color.
+   in the token manifest. Otherwise, map `brief.brand.accent` to a ramp via the
+   **accent lexicon** (`prompts/planning/accent-lexicon.json`) and pick an existing
+   theme built on that ramp; if none exists, fall back to the manifest default.
+   Never invent a theme or a color. (The `impression resolve-theme <brief>` command
+   applies exactly this logic.)
 2. **Choose a blueprint** per page from `brief.pages` (default: one `landing`
    page).
 3. **Walk the blueprint's recipe sequence.** For each recipe, map the brief's

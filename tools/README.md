@@ -36,6 +36,7 @@ node tools/bin/impression.js <command>
 | `list <recipes\|components\|themes>` | List what the system offers. |
 | `new <name> [--out <brief.json>]` | Scaffold a minimal, schema-valid brief. |
 | `theme <name> (--accent <ramp> \| --hex <#color>) [--base light\|dark]` | Generate a brand theme; accent steps chosen by contrast to meet WCAG AA. |
+| `resolve-theme <brief.json>` | Resolve a brief's brand direction to a concrete theme (via the accent lexicon). |
 | `help` | Usage. |
 
 Examples:

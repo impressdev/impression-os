@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // @ts-check
 import { resolve } from 'node:path';
-import { buildCmd, validateCmd, lintCmd, listCmd, newCmd, themeCmd } from '../lib/commands.js';
+import { buildCmd, validateCmd, lintCmd, listCmd, newCmd, themeCmd, resolveThemeCmd } from '../lib/commands.js';
 
 const HELP = `impression — the Impression OS CLI
 
@@ -12,15 +12,17 @@ Usage:
   impression list <recipes|components|themes> [--root <repo>]
   impression new <name> [--out <brief.json>]
   impression theme <name> (--accent <ramp> | --hex <#color>) [--base light|dark] [--root <repo>]
+  impression resolve-theme <brief.json> [--root <repo>]
   impression help
 
 Commands:
-  build      Compile a build plan into an Elementor Pro kit + templates.
-  validate   Check every data artifact against its schema and reference integrity.
-  lint       Run the build-plan guardrails against a plan.
-  list       List available recipes, components, or themes.
-  new        Scaffold a minimal, schema-valid brief.
-  theme      Generate a brand theme (accent chosen by contrast to meet WCAG AA).
+  build          Compile a build plan into an Elementor Pro kit + templates.
+  validate       Check every data artifact against its schema and reference integrity.
+  lint           Run the build-plan guardrails against a plan.
+  list           List available recipes, components, or themes.
+  new            Scaffold a minimal, schema-valid brief.
+  theme          Generate a brand theme (accent chosen by contrast to meet WCAG AA).
+  resolve-theme  Resolve a brief's brand direction to a concrete theme.
 `;
 
 function main(argv) {
@@ -72,6 +74,14 @@ function main(argv) {
       log(`  accent step ${r.choices.accentStep} → white label ${r.choices.accentContrast}:1 (AA)`);
       log(`  link step   ${r.choices.linkStep} → ${r.choices.linkContrast}:1 on surface`);
       log(`  written:    ${r.file} (+ registered in the manifest)`);
+      break;
+    }
+    case 'resolve-theme': {
+      requireArg(positionals[0], 'resolve-theme needs a <brief.json>');
+      const r = resolveThemeCmd(root, resolve(positionals[0]));
+      log(`Theme: ${r.theme}`);
+      log(`  ${r.via}`);
+      if (r.hint) log(`  hint: ${r.hint}`);
       break;
     }
     case 'help':
