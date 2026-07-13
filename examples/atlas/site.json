@@ -1,0 +1,494 @@
+{
+  "meta": {
+    "name": "Atlas"
+  },
+  "theme": "dark",
+  "pages": [
+    {
+      "path": "/",
+      "type": "landing",
+      "sections": [
+        {
+          "recipe": "header",
+          "content": {
+            "logo": {
+              "url": "/assets/atlas-logo.svg",
+              "alt": "Atlas"
+            },
+            "links": [
+              {
+                "label": "Product",
+                "href": "/product"
+              },
+              {
+                "label": "Pricing",
+                "href": "/pricing"
+              },
+              {
+                "label": "Customers",
+                "href": "/customers"
+              }
+            ],
+            "cta": {
+              "label": "Start free trial",
+              "href": "/signup"
+            }
+          }
+        },
+        {
+          "recipe": "hero",
+          "content": {
+            "eyebrow": "Knowledge base",
+            "heading": "Every answer, one search away",
+            "subheading": "Atlas turns your scattered docs and past tickets into one searchable source of truth — so agents resolve faster and customers self-serve.",
+            "primaryCta": {
+              "label": "Start free trial",
+              "href": "/signup"
+            },
+            "secondaryCta": {
+              "label": "Book a demo",
+              "href": "/demo"
+            },
+            "media": {
+              "url": "/assets/atlas-search.png",
+              "alt": "The Atlas search experience"
+            }
+          }
+        },
+        {
+          "recipe": "logo-cloud",
+          "content": {
+            "logos": [
+              {
+                "url": "/assets/logos/meridian.svg",
+                "alt": "Meridian"
+              },
+              {
+                "url": "/assets/logos/halcyon.svg",
+                "alt": "Halcyon"
+              },
+              {
+                "url": "/assets/logos/northgate.svg",
+                "alt": "Northgate"
+              },
+              {
+                "url": "/assets/logos/brightline.svg",
+                "alt": "Brightline"
+              }
+            ]
+          }
+        },
+        {
+          "recipe": "feature-grid",
+          "content": {
+            "features": [
+              {
+                "icon": "magnifying-glass",
+                "title": "Instant search",
+                "body": "Answers surface as agents type — across docs, macros, and past tickets."
+              },
+              {
+                "icon": "wand-magic-sparkles",
+                "title": "Suggested replies",
+                "body": "Atlas drafts a reply from your own content, ready to send."
+              },
+              {
+                "icon": "chart-line",
+                "title": "Gap reports",
+                "body": "See what customers ask that you have not answered — and fix it."
+              },
+              {
+                "icon": "lock",
+                "title": "Secure by default",
+                "body": "SOC 2, SSO, and granular permissions on every plan."
+              }
+            ]
+          }
+        },
+        {
+          "recipe": "stats",
+          "content": {
+            "stats": [
+              {
+                "value": "42%",
+                "label": "Fewer tickets after 90 days"
+              },
+              {
+                "value": "3 min",
+                "label": "Faster average handle time"
+              },
+              {
+                "value": "10k+",
+                "label": "Answers indexed per workspace"
+              },
+              {
+                "value": "99.9%",
+                "label": "Uptime"
+              }
+            ]
+          }
+        },
+        {
+          "recipe": "testimonial",
+          "content": {
+            "testimonials": [
+              {
+                "quote": "Our ticket volume dropped by a third in the first quarter. Atlas paid for itself in weeks.",
+                "author": "Priya Menon",
+                "role": "Head of Support, Halcyon"
+              },
+              {
+                "quote": "Agents actually trust the suggestions — because they come from our own docs.",
+                "author": "Tom Alvarez",
+                "role": "CX Lead, Northgate"
+              }
+            ]
+          }
+        },
+        {
+          "recipe": "pricing",
+          "content": {
+            "tiers": [
+              {
+                "name": "Team",
+                "price": "$79",
+                "period": "/mo",
+                "description": "For a single support team.",
+                "features": [
+                  {
+                    "label": "Up to 10 agents"
+                  },
+                  {
+                    "label": "Instant search"
+                  },
+                  {
+                    "label": "Email support"
+                  }
+                ],
+                "cta": {
+                  "label": "Start free",
+                  "href": "/signup"
+                }
+              },
+              {
+                "name": "Business",
+                "price": "$299",
+                "period": "/mo",
+                "description": "For scaling support orgs.",
+                "features": [
+                  {
+                    "label": "Unlimited agents"
+                  },
+                  {
+                    "label": "Suggested replies"
+                  },
+                  {
+                    "label": "Gap reports"
+                  },
+                  {
+                    "label": "SSO"
+                  }
+                ],
+                "cta": {
+                  "label": "Start free trial",
+                  "href": "/signup"
+                },
+                "highlighted": true
+              },
+              {
+                "name": "Enterprise",
+                "price": "Custom",
+                "description": "For complex, regulated teams.",
+                "features": [
+                  {
+                    "label": "Custom SLAs"
+                  },
+                  {
+                    "label": "Dedicated CSM"
+                  },
+                  {
+                    "label": "Advanced security"
+                  },
+                  {
+                    "label": "On-prem option"
+                  }
+                ],
+                "cta": {
+                  "label": "Contact sales",
+                  "href": "/contact"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "recipe": "faq",
+          "content": {
+            "items": [
+              {
+                "question": "How long does setup take?",
+                "answer": "Most teams import their docs and see live search within an afternoon."
+              },
+              {
+                "question": "Does it work with our helpdesk?",
+                "answer": "Atlas connects to Zendesk, Intercom, and Freshdesk out of the box."
+              },
+              {
+                "question": "Is our data secure?",
+                "answer": "Atlas is SOC 2 Type II certified, with SSO and role-based access on every plan."
+              }
+            ]
+          }
+        },
+        {
+          "recipe": "cta",
+          "content": {
+            "heading": "Every answer, one search away",
+            "primaryCta": {
+              "label": "Start free trial",
+              "href": "/signup"
+            },
+            "secondaryCta": {
+              "label": "Book a demo",
+              "href": "/demo"
+            }
+          }
+        },
+        {
+          "recipe": "footer",
+          "content": {
+            "logo": {
+              "url": "/assets/atlas-logo.svg",
+              "alt": "Atlas"
+            },
+            "blurb": "Atlas keeps every answer in one place, so support agents resolve tickets in minutes and customers help themselves.",
+            "columns": [
+              {
+                "title": "Product",
+                "links": [
+                  {
+                    "label": "Overview",
+                    "href": "/product"
+                  },
+                  {
+                    "label": "Pricing",
+                    "href": "/pricing"
+                  },
+                  {
+                    "label": "Security",
+                    "href": "/security"
+                  }
+                ]
+              },
+              {
+                "title": "Company",
+                "links": [
+                  {
+                    "label": "About",
+                    "href": "/about"
+                  },
+                  {
+                    "label": "Careers",
+                    "href": "/careers"
+                  },
+                  {
+                    "label": "Contact",
+                    "href": "/contact"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "path": "/about",
+      "type": "about",
+      "sections": [
+        {
+          "recipe": "header",
+          "content": {
+            "logo": {
+              "url": "/assets/atlas-logo.svg",
+              "alt": "Atlas"
+            },
+            "links": [
+              {
+                "label": "Product",
+                "href": "/product"
+              },
+              {
+                "label": "Pricing",
+                "href": "/pricing"
+              },
+              {
+                "label": "Customers",
+                "href": "/customers"
+              }
+            ],
+            "cta": {
+              "label": "Start free trial",
+              "href": "/signup"
+            }
+          }
+        },
+        {
+          "recipe": "hero",
+          "content": {
+            "eyebrow": "Knowledge base",
+            "heading": "Every answer, one search away",
+            "subheading": "Atlas turns your scattered docs and past tickets into one searchable source of truth — so agents resolve faster and customers self-serve.",
+            "primaryCta": {
+              "label": "Start free trial",
+              "href": "/signup"
+            },
+            "secondaryCta": {
+              "label": "Book a demo",
+              "href": "/demo"
+            },
+            "media": {
+              "url": "/assets/atlas-search.png",
+              "alt": "The Atlas search experience"
+            }
+          }
+        },
+        {
+          "recipe": "feature-grid",
+          "content": {
+            "features": [
+              {
+                "icon": "magnifying-glass",
+                "title": "Instant search",
+                "body": "Answers surface as agents type — across docs, macros, and past tickets."
+              },
+              {
+                "icon": "wand-magic-sparkles",
+                "title": "Suggested replies",
+                "body": "Atlas drafts a reply from your own content, ready to send."
+              },
+              {
+                "icon": "chart-line",
+                "title": "Gap reports",
+                "body": "See what customers ask that you have not answered — and fix it."
+              },
+              {
+                "icon": "lock",
+                "title": "Secure by default",
+                "body": "SOC 2, SSO, and granular permissions on every plan."
+              }
+            ]
+          }
+        },
+        {
+          "recipe": "team",
+          "content": {
+            "members": [
+              {
+                "name": "Elena Marsh",
+                "role": "Co-founder & CEO",
+                "avatar": {
+                  "url": "/assets/team/elena.jpg",
+                  "alt": "Elena Marsh"
+                }
+              },
+              {
+                "name": "Devin Osei",
+                "role": "Co-founder & CTO",
+                "avatar": {
+                  "url": "/assets/team/devin.jpg",
+                  "alt": "Devin Osei"
+                }
+              },
+              {
+                "name": "Mara Lindqvist",
+                "role": "Head of Product",
+                "avatar": {
+                  "url": "/assets/team/mara.jpg",
+                  "alt": "Mara Lindqvist"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "recipe": "testimonial",
+          "content": {
+            "testimonials": [
+              {
+                "quote": "Our ticket volume dropped by a third in the first quarter. Atlas paid for itself in weeks.",
+                "author": "Priya Menon",
+                "role": "Head of Support, Halcyon"
+              },
+              {
+                "quote": "Agents actually trust the suggestions — because they come from our own docs.",
+                "author": "Tom Alvarez",
+                "role": "CX Lead, Northgate"
+              }
+            ]
+          }
+        },
+        {
+          "recipe": "cta",
+          "content": {
+            "heading": "Every answer, one search away",
+            "primaryCta": {
+              "label": "Start free trial",
+              "href": "/signup"
+            },
+            "secondaryCta": {
+              "label": "Book a demo",
+              "href": "/demo"
+            }
+          }
+        },
+        {
+          "recipe": "footer",
+          "content": {
+            "logo": {
+              "url": "/assets/atlas-logo.svg",
+              "alt": "Atlas"
+            },
+            "blurb": "Atlas keeps every answer in one place, so support agents resolve tickets in minutes and customers help themselves.",
+            "columns": [
+              {
+                "title": "Product",
+                "links": [
+                  {
+                    "label": "Overview",
+                    "href": "/product"
+                  },
+                  {
+                    "label": "Pricing",
+                    "href": "/pricing"
+                  },
+                  {
+                    "label": "Security",
+                    "href": "/security"
+                  }
+                ]
+              },
+              {
+                "title": "Company",
+                "links": [
+                  {
+                    "label": "About",
+                    "href": "/about"
+                  },
+                  {
+                    "label": "Careers",
+                    "href": "/careers"
+                  },
+                  {
+                    "label": "Contact",
+                    "href": "/contact"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

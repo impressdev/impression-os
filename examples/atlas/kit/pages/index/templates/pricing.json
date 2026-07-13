@@ -1,0 +1,301 @@
+{
+  "version": "0.4",
+  "title": "pricing",
+  "type": "section",
+  "content": [
+    {
+      "id": "2ca6d31",
+      "elType": "container",
+      "settings": {
+        "flex_direction": "column"
+      },
+      "elements": [
+        {
+          "id": "7abc769",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "0.75",
+              "row": "0.75",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "flex_direction": "column",
+            "align_items": "center"
+          },
+          "elements": [
+            {
+              "id": "924cfab",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "",
+                "header_size": "h2"
+              },
+              "elements": []
+            }
+          ],
+          "isInner": true
+        },
+        {
+          "id": "01eae87",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "1.5",
+              "row": "1.5",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "container_type": "grid",
+            "grid_template_columns": "repeat(3, 1fr)"
+          },
+          "elements": [
+            {
+              "id": "ff31b69",
+              "elType": "container",
+              "settings": {
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "393c766",
+                  "elType": "container",
+                  "settings": {
+                    "flex_gap": {
+                      "column": "1",
+                      "row": "1",
+                      "unit": "rem",
+                      "isLinked": true
+                    },
+                    "flex_direction": "column"
+                  },
+                  "elements": [
+                    {
+                      "id": "c0b2a89",
+                      "elType": "widget",
+                      "widgetType": "heading",
+                      "settings": {
+                        "title": "Team",
+                        "header_size": "h3"
+                      },
+                      "elements": []
+                    },
+                    {
+                      "id": "c0b2a8a",
+                      "elType": "widget",
+                      "widgetType": "text-editor",
+                      "settings": {
+                        "editor": "<p>For a single support team.</p>"
+                      },
+                      "elements": []
+                    },
+                    {
+                      "id": "c0b2a8b",
+                      "elType": "widget",
+                      "widgetType": "icon-list",
+                      "settings": {
+                        "icon_list": [
+                          {
+                            "text": "Up to 10 agents"
+                          },
+                          {
+                            "text": "Instant search"
+                          },
+                          {
+                            "text": "Email support"
+                          }
+                        ]
+                      },
+                      "elements": []
+                    },
+                    {
+                      "id": "c0b2a8c",
+                      "elType": "widget",
+                      "widgetType": "button",
+                      "settings": {
+                        "text": "Start free",
+                        "link": {
+                          "url": "/signup",
+                          "is_external": "",
+                          "nofollow": ""
+                        }
+                      },
+                      "elements": []
+                    }
+                  ],
+                  "isInner": true
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "ff31b6a",
+              "elType": "container",
+              "settings": {
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "5e8f007",
+                  "elType": "container",
+                  "settings": {
+                    "flex_gap": {
+                      "column": "1",
+                      "row": "1",
+                      "unit": "rem",
+                      "isLinked": true
+                    },
+                    "flex_direction": "column"
+                  },
+                  "elements": [
+                    {
+                      "id": "0879b8a",
+                      "elType": "widget",
+                      "widgetType": "heading",
+                      "settings": {
+                        "title": "Business",
+                        "header_size": "h3"
+                      },
+                      "elements": []
+                    },
+                    {
+                      "id": "0879b8b",
+                      "elType": "widget",
+                      "widgetType": "text-editor",
+                      "settings": {
+                        "editor": "<p>For scaling support orgs.</p>"
+                      },
+                      "elements": []
+                    },
+                    {
+                      "id": "0879b8c",
+                      "elType": "widget",
+                      "widgetType": "icon-list",
+                      "settings": {
+                        "icon_list": [
+                          {
+                            "text": "Unlimited agents"
+                          },
+                          {
+                            "text": "Suggested replies"
+                          },
+                          {
+                            "text": "Gap reports"
+                          },
+                          {
+                            "text": "SSO"
+                          }
+                        ]
+                      },
+                      "elements": []
+                    },
+                    {
+                      "id": "0879b8d",
+                      "elType": "widget",
+                      "widgetType": "button",
+                      "settings": {
+                        "text": "Start free trial",
+                        "link": {
+                          "url": "/signup",
+                          "is_external": "",
+                          "nofollow": ""
+                        }
+                      },
+                      "elements": []
+                    }
+                  ],
+                  "isInner": true
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "ff31b6b",
+              "elType": "container",
+              "settings": {
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "83e18a8",
+                  "elType": "container",
+                  "settings": {
+                    "flex_gap": {
+                      "column": "1",
+                      "row": "1",
+                      "unit": "rem",
+                      "isLinked": true
+                    },
+                    "flex_direction": "column"
+                  },
+                  "elements": [
+                    {
+                      "id": "5040c8b",
+                      "elType": "widget",
+                      "widgetType": "heading",
+                      "settings": {
+                        "title": "Enterprise",
+                        "header_size": "h3"
+                      },
+                      "elements": []
+                    },
+                    {
+                      "id": "5040c8c",
+                      "elType": "widget",
+                      "widgetType": "text-editor",
+                      "settings": {
+                        "editor": "<p>For complex, regulated teams.</p>"
+                      },
+                      "elements": []
+                    },
+                    {
+                      "id": "5040c8d",
+                      "elType": "widget",
+                      "widgetType": "icon-list",
+                      "settings": {
+                        "icon_list": [
+                          {
+                            "text": "Custom SLAs"
+                          },
+                          {
+                            "text": "Dedicated CSM"
+                          },
+                          {
+                            "text": "Advanced security"
+                          },
+                          {
+                            "text": "On-prem option"
+                          }
+                        ]
+                      },
+                      "elements": []
+                    },
+                    {
+                      "id": "5040c8e",
+                      "elType": "widget",
+                      "widgetType": "button",
+                      "settings": {
+                        "text": "Contact sales",
+                        "link": {
+                          "url": "/contact",
+                          "is_external": "",
+                          "nofollow": ""
+                        }
+                      },
+                      "elements": []
+                    }
+                  ],
+                  "isInner": true
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": true
+        }
+      ],
+      "isInner": true
+    }
+  ]
+}

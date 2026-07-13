@@ -1,0 +1,36 @@
+{
+  "theme": "dark",
+  "pages": [
+    {
+      "path": "/",
+      "slug": "index",
+      "type": "landing",
+      "templates": [
+        "header",
+        "hero",
+        "logo-cloud",
+        "feature-grid",
+        "stats",
+        "testimonial",
+        "pricing",
+        "faq",
+        "cta",
+        "footer"
+      ]
+    },
+    {
+      "path": "/about",
+      "slug": "about",
+      "type": "about",
+      "templates": [
+        "header",
+        "hero",
+        "feature-grid",
+        "team",
+        "testimonial",
+        "cta",
+        "footer"
+      ]
+    }
+  ]
+}

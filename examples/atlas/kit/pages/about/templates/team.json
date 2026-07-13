@@ -1,0 +1,191 @@
+{
+  "version": "0.4",
+  "title": "team",
+  "type": "section",
+  "content": [
+    {
+      "id": "c9e660c",
+      "elType": "container",
+      "settings": {
+        "flex_direction": "column"
+      },
+      "elements": [
+        {
+          "id": "8a9dbe4",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "0.75",
+              "row": "0.75",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "flex_direction": "column",
+            "align_items": "center"
+          },
+          "elements": [],
+          "isInner": false
+        },
+        {
+          "id": "d18fb21",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "1.5",
+              "row": "1.5",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "container_type": "grid",
+            "grid_template_columns": "repeat(3, 1fr)"
+          },
+          "elements": [
+            {
+              "id": "8c366c7",
+              "elType": "container",
+              "settings": {
+                "flex_gap": {
+                  "column": "0.75",
+                  "row": "0.75",
+                  "unit": "rem",
+                  "isLinked": true
+                },
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "e3f9a49",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "/assets/team/elena.jpg",
+                      "alt": "Elena Marsh"
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "e3f9a4a",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Elena Marsh",
+                    "header_size": "h3"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "e3f9a4b",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p>Co-founder &amp; CEO</p>"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "8c366c8",
+              "elType": "container",
+              "settings": {
+                "flex_gap": {
+                  "column": "0.75",
+                  "row": "0.75",
+                  "unit": "rem",
+                  "isLinked": true
+                },
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "e4026aa",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "/assets/team/devin.jpg",
+                      "alt": "Devin Osei"
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "e4026ab",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Devin Osei",
+                    "header_size": "h3"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "e4026ac",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p>Co-founder &amp; CTO</p>"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "8c366c9",
+              "elType": "container",
+              "settings": {
+                "flex_gap": {
+                  "column": "0.75",
+                  "row": "0.75",
+                  "unit": "rem",
+                  "isLinked": true
+                },
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "e40b30b",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "/assets/team/mara.jpg",
+                      "alt": "Mara Lindqvist"
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "e40b30c",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Mara Lindqvist",
+                    "header_size": "h3"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "e40b30d",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p>Head of Product</p>"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": true
+        }
+      ],
+      "isInner": true
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "version": "0.4",
+  "title": "hero",
+  "type": "section",
+  "content": [
+    {
+      "id": "c97d3b3",
+      "elType": "container",
+      "settings": {
+        "flex_direction": "row",
+        "align_items": "center"
+      },
+      "elements": [
+        {
+          "id": "78de81d",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "1",
+              "row": "1",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "flex_direction": "column"
+          },
+          "elements": [
+            {
+              "id": "7b5a3df",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<span class=\"badge\">Knowledge base</span>"
+              },
+              "elements": []
+            },
+            {
+              "id": "7b5a3e0",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "Every answer, one search away",
+                "header_size": "h1"
+              },
+              "elements": []
+            },
+            {
+              "id": "7b5a3e1",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<p>Atlas turns your scattered docs and past tickets into one searchable source of truth — so agents resolve faster and customers self-serve.</p>"
+              },
+              "elements": []
+            },
+            {
+              "id": "7531add",
+              "elType": "container",
+              "settings": {
+                "flex_gap": {
+                  "column": "0.75",
+                  "row": "0.75",
+                  "unit": "rem",
+                  "isLinked": true
+                },
+                "flex_direction": "row",
+                "flex_wrap": "wrap",
+                "align_items": "center"
+              },
+              "elements": [
+                {
+                  "id": "92ede9f",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "Start free trial",
+                    "link": {
+                      "url": "/signup",
+                      "is_external": "",
+                      "nofollow": ""
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "92edea0",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "Book a demo",
+                    "link": {
+                      "url": "/demo",
+                      "is_external": "",
+                      "nofollow": ""
+                    }
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": true
+        },
+        {
+          "id": "a728c02",
+          "elType": "container",
+          "settings": {
+            "flex_direction": "column"
+          },
+          "elements": [
+            {
+              "id": "9f8f9a4",
+              "elType": "widget",
+              "widgetType": "image",
+              "settings": {
+                "image": {
+                  "url": "/assets/atlas-search.png",
+                  "alt": "The Atlas search experience"
+                }
+              },
+              "elements": []
+            }
+          ],
+          "isInner": true
+        }
+      ],
+      "isInner": true
+    }
+  ]
+}

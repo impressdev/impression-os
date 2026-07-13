@@ -1,0 +1,206 @@
+{
+  "version": "0.4",
+  "title": "stats",
+  "type": "section",
+  "content": [
+    {
+      "id": "0614a14",
+      "elType": "container",
+      "settings": {
+        "flex_direction": "column"
+      },
+      "elements": [
+        {
+          "id": "1d2e6ec",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "0.75",
+              "row": "0.75",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "flex_direction": "column",
+            "align_items": "center"
+          },
+          "elements": [],
+          "isInner": false
+        },
+        {
+          "id": "4f3a429",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "1.5",
+              "row": "1.5",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "container_type": "grid",
+            "grid_template_columns": "repeat(4, 1fr)"
+          },
+          "elements": [
+            {
+              "id": "f1ae2b3",
+              "elType": "container",
+              "settings": {
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "d2a9eb5",
+                  "elType": "container",
+                  "settings": {
+                    "flex_direction": "column"
+                  },
+                  "elements": [
+                    {
+                      "id": "946df21",
+                      "elType": "widget",
+                      "widgetType": "heading",
+                      "settings": {
+                        "title": "42%",
+                        "header_size": "h3"
+                      },
+                      "elements": []
+                    },
+                    {
+                      "id": "891bd84",
+                      "elType": "widget",
+                      "widgetType": "text-editor",
+                      "settings": {
+                        "editor": "<p>Fewer tickets after 90 days</p>"
+                      },
+                      "elements": []
+                    }
+                  ],
+                  "isInner": true
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "f1ae2b4",
+              "elType": "container",
+              "settings": {
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "d2b2b16",
+                  "elType": "container",
+                  "settings": {
+                    "flex_direction": "column"
+                  },
+                  "elements": [
+                    {
+                      "id": "d517042",
+                      "elType": "widget",
+                      "widgetType": "heading",
+                      "settings": {
+                        "title": "3 min",
+                        "header_size": "h3"
+                      },
+                      "elements": []
+                    },
+                    {
+                      "id": "c9c4ea5",
+                      "elType": "widget",
+                      "widgetType": "text-editor",
+                      "settings": {
+                        "editor": "<p>Faster average handle time</p>"
+                      },
+                      "elements": []
+                    }
+                  ],
+                  "isInner": true
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "f1ae2b5",
+              "elType": "container",
+              "settings": {
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "d2bb777",
+                  "elType": "container",
+                  "settings": {
+                    "flex_direction": "column"
+                  },
+                  "elements": [
+                    {
+                      "id": "15c0163",
+                      "elType": "widget",
+                      "widgetType": "heading",
+                      "settings": {
+                        "title": "10k+",
+                        "header_size": "h3"
+                      },
+                      "elements": []
+                    },
+                    {
+                      "id": "0a6dfc6",
+                      "elType": "widget",
+                      "widgetType": "text-editor",
+                      "settings": {
+                        "editor": "<p>Answers indexed per workspace</p>"
+                      },
+                      "elements": []
+                    }
+                  ],
+                  "isInner": true
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "f1ae2b6",
+              "elType": "container",
+              "settings": {
+                "flex_direction": "column"
+              },
+              "elements": [
+                {
+                  "id": "d2c43d8",
+                  "elType": "container",
+                  "settings": {
+                    "flex_direction": "column"
+                  },
+                  "elements": [
+                    {
+                      "id": "5669284",
+                      "elType": "widget",
+                      "widgetType": "heading",
+                      "settings": {
+                        "title": "99.9%",
+                        "header_size": "h3"
+                      },
+                      "elements": []
+                    },
+                    {
+                      "id": "4b170e7",
+                      "elType": "widget",
+                      "widgetType": "text-editor",
+                      "settings": {
+                        "editor": "<p>Uptime</p>"
+                      },
+                      "elements": []
+                    }
+                  ],
+                  "isInner": true
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": true
+        }
+      ],
+      "isInner": true
+    }
+  ]
+}

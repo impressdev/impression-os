@@ -49,6 +49,7 @@ Produced by the full pipeline: [`prompts/`](../prompts/) →
 | ------- | -------------------- |
 | [`northwind/`](northwind/) | A full `landing` page (8 sections, 59 widgets) on the default light theme; byte-stable and CI-verified. |
 | [`lumen/`](lumen/) | A `lead` page (6 sections, 41 widgets) ending in a contact form, on the `brand.teal` theme. |
+| [`atlas/`](atlas/) | A **multi-page** site (landing + about, 10 + 7 sections) on the `dark` theme — one shared kit, per-page templates. |
 
 ## Status
 

@@ -1,0 +1,32 @@
+{
+  "$description": "Provenance for the Atlas multi-page example. Regenerate and compare the checksum to verify byte-stable reproduction.",
+  "generator": "@impression-os/builder",
+  "version": "0.1.0",
+  "engine": "node >=20",
+  "theme": "dark",
+  "source": {
+    "brief": "brief/brief.json",
+    "sitePlan": "site.json"
+  },
+  "command": "node tools/bin/impression.js build-site examples/atlas/site.json --out examples/atlas/kit",
+  "pages": [
+    {
+      "path": "/",
+      "slug": "index",
+      "type": "landing",
+      "templates": 10,
+      "widgets": 68
+    },
+    {
+      "path": "/about",
+      "slug": "about",
+      "type": "about",
+      "templates": 7,
+      "widgets": 45
+    }
+  ],
+  "checksum": {
+    "algorithm": "sha256",
+    "value": "77ea5c3e9139091887e8b8b90145dc0ce54b635b9ad8f8849c873e9cb64ac554"
+  }
+}

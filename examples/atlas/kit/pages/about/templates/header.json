@@ -1,0 +1,119 @@
+{
+  "version": "0.4",
+  "title": "header",
+  "type": "section",
+  "content": [
+    {
+      "id": "1d218ae",
+      "elType": "container",
+      "settings": {
+        "flex_direction": "row",
+        "flex_wrap": "wrap",
+        "align_items": "center"
+      },
+      "elements": [
+        {
+          "id": "3e96884",
+          "elType": "container",
+          "settings": {
+            "flex_direction": "column"
+          },
+          "elements": [
+            {
+              "id": "0999ee6",
+              "elType": "widget",
+              "widgetType": "image",
+              "settings": {
+                "image": {
+                  "url": "/assets/atlas-logo.svg",
+                  "alt": "Atlas"
+                }
+              },
+              "elements": []
+            }
+          ],
+          "isInner": true
+        },
+        {
+          "id": "9866662",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "0.75",
+              "row": "0.75",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "flex_direction": "row",
+            "flex_wrap": "wrap",
+            "align_items": "center"
+          },
+          "elements": [
+            {
+              "id": "beb3804",
+              "elType": "widget",
+              "widgetType": "icon-list",
+              "settings": {
+                "icon_list": [
+                  {
+                    "text": "Product",
+                    "link": {
+                      "url": "/product"
+                    }
+                  },
+                  {
+                    "text": "Pricing",
+                    "link": {
+                      "url": "/pricing"
+                    }
+                  },
+                  {
+                    "text": "Customers",
+                    "link": {
+                      "url": "/customers"
+                    }
+                  }
+                ]
+              },
+              "elements": []
+            }
+          ],
+          "isInner": true
+        },
+        {
+          "id": "5434c6e",
+          "elType": "container",
+          "settings": {
+            "flex_gap": {
+              "column": "0.75",
+              "row": "0.75",
+              "unit": "rem",
+              "isLinked": true
+            },
+            "flex_direction": "row",
+            "flex_wrap": "wrap",
+            "align_items": "center"
+          },
+          "elements": [
+            {
+              "id": "c4cf290",
+              "elType": "widget",
+              "widgetType": "button",
+              "settings": {
+                "text": "Start free trial",
+                "link": {
+                  "url": "/signup",
+                  "is_external": "",
+                  "nofollow": ""
+                }
+              },
+              "elements": []
+            }
+          ],
+          "isInner": true
+        }
+      ],
+      "isInner": true
+    }
+  ]
+}

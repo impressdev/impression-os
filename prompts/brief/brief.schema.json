@@ -79,6 +79,38 @@
             "additionalProperties": false
           }
         },
+        "stats": {
+          "type": "array",
+          "description": "Headline metrics for a stats band.",
+          "items": {
+            "type": "object",
+            "required": ["value", "label"],
+            "properties": {
+              "value": { "type": "string" },
+              "label": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "team": {
+          "type": "array",
+          "description": "People for a team section.",
+          "items": {
+            "type": "object",
+            "required": ["name", "role"],
+            "properties": {
+              "name": { "type": "string" },
+              "role": { "type": "string" },
+              "avatar": { "$ref": "#/$defs/image" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "logos": {
+          "type": "array",
+          "description": "Customer/partner logos for a logo cloud.",
+          "items": { "$ref": "#/$defs/image" }
+        },
         "pricingTiers": {
           "type": "array",
           "items": {
