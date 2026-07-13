@@ -20,27 +20,63 @@ errors, and one obvious command for every common task.
 - **Build** — invoke the [`builder/`](../builder/) to produce an Elementor Pro kit.
 - **Ship** — package and export kits for import into WordPress.
 
-## Planned structure
+## The `impression` CLI
+
+One command, zero dependencies (Node ≥ 20). Run it from the repo root:
+
+```bash
+node tools/bin/impression.js <command>
+```
+
+| Command | Does |
+| ------- | ---- |
+| `build <plan.json> [--out <dir>] [--theme <name>]` | Compile a build plan into an Elementor Pro kit + templates. |
+| `validate` | Check every data artifact against its schema and reference integrity. |
+| `lint <plan.json>` | Run the build-plan guardrails against a plan. |
+| `list <recipes\|components\|themes>` | List what the system offers. |
+| `new <name> [--out <brief.json>]` | Scaffold a minimal, schema-valid brief. |
+| `help` | Usage. |
+
+Examples:
+
+```bash
+node tools/bin/impression.js validate
+node tools/bin/impression.js list recipes
+node tools/bin/impression.js new Acme --out acme.brief.json
+node tools/bin/impression.js build examples/northwind/plan.json --out dist --theme dark
+```
+
+## Structure
 
 ```
 tools/
-├── cli/       The Impression OS command-line interface
-└── scripts/   Focused, single-purpose utilities
+├── bin/impression.js   The CLI entry point (argument parsing + dispatch)
+└── lib/
+    ├── commands.js     One function per command
+    ├── validate.js     Data validation engine (schemas + references)
+    ├── guardrails.js   The machine-checkable build-plan guardrails
+    ├── jsonschema.js   Zero-dependency JSON Schema validator
+    └── fs.js           JSON + directory helpers
 ```
+
+`lib/` is the shared home for reusable validation logic — the
+[`tests/`](../tests/) harness imports `jsonschema.js` and `guardrails.js` from
+here, so the CLI and CI enforce exactly the same rules.
 
 ## Conventions
 
 - **One obvious command per task.** Discoverable, well-documented, boringly named.
-- **Clear failures.** Errors explain what is wrong and how to fix it.
+- **Clear failures.** Errors explain what is wrong; a non-zero exit on failure.
 - **No hidden behavior.** Tools operate on the system; they do not make design
   decisions.
 
 ## Dependencies
 
-Orchestrates the other layers (notably [`builder/`](../builder/) and
-[`tests/`](../tests/)) but owns no design decisions of its own.
+Orchestrates the other layers (notably [`builder/`](../builder/)) but owns no
+design decisions of its own.
 
 ## Status
 
-⬜ Not started — advances continuously alongside every phase. See
+✅ **Implemented** — the `impression` CLI (build, validate, lint, list, new) with
+its own test suite. Advances continuously alongside every phase. See
 [Tooling & docs](../ROADMAP.md#tooling--docs-continuous).

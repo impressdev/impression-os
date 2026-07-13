@@ -96,12 +96,13 @@ The one remaining manual step is importing a kit into a live WordPress + Element
 environment (documented, not yet automated). See the [Roadmap](ROADMAP.md) for
 what's next and [PROJECT.md](PROJECT.md) for the full vision.
 
-**Quick start:**
+**Quick start** (via the [`impression` CLI](tools/)):
 
 ```bash
-node builder/bin/impression-build.js \
-  --brief examples/northwind/plan.json --out dist --root .   # generate a kit
-node --test                                                  # run the quality harness
+node tools/bin/impression.js list recipes                       # what the system offers
+node tools/bin/impression.js validate                           # check every data artifact
+node tools/bin/impression.js build examples/northwind/plan.json --out dist   # generate a kit
+node --test                                                     # run the quality harness
 ```
 
 ## Documentation

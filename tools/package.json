@@ -1,0 +1,14 @@
+{
+  "name": "@impression-os/tools",
+  "version": "0.1.0",
+  "description": "The Impression OS CLI and developer utilities.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "bin": {
+    "impression": "bin/impression.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

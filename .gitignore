@@ -1,6 +1,7 @@
 # Build output
 dist/
 build/
+.tmp/
 
 # Dependencies (the builder is zero-dependency; this guards tooling added later)
 node_modules/

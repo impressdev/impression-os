@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { validate } from './lib/jsonschema.js';
+import { validate } from '../tools/lib/jsonschema.js';
 import { repoRoot, readJSON, listJSON } from './lib/paths.js';
 
 const root = repoRoot();

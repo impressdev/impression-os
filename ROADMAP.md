@@ -112,8 +112,8 @@ The eight phases establish the system end-to-end. Natural next investments:
 
 Advances alongside every phase, not as a separate stage.
 
-- ⬜ CLI for authoring, validating, building, and shipping.
-- ⬜ Architecture decision records in [`docs/`](docs/).
+- ◑ CLI for authoring, validating, building, and shipping — the `impression` CLI ([`tools/`](tools/)) covers build, validate, lint, list, and new; packaging/shipping still to come.
+- ✅ Architecture decision records in [`docs/decisions/`](docs/decisions/) — ADR-0001 through ADR-0008.
 - ⬜ Contribution and authoring guides.
 
 ---

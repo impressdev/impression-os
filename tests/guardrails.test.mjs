@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { repoRoot, readJSON } from './lib/paths.js';
-import { lintPlan } from './lib/guardrails.js';
+import { lintPlan } from '../tools/lib/guardrails.js';
 
 const root = repoRoot();
 
