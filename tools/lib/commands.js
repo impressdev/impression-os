@@ -1,7 +1,7 @@
 // @ts-check
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
-import { build, writeBuild } from '../../builder/src/index.js';
+import { build, writeBuild, buildSite, writeSite } from '../../builder/src/index.js';
 import { validateData } from './validate.js';
 import { lintPlan } from './guardrails.js';
 import { generateBrandTheme } from './theme.js';
@@ -25,6 +25,20 @@ export function buildCmd(root, planPath, outDir, theme) {
     sections: result.templates.map((t) => t.name),
     colors: result.kit.settings.system_colors.length + result.kit.settings.custom_colors.length,
     fonts: result.kit.settings.system_typography.length + result.kit.settings.custom_typography.length,
+    out,
+  };
+}
+
+/**
+ * Compile a multi-page site plan into one kit + per-page templates.
+ * @returns {{theme:string, pages:{path:string,slug:string,templates:number}[], out:string}}
+ */
+export function buildSiteCmd(root, sitePlanPath, outDir) {
+  const site = buildSite(root, readJSON(sitePlanPath));
+  const out = writeSite(site, outDir);
+  return {
+    theme: site.theme,
+    pages: site.pages.map((p) => ({ path: p.path, slug: p.slug, templates: p.templates.length })),
     out,
   };
 }

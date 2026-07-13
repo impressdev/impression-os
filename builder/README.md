@@ -77,6 +77,13 @@ const result = build('.', { theme: 'light', sections: [{ recipe: 'hero', content
 writeBuild(result, 'dist');
 ```
 
+## Multi-page sites
+
+`buildSite(root, sitePlan)` compiles a [site plan](../prompts/planning/site-plan.schema.json)
+into **one shared kit** plus per-page templates and metadata; `writeSite` lays it
+out as `kit.json`, a `site.json` index, and `pages/<slug>/{templates/*, page.json}`.
+Use it via `impression build-site`.
+
 ## The pipeline
 
 ```

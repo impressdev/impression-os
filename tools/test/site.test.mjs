@@ -8,7 +8,7 @@ import { dirname, resolve, join } from 'node:path';
 import { planSiteCmd } from '../lib/commands.js';
 import { lintPlan } from '../lib/guardrails.js';
 import { validate } from '../lib/jsonschema.js';
-import { build } from '../../builder/src/index.js';
+import { build, buildSite } from '../../builder/src/index.js';
 import { stableStringify } from '../../builder/src/util.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -51,4 +51,23 @@ test('pages differ by blueprint (landing is richer than minimal)', () => {
 
 test('site planning is deterministic', () => {
   assert.equal(stableStringify(planSiteCmd(root, briefPath, {}).plan), stableStringify(site));
+});
+
+test('buildSite emits one shared kit and per-page templates + metadata', () => {
+  const result = buildSite(root, site);
+  assert.ok(result.kit.settings.system_colors.length > 0, 'one kit for the site');
+  assert.equal(result.pages.length, 3);
+  for (const page of result.pages) {
+    const original = site.pages.find((p) => p.path === page.path);
+    assert.equal(page.templates.length, original.sections.length, `${page.path} template count`);
+    assert.ok(page.page.title, `${page.path} has page metadata`);
+  }
+  // slugs are unique and filesystem-safe
+  const slugs = result.pages.map((p) => p.slug);
+  assert.deepEqual(slugs, ['index', 'about', 'start']);
+  assert.equal(new Set(slugs).size, slugs.length);
+});
+
+test('site build is deterministic', () => {
+  assert.equal(stableStringify(buildSite(root, site)), stableStringify(buildSite(root, site)));
 });

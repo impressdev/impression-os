@@ -31,6 +31,7 @@ node tools/bin/impression.js <command>
 | Command | Does |
 | ------- | ---- |
 | `build <plan.json> [--out <dir>] [--theme <name>]` | Compile a build plan into an Elementor Pro kit + templates. |
+| `build-site <site.json> [--out <dir>]` | Compile a multi-page site plan into one kit + per-page templates. |
 | `validate` | Check every data artifact against its schema and reference integrity. |
 | `lint <plan.json>` | Run the build-plan guardrails against a plan. |
 | `list <recipes\|components\|themes>` | List what the system offers. |
@@ -79,6 +80,12 @@ node tools/bin/impression.js plan-site brief.json --out site.json
 ```
 
 Each page is an ordinary section list, so it lints and builds like any plan.
+Compile the whole site at once — one shared kit, one folder per page:
+
+```bash
+node tools/bin/impression.js build-site site.json --out dist
+# dist/kit.json, dist/site.json, dist/pages/<slug>/{templates/*, page.json}
+```
 
 The `theme` command **selects the accent, link, and focus steps by contrast** so
 the result is guaranteed to meet WCAG 2.1 AA, writes

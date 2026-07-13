@@ -63,3 +63,59 @@ export function writeBuild(result, outDir) {
   }
   return outDir;
 }
+
+/**
+ * @typedef {Object} SiteBuild
+ * @property {string} theme
+ * @property {any} kit
+ * @property {{path:string, slug:string, type:string|undefined, templates:{name:string,template:any}[], page:any}[]} pages
+ */
+
+/**
+ * Compile a multi-page site plan: one shared kit, one set of templates + page
+ * metadata per page. Deterministic like build().
+ * @param {string} root @param {any} sitePlan @returns {SiteBuild}
+ */
+export function buildSite(root, sitePlan) {
+  const sources = loadSources(root);
+  const theme = sitePlan.theme ?? sources.manifest.themes.default ?? 'light';
+  const tokens = resolveTheme(sources, theme);
+  const kit = buildKit(tokens, sources.grid, theme);
+
+  const pages = (sitePlan.pages ?? []).map((p) => {
+    const templates = (p.sections ?? []).map((s) => {
+      const recipe = sources.recipes[s.recipe];
+      if (!recipe) throw new Error(`Unknown recipe: "${s.recipe}"`);
+      return { name: s.recipe, template: compileRecipe(recipe, s.content ?? {}, tokens) };
+    });
+    const page = buildPage({ meta: { name: `${sitePlan.meta?.name ?? 'Site'} — ${p.path}` }, seo: p.seo, sections: p.sections });
+    return { path: p.path, slug: pageSlug(p.path), type: p.type, templates, page };
+  });
+
+  return { theme, kit, pages };
+}
+
+/**
+ * Write a site build: kit.json, a site.json index, and pages/<slug>/{templates,page.json}.
+ * @param {SiteBuild} result @param {string} outDir
+ */
+export function writeSite(result, outDir) {
+  mkdirSync(outDir, { recursive: true });
+  writeFileSync(join(outDir, 'kit.json'), JSON.stringify(result.kit, null, 2) + '\n');
+  const index = { theme: result.theme, pages: result.pages.map((p) => ({ path: p.path, slug: p.slug, type: p.type, templates: p.templates.map((t) => t.name) })) };
+  writeFileSync(join(outDir, 'site.json'), JSON.stringify(index, null, 2) + '\n');
+  for (const p of result.pages) {
+    const dir = join(outDir, 'pages', p.slug);
+    mkdirSync(join(dir, 'templates'), { recursive: true });
+    writeFileSync(join(dir, 'page.json'), JSON.stringify(p.page, null, 2) + '\n');
+    for (const t of p.templates) {
+      writeFileSync(join(dir, 'templates', `${t.name}.json`), JSON.stringify(t.template, null, 2) + '\n');
+    }
+  }
+  return outDir;
+}
+
+/** Turn a site path into a directory slug ("/" → "index", "/about" → "about"). */
+function pageSlug(path) {
+  return String(path).replace(/^\/+|\/+$/g, '').replace(/\//g, '-') || 'index';
+}
