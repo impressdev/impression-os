@@ -5,7 +5,11 @@
   "description": "Declares the token sources and the order in which they must be resolved. The builder loads sources in this order so that every {reference} resolves against an already-loaded layer. Later layers may override roles defined by earlier ones.",
   "format": "w3c-design-tokens",
   "resolution": {
-    "order": ["primitives", "semantic", "themes"],
+    "order": [
+      "primitives",
+      "semantic",
+      "themes"
+    ],
     "notes": "primitives depend on nothing. semantic references primitives. themes reference primitives and define/override semantic color roles. A theme with $extends layers onto the named base theme."
   },
   "layers": {
@@ -28,12 +32,20 @@
     "themes": [
       "themes/light.json",
       "themes/dark.json",
-      "themes/brand.example.json"
+      "themes/brand.example.json",
+      "themes/brand.teal.json",
+      "themes/brand.aurora.json"
     ]
   },
   "themes": {
     "default": "light",
-    "available": ["light", "dark", "brand.example"]
+    "available": [
+      "light",
+      "dark",
+      "brand.example",
+      "brand.teal",
+      "brand.aurora"
+    ]
   },
   "schema": "schema/token.schema.json"
 }

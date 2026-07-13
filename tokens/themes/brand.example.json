@@ -1,23 +1,34 @@
 {
-  "$description": "Example brand override. A brand theme is a DELTA applied over a base theme (light or dark) — it re-points a small number of roles, it does not restate the whole map. This example rebrands the accent from indigo to sky (info ramp) and updates the link and focus roles to match. Copy this file per client, change only the roles the brand requires.",
+  "$description": "Brand theme \"example\" — generated delta over the light theme; accent ramp \"info\". Accent and link steps chosen by contrast to meet WCAG 2.1 AA.",
   "$extends": "light",
   "color": {
     "$type": "color",
-
     "accent": {
-      "default":  { "$value": "{color.info.600}" },
-      "hover":    { "$value": "{color.info.700}" },
-      "active":   { "$value": "{color.info.800}" },
-      "subtle":   { "$value": "{color.info.50}" },
-      "onAccent": { "$value": "{color.white}" }
+      "default": {
+        "$value": "{color.info.700}"
+      },
+      "hover": {
+        "$value": "{color.info.800}"
+      },
+      "active": {
+        "$value": "{color.info.900}"
+      },
+      "subtle": {
+        "$value": "{color.info.50}"
+      },
+      "onAccent": {
+        "$value": "{color.white}"
+      }
     },
-
     "text": {
-      "link": { "$value": "{color.info.700}" }
+      "link": {
+        "$value": "{color.info.700}"
+      }
     },
-
     "border": {
-      "focus": { "$value": "{color.info.500}" }
+      "focus": {
+        "$value": "{color.info.600}"
+      }
     }
   }
 }

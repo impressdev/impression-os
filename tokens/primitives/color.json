@@ -93,6 +93,36 @@
       "800": { "$value": "#075985" },
       "900": { "$value": "#0c4a6e" },
       "950": { "$value": "#082f49" }
+    },
+
+    "teal": {
+      "$description": "Alternate brand ramp (teal). Available to brand themes.",
+      "50":  { "$value": "#f0fdfa" },
+      "100": { "$value": "#ccfbf1" },
+      "200": { "$value": "#99f6e4" },
+      "300": { "$value": "#5eead4" },
+      "400": { "$value": "#2dd4bf" },
+      "500": { "$value": "#14b8a6" },
+      "600": { "$value": "#0d9488" },
+      "700": { "$value": "#0f766e" },
+      "800": { "$value": "#115e59" },
+      "900": { "$value": "#134e4a" },
+      "950": { "$value": "#042f2e" }
+    },
+
+    "violet": {
+      "$description": "Alternate brand ramp (violet). Available to brand themes.",
+      "50":  { "$value": "#f5f3ff" },
+      "100": { "$value": "#ede9fe" },
+      "200": { "$value": "#ddd6fe" },
+      "300": { "$value": "#c4b5fd" },
+      "400": { "$value": "#a78bfa" },
+      "500": { "$value": "#8b5cf6" },
+      "600": { "$value": "#7c3aed" },
+      "700": { "$value": "#6d28d9" },
+      "800": { "$value": "#5b21b6" },
+      "900": { "$value": "#4c1d95" },
+      "950": { "$value": "#2e1065" }
     }
   }
 }

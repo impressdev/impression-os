@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { repoRoot, readJSON } from './lib/paths.js';
-import { contrastRatio } from './lib/contrast.js';
+import { contrastRatio } from '../tools/lib/contrast.js';
 import { loadSources, resolveTheme } from '../builder/src/index.js';
 
 const root = repoRoot();
@@ -10,6 +10,7 @@ const sources = loadSources(root);
 const contracts = readJSON(`${root}/foundation/accessibility/contracts.json`);
 const NORMAL = contracts.contrast.text.normal; // 4.5
 const NONTEXT = contracts.contrast.nonText;    // 3.0
+const THEMES = sources.manifest.themes.available;
 
 /** Text-on-surface pairings that must meet AA (normal text). */
 const TEXT_PAIRINGS = [
@@ -29,7 +30,7 @@ const NONTEXT_PAIRINGS = [
   ['color.border.focus', 'color.surface.page'],
 ];
 
-for (const theme of ['light', 'dark']) {
+for (const theme of THEMES) {
   test(`${theme}: text roles meet WCAG AA (${NORMAL}:1)`, () => {
     const tokens = resolveTheme(sources, theme);
     const fails = [];

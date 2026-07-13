@@ -4,6 +4,7 @@ import { dirname } from 'node:path';
 import { build, writeBuild } from '../../builder/src/index.js';
 import { validateData } from './validate.js';
 import { lintPlan } from './guardrails.js';
+import { generateBrandTheme } from './theme.js';
 import { readJSON, listJSON } from './fs.js';
 
 /**
@@ -46,7 +47,31 @@ export function listCmd(root, what) {
   return listJSON(`${root}/${dir}`)
     .filter((f) => !f.includes('/schema/'))
     .map((f) => readJSON(f))
-    .map((d) => ({ name: d.name, detail: `${d.category} — ${d.description.split('.')[0]}` }));
+    .map((d) => ({ name: d.name, detail: `${d.category} — ${d.description.split('. ')[0]}` }));
+}
+
+/**
+ * Generate a brand theme (a delta over light/dark) whose accent + link steps are
+ * chosen by contrast to meet WCAG AA, write it to tokens/themes/, and register it
+ * in the token manifest.
+ * @returns {{file:string, name:string, choices:Record<string,any>}}
+ */
+export function themeCmd(root, name, { accent, base = 'light' }) {
+  const colorDoc = readJSON(`${root}/tokens/primitives/color.json`);
+  const { theme, choices } = generateBrandTheme(colorDoc, { name, accent, base });
+
+  const fileName = name.includes('.') ? name : `brand.${name}`;
+  const rel = `themes/${fileName}.json`;
+  writeFileSync(`${root}/tokens/${rel}`, JSON.stringify(theme, null, 2) + '\n');
+
+  // Register in the manifest (sources list + available themes), idempotently.
+  const manifestPath = `${root}/tokens/manifest.json`;
+  const manifest = readJSON(manifestPath);
+  if (!manifest.layers.themes.includes(rel)) manifest.layers.themes.push(rel);
+  if (!manifest.themes.available.includes(fileName)) manifest.themes.available.push(fileName);
+  writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
+
+  return { file: `tokens/${rel}`, name: fileName, choices };
 }
 
 /** Scaffold a minimal, schema-valid brief. @returns {string} the written path */

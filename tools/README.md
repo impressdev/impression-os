@@ -35,6 +35,7 @@ node tools/bin/impression.js <command>
 | `lint <plan.json>` | Run the build-plan guardrails against a plan. |
 | `list <recipes\|components\|themes>` | List what the system offers. |
 | `new <name> [--out <brief.json>]` | Scaffold a minimal, schema-valid brief. |
+| `theme <name> --accent <ramp> [--base light\|dark]` | Generate a brand theme; accent steps chosen by contrast to meet WCAG AA. |
 | `help` | Usage. |
 
 Examples:
@@ -44,7 +45,14 @@ node tools/bin/impression.js validate
 node tools/bin/impression.js list recipes
 node tools/bin/impression.js new Acme --out acme.brief.json
 node tools/bin/impression.js build examples/northwind/plan.json --out dist --theme dark
+node tools/bin/impression.js theme acme --accent violet --base dark
 ```
+
+The `theme` command reads the primitive color ramps, **selects the accent, link,
+and focus steps by contrast** so the result is guaranteed to meet WCAG 2.1 AA,
+writes `tokens/themes/brand.<name>.json` as a delta over the base theme, and
+registers it in the token manifest. The accessibility harness then covers it like
+any other theme.
 
 ## Structure
 

@@ -1,0 +1,34 @@
+{
+  "$description": "Brand theme \"aurora\" — generated delta over the dark theme; accent ramp \"violet\". Accent and link steps chosen by contrast to meet WCAG 2.1 AA.",
+  "$extends": "dark",
+  "color": {
+    "$type": "color",
+    "accent": {
+      "default": {
+        "$value": "{color.violet.600}"
+      },
+      "hover": {
+        "$value": "{color.violet.700}"
+      },
+      "active": {
+        "$value": "{color.violet.800}"
+      },
+      "subtle": {
+        "$value": "{color.violet.950}"
+      },
+      "onAccent": {
+        "$value": "{color.white}"
+      }
+    },
+    "text": {
+      "link": {
+        "$value": "{color.violet.300}"
+      }
+    },
+    "border": {
+      "focus": {
+        "$value": "{color.violet.400}"
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // @ts-check
 import { resolve } from 'node:path';
-import { buildCmd, validateCmd, lintCmd, listCmd, newCmd } from '../lib/commands.js';
+import { buildCmd, validateCmd, lintCmd, listCmd, newCmd, themeCmd } from '../lib/commands.js';
 
 const HELP = `impression — the Impression OS CLI
 
@@ -11,6 +11,7 @@ Usage:
   impression lint <plan.json> [--root <repo>]
   impression list <recipes|components|themes> [--root <repo>]
   impression new <name> [--out <brief.json>]
+  impression theme <name> --accent <ramp> [--base light|dark] [--root <repo>]
   impression help
 
 Commands:
@@ -19,6 +20,7 @@ Commands:
   lint       Run the build-plan guardrails against a plan.
   list       List available recipes, components, or themes.
   new        Scaffold a minimal, schema-valid brief.
+  theme      Generate a brand theme (accent chosen by contrast to meet WCAG AA).
 `;
 
 function main(argv) {
@@ -60,6 +62,16 @@ function main(argv) {
       requireArg(positionals[0], 'new needs a <name>');
       const out = newCmd(positionals[0], resolve(flags.out ?? `${positionals[0]}.brief.json`));
       log(`Scaffolded brief: ${out}`);
+      break;
+    }
+    case 'theme': {
+      requireArg(positionals[0], 'theme needs a <name>');
+      requireArg(flags.accent, 'theme needs --accent <ramp> (e.g. teal, violet, brand)');
+      const r = themeCmd(root, positionals[0], { accent: flags.accent, base: flags.base ?? 'light' });
+      log(`Generated theme "${r.name}" (accent ${r.choices.accent}, base ${r.choices.base})`);
+      log(`  accent step ${r.choices.accentStep} → white label ${r.choices.accentContrast}:1 (AA)`);
+      log(`  link step   ${r.choices.linkStep} → ${r.choices.linkContrast}:1 on surface`);
+      log(`  written:    ${r.file} (+ registered in the manifest)`);
       break;
     }
     case 'help':

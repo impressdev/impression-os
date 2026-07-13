@@ -1,0 +1,34 @@
+{
+  "$description": "Brand theme \"teal\" — generated delta over the light theme; accent ramp \"teal\". Accent and link steps chosen by contrast to meet WCAG 2.1 AA.",
+  "$extends": "light",
+  "color": {
+    "$type": "color",
+    "accent": {
+      "default": {
+        "$value": "{color.teal.700}"
+      },
+      "hover": {
+        "$value": "{color.teal.800}"
+      },
+      "active": {
+        "$value": "{color.teal.900}"
+      },
+      "subtle": {
+        "$value": "{color.teal.50}"
+      },
+      "onAccent": {
+        "$value": "{color.white}"
+      }
+    },
+    "text": {
+      "link": {
+        "$value": "{color.teal.700}"
+      }
+    },
+    "border": {
+      "focus": {
+        "$value": "{color.teal.600}"
+      }
+    }
+  }
+}
