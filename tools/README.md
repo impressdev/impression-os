@@ -35,7 +35,7 @@ node tools/bin/impression.js <command>
 | `lint <plan.json>` | Run the build-plan guardrails against a plan. |
 | `list <recipes\|components\|themes>` | List what the system offers. |
 | `new <name> [--out <brief.json>]` | Scaffold a minimal, schema-valid brief. |
-| `theme <name> --accent <ramp> [--base light\|dark]` | Generate a brand theme; accent steps chosen by contrast to meet WCAG AA. |
+| `theme <name> (--accent <ramp> \| --hex <#color>) [--base light\|dark]` | Generate a brand theme; accent steps chosen by contrast to meet WCAG AA. |
 | `help` | Usage. |
 
 Examples:
@@ -46,13 +46,21 @@ node tools/bin/impression.js list recipes
 node tools/bin/impression.js new Acme --out acme.brief.json
 node tools/bin/impression.js build examples/northwind/plan.json --out dist --theme dark
 node tools/bin/impression.js theme acme --accent violet --base dark
+node tools/bin/impression.js theme sunset --hex "#ff5a1f"
 ```
 
-The `theme` command reads the primitive color ramps, **selects the accent, link,
-and focus steps by contrast** so the result is guaranteed to meet WCAG 2.1 AA,
-writes `tokens/themes/brand.<name>.json` as a delta over the base theme, and
-registers it in the token manifest. The accessibility harness then covers it like
-any other theme.
+The `theme` command **selects the accent, link, and focus steps by contrast** so
+the result is guaranteed to meet WCAG 2.1 AA, writes
+`tokens/themes/brand.<name>.json` as a delta over the base theme, and registers it
+in the token manifest. The accessibility harness then covers it like any other
+theme.
+
+- `--accent <ramp>` themes against an existing primitive ramp (brand, teal,
+  violet, info, …).
+- `--hex <#color>` **synthesizes a full 50–950 ramp from one brand color**, stores
+  it as a primitive in `tokens/primitives/brand-ramps.json`, and themes against it
+  — still held to the same AA contract (it throws if no step can satisfy it). See
+  [ADR-0009](../docs/decisions/0009-contrast-driven-brand-themes.md).
 
 ## Structure
 

@@ -1,0 +1,42 @@
+{
+  "$description": "Brand ramps synthesized from a seed hex by `impression theme --hex`. Generated — do not hand-edit.",
+  "color": {
+    "$type": "color",
+    "sunset": {
+      "50": {
+        "$value": "#fdf4f1"
+      },
+      "100": {
+        "$value": "#fce6de"
+      },
+      "200": {
+        "$value": "#fbccbb"
+      },
+      "300": {
+        "$value": "#fca688"
+      },
+      "400": {
+        "$value": "#ff7f52"
+      },
+      "500": {
+        "$value": "#ff5a1f"
+      },
+      "600": {
+        "$value": "#f54000"
+      },
+      "700": {
+        "$value": "#cc3600"
+      },
+      "800": {
+        "$value": "#a32b00"
+      },
+      "900": {
+        "$value": "#802200"
+      },
+      "950": {
+        "$value": "#521500"
+      },
+      "$description": "Synthesized from #ff5a1f."
+    }
+  }
+}

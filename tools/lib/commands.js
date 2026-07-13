@@ -5,7 +5,9 @@ import { build, writeBuild } from '../../builder/src/index.js';
 import { validateData } from './validate.js';
 import { lintPlan } from './guardrails.js';
 import { generateBrandTheme } from './theme.js';
+import { synthesizeRamp } from './ramp.js';
 import { readJSON, listJSON } from './fs.js';
+import { existsSync } from 'node:fs';
 
 /**
  * Compile a build plan into a kit + templates.
@@ -56,8 +58,19 @@ export function listCmd(root, what) {
  * in the token manifest.
  * @returns {{file:string, name:string, choices:Record<string,any>}}
  */
-export function themeCmd(root, name, { accent, base = 'light' }) {
-  const colorDoc = readJSON(`${root}/tokens/primitives/color.json`);
+export function themeCmd(root, name, { accent, base = 'light', hex }) {
+  let colorDoc;
+  if (hex) {
+    // Synthesize a ramp from the brand hex, store it as a primitive (in its own
+    // file so color.json stays hand-authored), and theme against it.
+    accent = slug(name);
+    const ramp = synthesizeRamp(hex);
+    addSynthesizedRamp(root, accent, hex, ramp);
+    colorDoc = { color: { [accent]: toDTCG(ramp) } };
+  } else {
+    if (!accent) throw new Error('theme needs --accent <ramp> or --hex <#color>');
+    colorDoc = readJSON(`${root}/tokens/primitives/color.json`);
+  }
   const { theme, choices } = generateBrandTheme(colorDoc, { name, accent, base });
 
   const fileName = name.includes('.') ? name : `brand.${name}`;
@@ -72,6 +85,36 @@ export function themeCmd(root, name, { accent, base = 'light' }) {
   writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
 
   return { file: `tokens/${rel}`, name: fileName, choices };
+}
+
+const SYNTH_RAMPS = 'primitives/brand-ramps.json';
+
+/** Store a synthesized ramp in the dedicated brand-ramps primitive file + manifest. */
+function addSynthesizedRamp(root, name, seedHex, ramp) {
+  const path = `${root}/tokens/${SYNTH_RAMPS}`;
+  const doc = existsSync(path)
+    ? readJSON(path)
+    : { $description: 'Brand ramps synthesized from a seed hex by `impression theme --hex`. Generated — do not hand-edit.', color: { $type: 'color' } };
+  doc.color[name] = { $description: `Synthesized from ${seedHex}.`, ...toDTCG(ramp) };
+  writeFileSync(path, JSON.stringify(doc, null, 2) + '\n');
+
+  const manifestPath = `${root}/tokens/manifest.json`;
+  const manifest = readJSON(manifestPath);
+  if (!manifest.layers.primitives.includes(SYNTH_RAMPS)) {
+    manifest.layers.primitives.push(SYNTH_RAMPS);
+    writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
+  }
+}
+
+/** Map { step: "#hex" } → { step: { $value: "#hex" } }. */
+function toDTCG(ramp) {
+  const out = {};
+  for (const [step, value] of Object.entries(ramp)) out[step] = { $value: value };
+  return out;
+}
+
+function slug(s) {
+  return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'brand';
 }
 
 /** Scaffold a minimal, schema-valid brief. @returns {string} the written path */

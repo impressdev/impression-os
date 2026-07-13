@@ -1,0 +1,34 @@
+{
+  "$description": "Brand theme \"sunset\" — generated delta over the light theme; accent ramp \"sunset\". Accent and link steps chosen by contrast to meet WCAG 2.1 AA.",
+  "$extends": "light",
+  "color": {
+    "$type": "color",
+    "accent": {
+      "default": {
+        "$value": "{color.sunset.700}"
+      },
+      "hover": {
+        "$value": "{color.sunset.800}"
+      },
+      "active": {
+        "$value": "{color.sunset.900}"
+      },
+      "subtle": {
+        "$value": "{color.sunset.50}"
+      },
+      "onAccent": {
+        "$value": "{color.white}"
+      }
+    },
+    "text": {
+      "link": {
+        "$value": "{color.sunset.700}"
+      }
+    },
+    "border": {
+      "focus": {
+        "$value": "{color.sunset.500}"
+      }
+    }
+  }
+}

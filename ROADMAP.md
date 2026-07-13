@@ -104,9 +104,9 @@ The eight phases establish the system end-to-end. Natural next investments:
 - **More recipes and components** (navbars with dropdowns, logo clouds, stats,
   contact forms) and additional **blueprints**.
 - **Brand theming at scale** — ✅ `impression theme` generates per-client brand
-  themes with accent steps chosen by contrast to meet AA ([ADR-0009](docs/decisions/0009-contrast-driven-brand-themes.md));
-  next: synthesise ramps from an arbitrary brand hex, and richer dark-mode
-  packaging (the open questions in the
+  themes with accent steps chosen by contrast to meet AA, including **ramp
+  synthesis from a single brand hex** ([ADR-0009](docs/decisions/0009-contrast-driven-brand-themes.md));
+  next: richer dark-mode packaging (the open questions in the
   [token → Elementor mapping](docs/architecture/token-to-elementor-mapping.md)).
 - A first-class **CLI** in [`tools/`](tools/) wrapping the builder and the harness.
 

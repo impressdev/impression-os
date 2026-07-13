@@ -57,5 +57,17 @@ generator real choices, alongside the existing ramps.
 - Synthesise ramps from a single brand color, gated by the same contrast contract.
 - Let the brief's `brand.accent` wording map to a ramp automatically in the planner.
 
+## Update (ramp synthesis from a brand hex)
+
+The follow-up landed: `impression theme --hex <#color>` now **synthesizes a full
+50–950 ramp from a single brand color** — keeping the seed hue and a scaled
+saturation, imposing the same lightness curve as the vetted ramps. The synthesized
+ramp is written as a *primitive* (in `tokens/primitives/brand-ramps.json`, so
+hand-authored `color.json` stays pristine) and the theme references it — preserving
+the "no literals above the primitive layer" rule. The **same contrast gate applies
+unchanged**: the generator picks accent/link/focus steps that meet AA and throws
+if the synthesized ramp cannot. A client can now supply one color and get an
+accessible, tokenized brand theme.
+
 Builds on ADR-0001 (token format) and ADR-0007 (the harness that made the defect
 visible).

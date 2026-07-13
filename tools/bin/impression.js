@@ -11,7 +11,7 @@ Usage:
   impression lint <plan.json> [--root <repo>]
   impression list <recipes|components|themes> [--root <repo>]
   impression new <name> [--out <brief.json>]
-  impression theme <name> --accent <ramp> [--base light|dark] [--root <repo>]
+  impression theme <name> (--accent <ramp> | --hex <#color>) [--base light|dark] [--root <repo>]
   impression help
 
 Commands:
@@ -66,8 +66,8 @@ function main(argv) {
     }
     case 'theme': {
       requireArg(positionals[0], 'theme needs a <name>');
-      requireArg(flags.accent, 'theme needs --accent <ramp> (e.g. teal, violet, brand)');
-      const r = themeCmd(root, positionals[0], { accent: flags.accent, base: flags.base ?? 'light' });
+      if (!flags.accent && !flags.hex) fail('theme needs --accent <ramp> or --hex <#color>');
+      const r = themeCmd(root, positionals[0], { accent: flags.accent, hex: flags.hex, base: flags.base ?? 'light' });
       log(`Generated theme "${r.name}" (accent ${r.choices.accent}, base ${r.choices.base})`);
       log(`  accent step ${r.choices.accentStep} → white label ${r.choices.accentContrast}:1 (AA)`);
       log(`  link step   ${r.choices.linkStep} → ${r.choices.linkContrast}:1 on surface`);

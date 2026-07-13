@@ -20,7 +20,8 @@
       "primitives/radius.json",
       "primitives/shadow.json",
       "primitives/breakpoint.json",
-      "primitives/z-index.json"
+      "primitives/z-index.json",
+      "primitives/brand-ramps.json"
     ],
     "semantic": [
       "semantic/typography.json",
@@ -34,7 +35,8 @@
       "themes/dark.json",
       "themes/brand.example.json",
       "themes/brand.teal.json",
-      "themes/brand.aurora.json"
+      "themes/brand.aurora.json",
+      "themes/brand.sunset.json"
     ]
   },
   "themes": {
@@ -44,7 +46,8 @@
       "dark",
       "brand.example",
       "brand.teal",
-      "brand.aurora"
+      "brand.aurora",
+      "brand.sunset"
     ]
   },
   "schema": "schema/token.schema.json"
