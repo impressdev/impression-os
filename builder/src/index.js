@@ -9,6 +9,7 @@ import { buildPage } from './page.js';
 
 export { loadSources } from './load.js';
 export { resolveTheme } from './resolve.js';
+export { renderPage } from './html.js';
 
 /**
  * @typedef {Object} Brief

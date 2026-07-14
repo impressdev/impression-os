@@ -32,6 +32,7 @@ node tools/bin/impression.js <command>
 | ------- | ---- |
 | `build <plan.json> [--out <dir>] [--theme <name>]` | Compile a build plan into an Elementor Pro kit + templates. |
 | `build-site <site.json> [--out <dir>]` | Compile a multi-page site plan into one kit + per-page templates. |
+| `preview <plan.json> [--out <dir>]` | Render a plan to a self-contained HTML preview (no WordPress). |
 | `validate` | Check every data artifact against its schema and reference integrity. |
 | `lint <plan.json>` | Run the build-plan guardrails against a plan. |
 | `list <recipes\|components\|themes>` | List what the system offers. |
@@ -49,6 +50,7 @@ node tools/bin/impression.js validate
 node tools/bin/impression.js list recipes
 node tools/bin/impression.js new Acme --out acme.brief.json
 node tools/bin/impression.js build examples/northwind/plan.json --out dist --theme dark
+node tools/bin/impression.js preview examples/northwind/plan.json --out preview  # → preview/index.html
 node tools/bin/impression.js theme acme --accent violet --base dark
 node tools/bin/impression.js theme sunset --hex "#ff5a1f"
 node tools/bin/impression.js plan brief.json --out plan.json    # brief → plan, no LLM

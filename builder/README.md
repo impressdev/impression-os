@@ -91,11 +91,20 @@ distinct, SEO-friendly title, a `canonical` path, a `robots` directive
 `impression build-site`, which also warns about **orphan pages** (generated but
 not linked from any nav, footer, or CTA).
 
+## HTML preview
+
+`renderPage(kit, templates, page)` ([`html.js`](src/html.js)) renders a compiled
+plan into a **single self-contained HTML page** — tokens become CSS custom
+properties and base styles, and the element tree is emitted as semantic HTML. It
+lets you *see* the generated site with no WordPress. Use it via `impression
+preview`. This is an approximate preview, not the production Elementor output.
+
 ## The pipeline
 
 ```
 brief ─▶ load ─▶ resolve(theme) ─▶ ┌ kit.js       → kit.json (globals)
-                                   └ template.js  → templates/*.json
+                                   ├ template.js  → templates/*.json
+                                   └ html.js      → preview/index.html
 ```
 
 ## Conventions

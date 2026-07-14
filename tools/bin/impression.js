@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 // @ts-check
 import { resolve } from 'node:path';
-import { buildCmd, buildSiteCmd, validateCmd, lintCmd, listCmd, newCmd, themeCmd, resolveThemeCmd, planCmd, planSiteCmd } from '../lib/commands.js';
+import { buildCmd, buildSiteCmd, previewCmd, validateCmd, lintCmd, listCmd, newCmd, themeCmd, resolveThemeCmd, planCmd, planSiteCmd } from '../lib/commands.js';
 
 const HELP = `impression — the Impression OS CLI
 
 Usage:
   impression build <plan.json> [--out <dir>] [--theme <name>] [--root <repo>]
   impression build-site <site.json> [--out <dir>] [--root <repo>]
+  impression preview <plan.json> [--out <dir>] [--root <repo>]
   impression validate [--root <repo>]
   impression lint <plan.json> [--root <repo>]
   impression list <recipes|components|themes> [--root <repo>]
@@ -21,6 +22,7 @@ Usage:
 Commands:
   build          Compile a build plan into an Elementor Pro kit + templates.
   build-site     Compile a multi-page site plan into one kit + per-page templates.
+  preview        Render a build plan to a self-contained HTML preview (no WordPress).
   validate       Check every data artifact against its schema and reference integrity.
   lint           Run the build-plan guardrails against a plan.
   list           List available recipes, components, or themes.
@@ -52,6 +54,12 @@ function main(argv) {
       for (const p of r.pages) log(`  ${p.path.padEnd(10)} ${p.slug.padEnd(10)} ${p.templates} templates`);
       for (const w of r.warnings) log(`  ⚠ ${w.rule}: ${w.message}`);
       log(`  written: ${r.out} (+ sitemap.json, sitemap.xml)`);
+      break;
+    }
+    case 'preview': {
+      requireArg(positionals[0], 'preview needs a <plan.json>');
+      const r = previewCmd(root, resolve(positionals[0]), resolve(flags.out ?? 'preview'));
+      log(`Rendered ${r.sections} sections → ${r.out}`);
       break;
     }
     case 'validate': {

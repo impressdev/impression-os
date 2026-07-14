@@ -1,7 +1,7 @@
 // @ts-check
 import { writeFileSync, mkdirSync } from 'node:fs';
-import { dirname } from 'node:path';
-import { build, writeBuild, buildSite, writeSite } from '../../builder/src/index.js';
+import { dirname, join } from 'node:path';
+import { build, writeBuild, buildSite, writeSite, renderPage } from '../../builder/src/index.js';
 import { validateData } from './validate.js';
 import { lintPlan } from './guardrails.js';
 import { generateBrandTheme } from './theme.js';
@@ -44,6 +44,18 @@ export function buildSiteCmd(root, sitePlanPath, outDir) {
     warnings: checkInternalLinks(sitePlan),
     out,
   };
+}
+
+/**
+ * Render a build plan to a self-contained HTML preview (no WordPress needed).
+ * @returns {{out:string, sections:number}}
+ */
+export function previewCmd(root, planPath, outDir) {
+  const { kit, templates, page } = build(root, readJSON(planPath));
+  mkdirSync(outDir, { recursive: true });
+  const html = renderPage(kit, templates, page ?? {});
+  writeFileSync(join(outDir, 'index.html'), html);
+  return { out: join(outDir, 'index.html'), sections: templates.length };
 }
 
 /** Validate every data artifact (schemas + references). @returns {string[]} errors */
