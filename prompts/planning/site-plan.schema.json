@@ -28,6 +28,7 @@
         "properties": {
           "path": { "type": "string", "description": "Site-relative path, e.g. \"/\" or \"/about\"." },
           "type": { "type": "string", "description": "The blueprint archetype this page was expanded from." },
+          "noindex": { "type": "boolean", "description": "When true, the page emits meta-robots noindex and is disallowed in robots.txt." },
           "seo": {
             "type": "object",
             "properties": {

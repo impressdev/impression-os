@@ -9,7 +9,7 @@ import { planSiteCmd } from '../lib/commands.js';
 import { checkInternalLinks } from '../lib/links.js';
 import { lintPlan } from '../lib/guardrails.js';
 import { validate } from '../lib/jsonschema.js';
-import { build, buildSite } from '../../builder/src/index.js';
+import { build, buildSite, writeSite } from '../../builder/src/index.js';
 import { stableStringify } from '../../builder/src/util.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -78,6 +78,27 @@ test('buildSite emits a sitemap with one entry per page', () => {
   assert.equal(result.sitemap.length, result.pages.length);
   assert.deepEqual(result.sitemap.map((s) => s.path), site.pages.map((p) => p.path));
   for (const entry of result.sitemap) assert.ok(entry.title && entry.slug, 'sitemap entry has title + slug');
+});
+
+test('each page carries a canonical path and default index robots', () => {
+  const result = buildSite(root, site);
+  for (const page of result.pages) {
+    assert.equal(page.page.canonical, page.path);
+    assert.equal(page.page.robots, 'index, follow');
+  }
+});
+
+test('a noindex page emits meta-robots noindex and a robots.txt Disallow', () => {
+  const withNoindex = { ...site, pages: [...site.pages, { path: '/thanks', type: 'minimal', noindex: true, sections: site.pages[0].sections }] };
+  const result = buildSite(root, withNoindex);
+  const thanks = result.pages.find((p) => p.path === '/thanks');
+  assert.equal(thanks.page.robots, 'noindex, nofollow');
+
+  const dir = mkdtempSync(join(tmpdir(), 'ios-robots-'));
+  writeSite(result, dir);
+  const robots = readFileSync(join(dir, 'robots.txt'), 'utf8');
+  assert.match(robots, /Sitemap: \/sitemap\.xml/);
+  assert.match(robots, /Disallow: \/thanks/);
 });
 
 test('internal-link check flags orphan pages but not linked ones', () => {

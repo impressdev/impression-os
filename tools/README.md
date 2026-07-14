@@ -84,9 +84,13 @@ Compile the whole site at once — one shared kit, one folder per page:
 
 ```bash
 node tools/bin/impression.js build-site site.json --out dist
-# dist/kit.json, dist/site.json, dist/sitemap.{json,xml},
+# dist/kit.json, dist/site.json, dist/sitemap.{json,xml}, dist/robots.txt,
 # dist/pages/<slug>/{templates/*, page.json}
 ```
+
+Each page's `page.json` carries a `canonical` path and a `robots` directive; mark a
+page `"noindex": true` in the site plan to keep it out of search (meta-robots +
+`robots.txt` Disallow).
 
 `build-site` also generates a **sitemap** and warns about **orphan pages** — pages
 it built that aren't linked from any nav, footer, or CTA, so a visitor couldn't

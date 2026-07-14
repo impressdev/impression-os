@@ -90,7 +90,11 @@ export function buildSite(root, sitePlan) {
       if (!recipe) throw new Error(`Unknown recipe: "${s.recipe}"`);
       return { name: s.recipe, template: compileRecipe(recipe, s.content ?? {}, tokens) };
     });
-    const page = buildPage({ meta: { name: pageTitle(siteName, p) }, seo: p.seo, sections: p.sections });
+    const page = {
+      ...buildPage({ meta: { name: pageTitle(siteName, p) }, seo: p.seo, sections: p.sections }),
+      canonical: p.path,
+      robots: p.noindex ? 'noindex, nofollow' : 'index, follow',
+    };
     return { path: p.path, slug: pageSlug(p.path), type: p.type, templates, page };
   });
 
@@ -109,6 +113,7 @@ export function writeSite(result, outDir) {
   writeFileSync(join(outDir, 'site.json'), JSON.stringify(index, null, 2) + '\n');
   writeFileSync(join(outDir, 'sitemap.json'), JSON.stringify(result.sitemap, null, 2) + '\n');
   writeFileSync(join(outDir, 'sitemap.xml'), sitemapXml(result.sitemap));
+  writeFileSync(join(outDir, 'robots.txt'), robotsTxt(result));
   for (const p of result.pages) {
     const dir = join(outDir, 'pages', p.slug);
     mkdirSync(join(dir, 'templates'), { recursive: true });
@@ -149,4 +154,14 @@ function pageSlug(path) {
 function sitemapXml(sitemap) {
   const urls = sitemap.map((p) => `  <url><loc>${p.path}</loc></url>`).join('\n');
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+}
+
+/** A robots.txt that allows crawling, disallows any noindex page, and points at the sitemap. */
+function robotsTxt(result) {
+  const lines = ['User-agent: *', 'Allow: /'];
+  for (const p of result.pages) {
+    if (String(p.page.robots).startsWith('noindex')) lines.push(`Disallow: ${p.path}`);
+  }
+  lines.push('', 'Sitemap: /sitemap.xml', '');
+  return lines.join('\n');
 }

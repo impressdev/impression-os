@@ -28,7 +28,8 @@ atlas/
 │   ├── site.json        Page index (path → slug → templates)
 │   ├── sitemap.json     Pages (path, slug, title)
 │   ├── sitemap.xml      Standard sitemap (path-relative locs)
-│   └── pages/
+│   ├── robots.txt       Crawl rules + sitemap pointer
+│   └── pages/           (each page.json has canonical + robots)
 │       ├── index/       templates/* + page.json   (landing)
 │       └── about/       templates/* + page.json   (about)
 └── provenance.json      Checksum over the whole site build
