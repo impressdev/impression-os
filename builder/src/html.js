@@ -87,6 +87,9 @@ p { margin: 0 0 1em; max-width: 65ch; }
 .badge { display: inline-block; padding: 4px 10px; border-radius: 999px; background: var(--color-surface-raised, #eee); color: var(--color-text-muted, #555); font-size: 12px; font-weight: 600; letter-spacing: .03em; }
 .list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
 .list li::before { content: "✓ "; color: var(--color-accent); font-weight: 700; }
+.nav { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 18px; }
+.nav a { text-decoration: none; color: var(--color-text); font-weight: 500; }
+.nav a:hover { color: var(--color-accent); }
 .prose { color: var(--color-text-muted, inherit); }
 .field { display: grid; gap: 6px; margin-bottom: 14px; }
 input, textarea { padding: 10px 12px; border: 1px solid var(--color-border, #ccc); border-radius: 8px; font: inherit; background: var(--color-surface); color: var(--color-text); }
@@ -147,8 +150,14 @@ function renderWidget(node) {
       return `<img src="${esc(s.image?.url ?? '')}" alt="${esc(s.image?.alt ?? '')}">`;
     case 'icon':
       return `<span class="badge" aria-hidden="true">◆</span>`;
-    case 'icon-list':
-      return `<ul class="list">${(s.icon_list ?? []).map((i) => `<li>${esc(i.text ?? '')}</li>`).join('')}</ul>`;
+    case 'icon-list': {
+      const items = s.icon_list ?? [];
+      // Items with links are navigation; without links they are a feature list.
+      if (items.some((i) => i.link)) {
+        return `<ul class="nav">${items.map((i) => `<li><a href="${esc(i.link?.url ?? '#')}">${esc(i.text ?? '')}</a></li>`).join('')}</ul>`;
+      }
+      return `<ul class="list">${items.map((i) => `<li>${esc(i.text ?? '')}</li>`).join('')}</ul>`;
+    }
     case 'form': {
       const fields = (s.form_fields ?? []).map((f) => {
         const ctrl = f.field_type === 'textarea'

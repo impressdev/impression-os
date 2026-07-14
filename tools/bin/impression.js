@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // @ts-check
 import { resolve } from 'node:path';
-import { buildCmd, buildSiteCmd, previewCmd, validateCmd, lintCmd, listCmd, newCmd, themeCmd, resolveThemeCmd, planCmd, planSiteCmd } from '../lib/commands.js';
+import { buildCmd, buildSiteCmd, previewCmd, previewSiteCmd, validateCmd, lintCmd, listCmd, newCmd, themeCmd, resolveThemeCmd, planCmd, planSiteCmd } from '../lib/commands.js';
 
 const HELP = `impression — the Impression OS CLI
 
@@ -9,6 +9,7 @@ Usage:
   impression build <plan.json> [--out <dir>] [--theme <name>] [--root <repo>]
   impression build-site <site.json> [--out <dir>] [--root <repo>]
   impression preview <plan.json> [--out <dir>] [--root <repo>]
+  impression preview-site <site.json> [--out <dir>] [--root <repo>]
   impression validate [--root <repo>]
   impression lint <plan.json> [--root <repo>]
   impression list <recipes|components|themes> [--root <repo>]
@@ -23,6 +24,7 @@ Commands:
   build          Compile a build plan into an Elementor Pro kit + templates.
   build-site     Compile a multi-page site plan into one kit + per-page templates.
   preview        Render a build plan to a self-contained HTML preview (no WordPress).
+  preview-site   Render a multi-page site plan to linked HTML preview pages.
   validate       Check every data artifact against its schema and reference integrity.
   lint           Run the build-plan guardrails against a plan.
   list           List available recipes, components, or themes.
@@ -60,6 +62,13 @@ function main(argv) {
       requireArg(positionals[0], 'preview needs a <plan.json>');
       const r = previewCmd(root, resolve(positionals[0]), resolve(flags.out ?? 'preview'));
       log(`Rendered ${r.sections} sections → ${r.out}`);
+      break;
+    }
+    case 'preview-site': {
+      requireArg(positionals[0], 'preview-site needs a <site.json>');
+      const r = previewSiteCmd(root, resolve(positionals[0]), resolve(flags.out ?? 'preview'));
+      log(`Rendered ${r.pages.length} pages → ${r.out}`);
+      for (const f of r.pages) log(`  ${f}`);
       break;
     }
     case 'validate': {

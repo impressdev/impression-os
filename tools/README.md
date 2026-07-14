@@ -33,6 +33,7 @@ node tools/bin/impression.js <command>
 | `build <plan.json> [--out <dir>] [--theme <name>]` | Compile a build plan into an Elementor Pro kit + templates. |
 | `build-site <site.json> [--out <dir>]` | Compile a multi-page site plan into one kit + per-page templates. |
 | `preview <plan.json> [--out <dir>]` | Render a plan to a self-contained HTML preview (no WordPress). |
+| `preview-site <site.json> [--out <dir>]` | Render a multi-page site plan to linked HTML preview pages. |
 | `validate` | Check every data artifact against its schema and reference integrity. |
 | `lint <plan.json>` | Run the build-plan guardrails against a plan. |
 | `list <recipes\|components\|themes>` | List what the system offers. |

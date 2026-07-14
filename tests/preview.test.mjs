@@ -1,8 +1,12 @@
 // @ts-check
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync, readdirSync, mkdtempSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { repoRoot, readJSON } from './lib/paths.js';
 import { build, renderPage } from '../builder/src/index.js';
+import { previewSiteCmd } from '../tools/lib/commands.js';
 
 const root = repoRoot();
 
@@ -38,4 +42,16 @@ test('preview output is deterministic', () => {
   const a = previewFor(`${root}/examples/lumen/plan.json`);
   const b = previewFor(`${root}/examples/lumen/plan.json`);
   assert.equal(a, b);
+});
+
+test('preview-site renders one linked HTML page per site page', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'ios-preview-'));
+  const r = previewSiteCmd(root, `${root}/examples/atlas/site.json`, dir);
+  assert.deepEqual(r.pages.sort(), ['about.html', 'index.html']);
+  const files = readdirSync(dir).sort();
+  assert.deepEqual(files, ['about.html', 'index.html']);
+  // the footer links /about → the internal link is rewritten to the preview file
+  const home = readFileSync(join(dir, 'index.html'), 'utf8');
+  assert.match(home, /href="about\.html"/);
+  assert.ok(!home.includes('href="/about"'), 'no unrewritten internal link to a generated page');
 });

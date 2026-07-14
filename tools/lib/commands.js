@@ -58,6 +58,28 @@ export function previewCmd(root, planPath, outDir) {
   return { out: join(outDir, 'index.html'), sections: templates.length };
 }
 
+/**
+ * Render a multi-page site plan to a set of linked HTML preview pages. Internal
+ * links that point at a generated page are rewritten to the preview file, so
+ * navigation works when you open it locally.
+ * @returns {{out:string, pages:string[]}}
+ */
+export function previewSiteCmd(root, sitePlanPath, outDir) {
+  const site = buildSite(root, readJSON(sitePlanPath));
+  mkdirSync(outDir, { recursive: true });
+  const fileFor = (p) => `${p.slug}.html`;
+  const map = Object.fromEntries(site.pages.map((p) => [p.path, fileFor(p)]));
+
+  for (const p of site.pages) {
+    let html = renderPage(site.kit, p.templates, p.page);
+    for (const [path, file] of Object.entries(map)) {
+      html = html.split(`href="${path}"`).join(`href="${file}"`);
+    }
+    writeFileSync(join(outDir, fileFor(p)), html);
+  }
+  return { out: outDir, pages: site.pages.map(fileFor) };
+}
+
 /** Validate every data artifact (schemas + references). @returns {string[]} errors */
 export function validateCmd(root) {
   return validateData(root);
