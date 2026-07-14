@@ -7,5 +7,21 @@
     "image": "/assets/atlas-search.png"
   },
   "canonical": "/",
-  "robots": "index, follow"
+  "robots": "index, follow",
+  "structuredData": [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Atlas",
+      "description": "Atlas keeps every answer in one place, so support agents resolve tickets in minutes and customers help themselves.",
+      "logo": "/assets/atlas-logo.svg"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Atlas — Every answer, one search away",
+      "description": "Atlas turns your scattered docs and past tickets into one searchable source of truth — so agents resolve faster and customers self-serve.",
+      "url": "/"
+    }
+  ]
 }

@@ -18,6 +18,17 @@
       "type": "string",
       "description": "A theme name that exists in tokens/manifest.json. Shared across every page."
     },
+    "organization": {
+      "type": "object",
+      "description": "Site-wide organization details, used to emit schema.org Organization structured data.",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "logo": { "type": "string" },
+        "url": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
     "pages": {
       "type": "array",
       "minItems": 1,

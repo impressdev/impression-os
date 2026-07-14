@@ -90,10 +90,12 @@ export function buildSite(root, sitePlan) {
       if (!recipe) throw new Error(`Unknown recipe: "${s.recipe}"`);
       return { name: s.recipe, template: compileRecipe(recipe, s.content ?? {}, tokens) };
     });
+    const meta = buildPage({ meta: { name: pageTitle(siteName, p) }, seo: p.seo, sections: p.sections });
     const page = {
-      ...buildPage({ meta: { name: pageTitle(siteName, p) }, seo: p.seo, sections: p.sections }),
+      ...meta,
       canonical: p.path,
       robots: p.noindex ? 'noindex, nofollow' : 'index, follow',
+      structuredData: structuredData(sitePlan, p, meta),
     };
     return { path: p.path, slug: pageSlug(p.path), type: p.type, templates, page };
   });
@@ -154,6 +156,32 @@ function pageSlug(path) {
 function sitemapXml(sitemap) {
   const urls = sitemap.map((p) => `  <url><loc>${p.path}</loc></url>`).join('\n');
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+}
+
+/**
+ * schema.org JSON-LD for a page: a WebPage on every page, plus an Organization on
+ * the home page when the site plan supplies organization details. Consumers inject
+ * these as <script type="application/ld+json"> in the page head.
+ */
+function structuredData(sitePlan, page, meta) {
+  const CTX = 'https://schema.org';
+  const out = [];
+  const org = sitePlan.organization;
+  if (org && (page.path === '/' || page.path == null)) {
+    out.push(clean({
+      '@context': CTX, '@type': 'Organization',
+      name: org.name, description: org.description, logo: org.logo, url: org.url,
+    }));
+  }
+  out.push(clean({
+    '@context': CTX, '@type': 'WebPage',
+    name: meta.title, description: meta.description, url: page.path,
+  }));
+  return out;
+}
+
+function clean(o) {
+  return Object.fromEntries(Object.entries(o).filter(([, v]) => v != null && v !== ''));
 }
 
 /** A robots.txt that allows crawling, disallows any noindex page, and points at the sitemap. */

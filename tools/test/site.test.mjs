@@ -80,6 +80,20 @@ test('buildSite emits a sitemap with one entry per page', () => {
   for (const entry of result.sitemap) assert.ok(entry.title && entry.slug, 'sitemap entry has title + slug');
 });
 
+test('pages carry schema.org JSON-LD (Organization on home, WebPage everywhere)', () => {
+  const withOrg = { ...site, organization: { name: 'Acme', description: 'We do things.', logo: '/logo.svg' } };
+  const result = buildSite(root, withOrg);
+  const home = result.pages.find((p) => p.path === '/');
+  const inner = result.pages.find((p) => p.path !== '/');
+  const types = (p) => p.page.structuredData.map((d) => d['@type']);
+  assert.deepEqual(types(home), ['Organization', 'WebPage']);
+  assert.deepEqual(types(inner), ['WebPage']);
+  const org = home.page.structuredData[0];
+  assert.equal(org['@context'], 'https://schema.org');
+  assert.equal(org.name, 'Acme');
+  assert.equal(home.page.structuredData[1].url, '/');
+});
+
 test('each page carries a canonical path and default index robots', () => {
   const result = buildSite(root, site);
   for (const page of result.pages) {

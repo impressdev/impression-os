@@ -34,7 +34,18 @@ export function planSiteFromBrief(brief, ctx) {
     type: p.type ?? 'landing',
     sections: expandSections(p.type ?? 'landing', brief, ctx),
   }));
-  return { meta: { name: brief?.business?.name ?? 'Site' }, theme: ctx.theme, pages };
+  const biz = brief?.business ?? {};
+  const organization = defineOnly({ name: biz.name, description: biz.description, logo: brief?.brand?.logo });
+  return {
+    meta: { name: biz.name ?? 'Site' },
+    theme: ctx.theme,
+    ...(Object.keys(organization).length ? { organization } : {}),
+    pages,
+  };
+}
+
+function defineOnly(o) {
+  return Object.fromEntries(Object.entries(o).filter(([, v]) => v != null));
 }
 
 /** Expand one blueprint into sections, dropping those the brief can't fill. */

@@ -3,6 +3,11 @@
     "name": "Atlas"
   },
   "theme": "dark",
+  "organization": {
+    "name": "Atlas",
+    "description": "Atlas keeps every answer in one place, so support agents resolve tickets in minutes and customers help themselves.",
+    "logo": "/assets/atlas-logo.svg"
+  },
   "pages": [
     {
       "path": "/",
