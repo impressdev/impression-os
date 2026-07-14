@@ -8,6 +8,7 @@ import { generateBrandTheme } from './theme.js';
 import { synthesizeRamp } from './ramp.js';
 import { resolveTheme } from './accent.js';
 import { planFromBrief, planSiteFromBrief } from './plan.js';
+import { checkInternalLinks } from './links.js';
 import { readJSON, listJSON } from './fs.js';
 import { existsSync } from 'node:fs';
 
@@ -34,11 +35,13 @@ export function buildCmd(root, planPath, outDir, theme) {
  * @returns {{theme:string, pages:{path:string,slug:string,templates:number}[], out:string}}
  */
 export function buildSiteCmd(root, sitePlanPath, outDir) {
-  const site = buildSite(root, readJSON(sitePlanPath));
+  const sitePlan = readJSON(sitePlanPath);
+  const site = buildSite(root, sitePlan);
   const out = writeSite(site, outDir);
   return {
     theme: site.theme,
     pages: site.pages.map((p) => ({ path: p.path, slug: p.slug, templates: p.templates.length })),
+    warnings: checkInternalLinks(sitePlan),
     out,
   };
 }

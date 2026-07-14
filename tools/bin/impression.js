@@ -50,7 +50,8 @@ function main(argv) {
       const r = buildSiteCmd(root, resolve(positionals[0]), resolve(flags.out ?? 'dist'));
       log(`Built site (theme "${r.theme}", ${r.pages.length} pages)`);
       for (const p of r.pages) log(`  ${p.path.padEnd(10)} ${p.slug.padEnd(10)} ${p.templates} templates`);
-      log(`  written: ${r.out}`);
+      for (const w of r.warnings) log(`  ⚠ ${w.rule}: ${w.message}`);
+      log(`  written: ${r.out} (+ sitemap.json, sitemap.xml)`);
       break;
     }
     case 'validate': {

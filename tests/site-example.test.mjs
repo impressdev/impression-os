@@ -27,6 +27,7 @@ for (const name of siteExamples) {
         assert.deepEqual(t.template, readJSON(`${base}/templates/${t.name}.json`), `${page.path}/${t.name}`);
       }
     }
+    assert.deepEqual(result.sitemap, readJSON(`${dir}/kit/sitemap.json`), 'sitemap');
   });
 
   test(`${name}: recorded provenance checksum matches a fresh build`, () => {

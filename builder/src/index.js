@@ -69,6 +69,7 @@ export function writeBuild(result, outDir) {
  * @property {string} theme
  * @property {any} kit
  * @property {{path:string, slug:string, type:string|undefined, templates:{name:string,template:any}[], page:any}[]} pages
+ * @property {{path:string, slug:string, title:string}[]} sitemap
  */
 
 /**
@@ -82,17 +83,19 @@ export function buildSite(root, sitePlan) {
   const tokens = resolveTheme(sources, theme);
   const kit = buildKit(tokens, sources.grid, theme);
 
+  const siteName = sitePlan.meta?.name ?? 'Site';
   const pages = (sitePlan.pages ?? []).map((p) => {
     const templates = (p.sections ?? []).map((s) => {
       const recipe = sources.recipes[s.recipe];
       if (!recipe) throw new Error(`Unknown recipe: "${s.recipe}"`);
       return { name: s.recipe, template: compileRecipe(recipe, s.content ?? {}, tokens) };
     });
-    const page = buildPage({ meta: { name: `${sitePlan.meta?.name ?? 'Site'} — ${p.path}` }, seo: p.seo, sections: p.sections });
+    const page = buildPage({ meta: { name: pageTitle(siteName, p) }, seo: p.seo, sections: p.sections });
     return { path: p.path, slug: pageSlug(p.path), type: p.type, templates, page };
   });
 
-  return { theme, kit, pages };
+  const sitemap = pages.map((p) => ({ path: p.path, slug: p.slug, title: p.page.title }));
+  return { theme, kit, pages, sitemap };
 }
 
 /**
@@ -104,6 +107,8 @@ export function writeSite(result, outDir) {
   writeFileSync(join(outDir, 'kit.json'), JSON.stringify(result.kit, null, 2) + '\n');
   const index = { theme: result.theme, pages: result.pages.map((p) => ({ path: p.path, slug: p.slug, type: p.type, templates: p.templates.map((t) => t.name) })) };
   writeFileSync(join(outDir, 'site.json'), JSON.stringify(index, null, 2) + '\n');
+  writeFileSync(join(outDir, 'sitemap.json'), JSON.stringify(result.sitemap, null, 2) + '\n');
+  writeFileSync(join(outDir, 'sitemap.xml'), sitemapXml(result.sitemap));
   for (const p of result.pages) {
     const dir = join(outDir, 'pages', p.slug);
     mkdirSync(join(dir, 'templates'), { recursive: true });
@@ -115,7 +120,33 @@ export function writeSite(result, outDir) {
   return outDir;
 }
 
+/**
+ * A distinct, SEO-friendly title per page. The home page leads with the site name
+ * and its hero headline; inner pages lead with the page name, then the site.
+ */
+function pageTitle(siteName, page) {
+  const hero = (page.sections ?? []).find((s) => s.recipe === 'hero')?.content ?? {};
+  if (page.path === '/' || page.path == null) {
+    return hero.heading ? `${siteName} — ${hero.heading}` : siteName;
+  }
+  const label = titleCase(page.type || pageSlug(page.path));
+  return `${label} — ${siteName}`;
+}
+
+function titleCase(s) {
+  return String(s).replace(/[-_]+/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
 /** Turn a site path into a directory slug ("/" → "index", "/about" → "about"). */
 function pageSlug(path) {
   return String(path).replace(/^\/+|\/+$/g, '').replace(/\//g, '-') || 'index';
+}
+
+/**
+ * A sitemap.xml with path-relative <loc> entries. Consumers prepend their site's
+ * base URL (WordPress/Elementor or an SEO plugin) to make the URLs absolute.
+ */
+function sitemapXml(sitemap) {
+  const urls = sitemap.map((p) => `  <url><loc>${p.path}</loc></url>`).join('\n');
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
 }

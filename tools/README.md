@@ -84,8 +84,13 @@ Compile the whole site at once — one shared kit, one folder per page:
 
 ```bash
 node tools/bin/impression.js build-site site.json --out dist
-# dist/kit.json, dist/site.json, dist/pages/<slug>/{templates/*, page.json}
+# dist/kit.json, dist/site.json, dist/sitemap.{json,xml},
+# dist/pages/<slug>/{templates/*, page.json}
 ```
+
+`build-site` also generates a **sitemap** and warns about **orphan pages** — pages
+it built that aren't linked from any nav, footer, or CTA, so a visitor couldn't
+reach them.
 
 The `theme` command **selects the accent, link, and focus steps by contrast** so
 the result is guaranteed to meet WCAG 2.1 AA, writes

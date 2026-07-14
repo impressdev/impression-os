@@ -6,6 +6,7 @@ import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve, join } from 'node:path';
 import { planSiteCmd } from '../lib/commands.js';
+import { checkInternalLinks } from '../lib/links.js';
 import { lintPlan } from '../lib/guardrails.js';
 import { validate } from '../lib/jsonschema.js';
 import { build, buildSite } from '../../builder/src/index.js';
@@ -70,4 +71,19 @@ test('buildSite emits one shared kit and per-page templates + metadata', () => {
 
 test('site build is deterministic', () => {
   assert.equal(stableStringify(buildSite(root, site)), stableStringify(buildSite(root, site)));
+});
+
+test('buildSite emits a sitemap with one entry per page', () => {
+  const result = buildSite(root, site);
+  assert.equal(result.sitemap.length, result.pages.length);
+  assert.deepEqual(result.sitemap.map((s) => s.path), site.pages.map((p) => p.path));
+  for (const entry of result.sitemap) assert.ok(entry.title && entry.slug, 'sitemap entry has title + slug');
+});
+
+test('internal-link check flags orphan pages but not linked ones', () => {
+  // In this site /about is linked from the footer, but /start is not linked anywhere.
+  const orphans = checkInternalLinks(site).filter((w) => w.rule === 'orphan-page').map((w) => w.message);
+  assert.ok(orphans.some((m) => m.includes('/start')), 'flags the unlinked /start');
+  assert.ok(!orphans.some((m) => m.includes('/about')), 'does not flag the linked /about');
+  assert.ok(!orphans.some((m) => m.includes('"/"')), 'never flags the home page');
 });

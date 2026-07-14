@@ -26,6 +26,8 @@ atlas/
 ├── kit/
 │   ├── kit.json         The one shared Elementor kit
 │   ├── site.json        Page index (path → slug → templates)
+│   ├── sitemap.json     Pages (path, slug, title)
+│   ├── sitemap.xml      Standard sitemap (path-relative locs)
 │   └── pages/
 │       ├── index/       templates/* + page.json   (landing)
 │       └── about/       templates/* + page.json   (about)

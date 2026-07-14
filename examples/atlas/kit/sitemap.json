@@ -1,0 +1,12 @@
+[
+  {
+    "path": "/",
+    "slug": "index",
+    "title": "Atlas — Every answer, one search away"
+  },
+  {
+    "path": "/about",
+    "slug": "about",
+    "title": "About — Atlas"
+  }
+]
