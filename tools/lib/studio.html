@@ -74,6 +74,21 @@
     <h3>Features</h3>
     <div id="features"></div>
     <button class="btn btn--ghost" id="addFeature" style="margin-top:8px">+ Feature</button>
+
+    <hr>
+    <h3>Testimonials</h3>
+    <div id="quotes"></div>
+    <button class="btn btn--ghost" id="addQuote" style="margin-top:8px">+ Quote</button>
+
+    <hr>
+    <h3>Pricing</h3>
+    <div id="tiers"></div>
+    <button class="btn btn--ghost" id="addTier" style="margin-top:8px">+ Tier</button>
+
+    <hr>
+    <h3>FAQ</h3>
+    <div id="faqs"></div>
+    <button class="btn btn--ghost" id="addFaq" style="margin-top:8px">+ Vraag</button>
   </div>
 
   <div class="preview">
@@ -100,12 +115,56 @@ function esc(s){ return String(s||'').replace(/"/g,'&quot;').replace(/</g,'&lt;'
 $('addFeature').onclick = () => { $('features').appendChild(featureRow()); schedule(); };
 
 function features() {
-  return [...document.querySelectorAll('.feature')].map((d, i) => ({
+  return [...document.querySelectorAll('#features .feature')].map((d, i) => ({
     icon: ['bolt','shield','plug','chart-line'][i % 4],
     title: d.querySelector('.f-title').value,
     body: d.querySelector('.f-body').value,
   })).filter(f => f.title || f.body);
 }
+
+// --- generic repeater rows for the other sections ---
+function makeRow(container, html) {
+  const div = document.createElement('div');
+  div.className = 'feature';
+  div.innerHTML = html;
+  div.querySelectorAll('input,textarea').forEach(el => el.addEventListener('input', schedule));
+  container.appendChild(div);
+  return div;
+}
+function quoteRow(q = {}) {
+  return makeRow($('quotes'), `<div class="row"><textarea class="q-quote" placeholder="Citaat">${esc(q.quote)}</textarea></div>
+    <div class="row" style="grid-template-columns:1fr 1fr"><input class="q-author" placeholder="Naam" value="${esc(q.author)}"><input class="q-role" placeholder="Rol / bedrijf" value="${esc(q.role)}"></div>`);
+}
+function tierRow(t = {}) {
+  return makeRow($('tiers'), `<div class="row" style="grid-template-columns:2fr 1fr 1fr"><input class="t-name" placeholder="Naam" value="${esc(t.name)}"><input class="t-price" placeholder="€49" value="${esc(t.price)}"><input class="t-period" placeholder="/mnd" value="${esc(t.period)}"></div>
+    <div class="row"><textarea class="t-features" placeholder="Eén feature per regel">${esc((t.features||[]).join('\n'))}</textarea></div>
+    <div class="row"><input class="t-cta" placeholder="CTA-tekst" value="${esc(t.cta)}"></div>`);
+}
+function faqRow(f = {}) {
+  return makeRow($('faqs'), `<div class="row"><input class="fq-q" placeholder="Vraag" value="${esc(f.question)}"></div>
+    <div class="row"><textarea class="fq-a" placeholder="Antwoord">${esc(f.answer)}</textarea></div>`);
+}
+function quotes() {
+  return [...document.querySelectorAll('#quotes .feature')].map(d => ({
+    quote: d.querySelector('.q-quote').value, author: d.querySelector('.q-author').value, role: d.querySelector('.q-role').value || undefined,
+  })).filter(q => q.quote && q.author);
+}
+function tiers() {
+  return [...document.querySelectorAll('#tiers .feature')].map((d, i) => ({
+    name: d.querySelector('.t-name').value, price: d.querySelector('.t-price').value,
+    period: d.querySelector('.t-period').value || undefined,
+    features: d.querySelector('.t-features').value.split('\n').map(s => s.trim()).filter(Boolean),
+    cta: { label: d.querySelector('.t-cta').value || 'Choose', href: '#' }, highlighted: i === 1,
+  })).filter(t => t.name && t.price && t.features.length);
+}
+function faqs() {
+  return [...document.querySelectorAll('#faqs .feature')].map(d => ({
+    question: d.querySelector('.fq-q').value, answer: d.querySelector('.fq-a').value,
+  })).filter(f => f.question && f.answer);
+}
+$('addQuote').onclick = () => { quoteRow(); schedule(); };
+$('addTier').onclick = () => { tierRow(); schedule(); };
+$('addFaq').onclick = () => { faqRow(); schedule(); };
 
 function action(label, href) { return label ? { label, href: href || '#' } : undefined; }
 
@@ -124,6 +183,9 @@ function brief() {
       secondaryCta: action($('cta2').value, $('cta2h').value),
       heroMedia: { url: '/hero.png', alt: `${name} product` },
       features: features(),
+      testimonials: quotes(),
+      pricingTiers: tiers(),
+      faqs: faqs(),
       nav: [{label:'Product',href:'#'},{label:'Pricing',href:'#'},{label:'Contact',href:'#'}],
       footerColumns: [
         {title:'Product', links:[{label:'Overview',href:'#'},{label:'Pricing',href:'#'}]},
@@ -174,6 +236,16 @@ $('example').onclick = () => {
    ['Early warning','Anomaly alerts fire before a delay becomes a stockout.'],
    ['Connects to everything','ERP, WMS, and logistics APIs, live in minutes.']]
    .forEach(([t,b]) => $('features').appendChild(featureRow({title:t, body:b})));
+  $('quotes').innerHTML = '';
+  [{quote:'We caught a supplier delay four days early. That one alert paid for the year.', author:'Dana Reyes', role:'VP Operations, Meridian'},
+   {quote:'Finally, one dashboard the whole floor trusts.', author:'Sam Okafor', role:'Supply Chain Lead, Halcyon'}].forEach(quoteRow);
+  $('tiers').innerHTML = '';
+  [{name:'Starter', price:'$0', period:'/mo', features:['1 workspace','3 data sources','Email alerts'], cta:'Start free'},
+   {name:'Growth', price:'$490', period:'/mo', features:['Unlimited workspaces','20 data sources','Anomaly detection','SSO'], cta:'Book a demo'},
+   {name:'Enterprise', price:'Custom', features:['Unlimited sources','Dedicated support','Custom SLAs'], cta:'Contact sales'}].forEach(tierRow);
+  $('faqs').innerHTML = '';
+  [{question:'How long does setup take?', answer:'Most teams see live signal within a day.'},
+   {question:'Do you support on-prem?', answer:'Yes — the Enterprise plan includes on-prem connectors.'}].forEach(faqRow);
   render();
 };
 
