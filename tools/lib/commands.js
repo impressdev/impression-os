@@ -9,6 +9,7 @@ import { synthesizeRamp } from './ramp.js';
 import { resolveTheme } from './accent.js';
 import { planFromBrief, planSiteFromBrief } from './plan.js';
 import { checkInternalLinks } from './links.js';
+import { startStudio } from './studio.js';
 import { readJSON, listJSON } from './fs.js';
 import { existsSync } from 'node:fs';
 
@@ -78,6 +79,11 @@ export function previewSiteCmd(root, sitePlanPath, outDir) {
     writeFileSync(join(outDir, fileFor(p)), html);
   }
   return { out: outDir, pages: site.pages.map(fileFor) };
+}
+
+/** Start the local Studio web app. Long-running; returns the handle. */
+export function studioCmd(root, port) {
+  return startStudio(root, port);
 }
 
 /** Validate every data artifact (schemas + references). @returns {string[]} errors */
@@ -209,10 +215,13 @@ function resolveThemeForBrief(root, brief) {
  * @returns {{plan:any, out:string|null, theme:string}}
  */
 export function planCmd(root, briefPath, { out } = {}) {
-  const brief = readJSON(briefPath);
-  const { theme } = resolveThemeForBrief(root, brief);
-  const blueprints = readJSON(`${root}/prompts/planning/blueprints.json`);
+  const plan = briefToPlan(root, readJSON(briefPath));
+  if (out) writeFileSync(out, JSON.stringify(plan, null, 2) + '\n');
+  return { plan, out: out ?? null, theme: plan.theme };
+}
 
+/** Load all recipe specs, keyed by name. */
+function loadRecipes(root) {
   /** @type {Record<string,any>} */
   const recipes = {};
   for (const f of listJSON(`${root}/recipes`)) {
@@ -220,10 +229,14 @@ export function planCmd(root, briefPath, { out } = {}) {
     const r = readJSON(f);
     recipes[r.name] = r;
   }
+  return recipes;
+}
 
-  const plan = planFromBrief(brief, { blueprints, recipes, theme });
-  if (out) writeFileSync(out, JSON.stringify(plan, null, 2) + '\n');
-  return { plan, out: out ?? null, theme };
+/** Turn a brief *object* into a single-page build plan (used by the CLI and the Studio). */
+export function briefToPlan(root, brief) {
+  const { theme } = resolveThemeForBrief(root, brief);
+  const blueprints = readJSON(`${root}/prompts/planning/blueprints.json`);
+  return planFromBrief(brief, { blueprints, recipes: loadRecipes(root), theme });
 }
 
 /**
@@ -234,16 +247,7 @@ export function planSiteCmd(root, briefPath, { out } = {}) {
   const brief = readJSON(briefPath);
   const { theme } = resolveThemeForBrief(root, brief);
   const blueprints = readJSON(`${root}/prompts/planning/blueprints.json`);
-
-  /** @type {Record<string,any>} */
-  const recipes = {};
-  for (const f of listJSON(`${root}/recipes`)) {
-    if (f.includes('/schema/')) continue;
-    const r = readJSON(f);
-    recipes[r.name] = r;
-  }
-
-  const plan = planSiteFromBrief(brief, { blueprints, recipes, theme });
+  const plan = planSiteFromBrief(brief, { blueprints, recipes: loadRecipes(root), theme });
   if (out) writeFileSync(out, JSON.stringify(plan, null, 2) + '\n');
   return { plan, out: out ?? null, theme };
 }

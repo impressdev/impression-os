@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Impression OS — Studio</title>
+<style>
+  :root { --accent:#4f46e5; --ink:#0f172a; --muted:#64748b; --line:#e2e8f0; --bg:#f8fafc; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: ui-sans-serif, system-ui, sans-serif; color:var(--ink); background:#fff; }
+  header { display:flex; align-items:center; gap:12px; padding:12px 20px; border-bottom:1px solid var(--line); }
+  header .dot { width:22px; height:22px; border-radius:6px; background:var(--accent); }
+  header h1 { font-size:15px; margin:0; }
+  header .muted { color:var(--muted); font-size:12px; }
+  .layout { display:grid; grid-template-columns: 380px 1fr; height: calc(100vh - 48px); }
+  .panel { overflow:auto; padding:18px 20px; border-right:1px solid var(--line); background:var(--bg); }
+  .preview { position:relative; background:#e9edf2; }
+  iframe { width:100%; height:100%; border:0; background:#fff; }
+  label { display:block; font-size:12px; font-weight:600; color:var(--muted); margin:14px 0 4px; }
+  input, textarea, select { width:100%; padding:9px 11px; border:1px solid var(--line); border-radius:8px; font:inherit; background:#fff; color:var(--ink); }
+  textarea { resize:vertical; min-height:54px; }
+  .row { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .feature { border:1px solid var(--line); border-radius:10px; padding:10px; margin-top:8px; background:#fff; }
+  .feature .row { grid-template-columns: 1fr; }
+  .btn { display:inline-block; padding:10px 16px; border-radius:9px; background:var(--accent); color:#fff; border:0; font-weight:600; cursor:pointer; font:inherit; }
+  .btn--ghost { background:#fff; color:var(--accent); border:1px solid var(--line); }
+  .btn:disabled { opacity:.5; cursor:default; }
+  .toolbar { display:flex; gap:8px; flex-wrap:wrap; margin:6px 0 14px; }
+  .small { font-size:12px; color:var(--muted); }
+  .status { position:absolute; left:12px; bottom:12px; background:#fff; border:1px solid var(--line); border-radius:8px; padding:8px 12px; font-size:12px; box-shadow:0 4px 12px rgba(2,6,23,.08); }
+  .status.err { color:#b91c1c; border-color:#fecaca; }
+  h3 { font-size:13px; margin:18px 0 2px; }
+  hr { border:0; border-top:1px solid var(--line); margin:16px 0; }
+</style>
+</head>
+<body>
+<header>
+  <span class="dot"></span>
+  <h1>Impression OS — Studio</h1>
+  <span class="muted">briefing → live preview → kit</span>
+</header>
+
+<div class="layout">
+  <div class="panel">
+    <div class="toolbar">
+      <button class="btn btn--ghost" id="example">Laad voorbeeld</button>
+      <button class="btn" id="generate">Genereer kit →</button>
+    </div>
+    <div class="small" id="meta">Vul de briefing in — de preview beweegt mee.</div>
+
+    <h3>Bedrijf</h3>
+    <label>Naam</label><input id="name" placeholder="Acme">
+    <label>Omschrijving</label><textarea id="desc" placeholder="Wat doet het bedrijf, in een zin?"></textarea>
+
+    <h3>Merk</h3>
+    <div class="row">
+      <div><label>Thema</label><select id="theme"></select></div>
+      <div><label>Accent (woord)</label><input id="accent" placeholder="trustworthy indigo"></div>
+    </div>
+
+    <h3>Hero</h3>
+    <label>Eyebrow</label><input id="eyebrow" placeholder="Category">
+    <label>Headline</label><input id="headline" placeholder="De belofte in één zin">
+    <label>Waardepropositie</label><textarea id="value" placeholder="Wat het product doet en waarom het ertoe doet."></textarea>
+    <div class="row">
+      <div><label>Primaire CTA</label><input id="cta1" placeholder="Get started"></div>
+      <div><label>Link</label><input id="cta1h" placeholder="/start"></div>
+    </div>
+    <div class="row">
+      <div><label>Secundaire CTA</label><input id="cta2" placeholder="See how it works"></div>
+      <div><label>Link</label><input id="cta2h" placeholder="/product"></div>
+    </div>
+
+    <h3>Features</h3>
+    <div id="features"></div>
+    <button class="btn btn--ghost" id="addFeature" style="margin-top:8px">+ Feature</button>
+  </div>
+
+  <div class="preview">
+    <iframe id="frame" title="Preview"></iframe>
+    <div class="status" id="status">klaar</div>
+  </div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const themes = ['light','dark','brand.teal','brand.aurora','brand.sunset','brand.example'];
+$('theme').innerHTML = themes.map(t => `<option>${t}</option>`).join('');
+
+function featureRow(f = {title:'',body:''}) {
+  const div = document.createElement('div');
+  div.className = 'feature';
+  div.innerHTML = `<div class="row"><input class="f-title" placeholder="Feature-titel" value="${esc(f.title)}"></div>
+    <div class="row"><textarea class="f-body" placeholder="Korte omschrijving">${esc(f.body)}</textarea></div>`;
+  div.querySelectorAll('input,textarea').forEach(el => el.addEventListener('input', schedule));
+  return div;
+}
+function esc(s){ return String(s||'').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+$('addFeature').onclick = () => { $('features').appendChild(featureRow()); schedule(); };
+
+function features() {
+  return [...document.querySelectorAll('.feature')].map((d, i) => ({
+    icon: ['bolt','shield','plug','chart-line'][i % 4],
+    title: d.querySelector('.f-title').value,
+    body: d.querySelector('.f-body').value,
+  })).filter(f => f.title || f.body);
+}
+
+function action(label, href) { return label ? { label, href: href || '#' } : undefined; }
+
+function brief() {
+  const name = $('name').value || 'Your Company';
+  const b = {
+    business: { name, description: $('desc').value || `${name} does something useful.` },
+    goals: { primary: 'Convert visitors' },
+    brand: { theme: $('theme').value, accent: $('accent').value || 'indigo', logo: '/logo.svg' },
+    pages: [{ type: 'landing', path: '/' }],
+    content: {
+      eyebrow: $('eyebrow').value || undefined,
+      headline: $('headline').value || `Meet ${name}`,
+      valueProposition: $('value').value || 'A clear, one-line description of what the product does and why it matters.',
+      primaryCta: action($('cta1').value || 'Get started', $('cta1h').value),
+      secondaryCta: action($('cta2').value, $('cta2h').value),
+      heroMedia: { url: '/hero.png', alt: `${name} product` },
+      features: features(),
+      nav: [{label:'Product',href:'#'},{label:'Pricing',href:'#'},{label:'Contact',href:'#'}],
+      footerColumns: [
+        {title:'Product', links:[{label:'Overview',href:'#'},{label:'Pricing',href:'#'}]},
+        {title:'Company', links:[{label:'About',href:'#'},{label:'Contact',href:'#'}]},
+      ],
+    },
+  };
+  return b;
+}
+
+let timer;
+function schedule() { clearTimeout(timer); timer = setTimeout(render, 250); }
+
+async function render() {
+  setStatus('renderen…');
+  try {
+    const res = await fetch('/api/preview', { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(brief()) });
+    const data = await res.json();
+    if (data.error) return setStatus(data.error, true);
+    $('frame').srcdoc = data.html;
+    $('meta').textContent = `thema "${data.theme}" · secties: ${data.sections.join(', ')}`;
+    setStatus(`${data.sections.length} secties`);
+  } catch (e) { setStatus(String(e), true); }
+}
+
+function setStatus(t, err) { const s = $('status'); s.textContent = t; s.className = 'status' + (err ? ' err' : ''); }
+
+$('generate').onclick = async () => {
+  setStatus('kit genereren…');
+  const res = await fetch('/api/build', { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(brief()) });
+  const data = await res.json();
+  if (data.error) return setStatus(data.error, true);
+  setStatus(`kit geschreven → ${data.out} (${data.files.length} bestanden)`);
+};
+
+$('example').onclick = () => {
+  $('name').value = 'Northwind';
+  $('desc').value = 'Northwind gives operations teams a live picture of their supply chain.';
+  $('theme').value = 'light';
+  $('accent').value = 'trustworthy indigo';
+  $('eyebrow').value = 'Operations analytics';
+  $('headline').value = 'See the problem before it ships';
+  $('value').value = 'Northwind turns scattered operational data into one live picture — so your team acts early, not after the outage.';
+  $('cta1').value = 'Book a demo'; $('cta1h').value = '/demo';
+  $('cta2').value = 'See how it works'; $('cta2h').value = '/product';
+  $('features').innerHTML = '';
+  [['Live signal','Every feed in one place, updated continuously.'],
+   ['Early warning','Anomaly alerts fire before a delay becomes a stockout.'],
+   ['Connects to everything','ERP, WMS, and logistics APIs, live in minutes.']]
+   .forEach(([t,b]) => $('features').appendChild(featureRow({title:t, body:b})));
+  render();
+};
+
+// wire inputs + start with the example
+document.querySelectorAll('input,textarea,select').forEach(el => el.addEventListener('input', schedule));
+$('example').onclick();
+</script>
+</body>
+</html>

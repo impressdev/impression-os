@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // @ts-check
 import { resolve } from 'node:path';
-import { buildCmd, buildSiteCmd, previewCmd, previewSiteCmd, validateCmd, lintCmd, listCmd, newCmd, themeCmd, resolveThemeCmd, planCmd, planSiteCmd } from '../lib/commands.js';
+import { buildCmd, buildSiteCmd, previewCmd, previewSiteCmd, studioCmd, validateCmd, lintCmd, listCmd, newCmd, themeCmd, resolveThemeCmd, planCmd, planSiteCmd } from '../lib/commands.js';
 
 const HELP = `impression — the Impression OS CLI
 
@@ -10,6 +10,7 @@ Usage:
   impression build-site <site.json> [--out <dir>] [--root <repo>]
   impression preview <plan.json> [--out <dir>] [--root <repo>]
   impression preview-site <site.json> [--out <dir>] [--root <repo>]
+  impression studio [--port <n>] [--root <repo>]
   impression validate [--root <repo>]
   impression lint <plan.json> [--root <repo>]
   impression list <recipes|components|themes> [--root <repo>]
@@ -25,6 +26,7 @@ Commands:
   build-site     Compile a multi-page site plan into one kit + per-page templates.
   preview        Render a build plan to a self-contained HTML preview (no WordPress).
   preview-site   Render a multi-page site plan to linked HTML preview pages.
+  studio         Start the local Studio web app (brief form + live preview).
   validate       Check every data artifact against its schema and reference integrity.
   lint           Run the build-plan guardrails against a plan.
   list           List available recipes, components, or themes.
@@ -70,6 +72,12 @@ function main(argv) {
       log(`Rendered ${r.pages.length} pages → ${r.out}`);
       for (const f of r.pages) log(`  ${f}`);
       break;
+    }
+    case 'studio': {
+      const s = studioCmd(root, Number(flags.port ?? 4321));
+      log(`Impression OS Studio → ${s.url}`);
+      log('  Open it in your browser. Press Ctrl+C to stop.');
+      break; // the http server keeps the process alive
     }
     case 'validate': {
       const errors = validateCmd(root);

@@ -34,6 +34,7 @@ node tools/bin/impression.js <command>
 | `build-site <site.json> [--out <dir>]` | Compile a multi-page site plan into one kit + per-page templates. |
 | `preview <plan.json> [--out <dir>]` | Render a plan to a self-contained HTML preview (no WordPress). |
 | `preview-site <site.json> [--out <dir>]` | Render a multi-page site plan to linked HTML preview pages. |
+| `studio [--port <n>]` | Start the local Studio: a brief form with a live preview, in your browser. |
 | `validate` | Check every data artifact against its schema and reference integrity. |
 | `lint <plan.json>` | Run the build-plan guardrails against a plan. |
 | `list <recipes\|components\|themes>` | List what the system offers. |
@@ -112,6 +113,20 @@ theme.
   — still held to the same AA contract (it throws if no step can satisfy it). See
   [ADR-0009](../docs/decisions/0009-contrast-driven-brand-themes.md).
 
+### The Studio
+
+A local, zero-dependency web app — no framework, no cloud — that puts a friendly
+face on the whole pipeline:
+
+```bash
+node tools/bin/impression.js studio       # → http://localhost:4321
+```
+
+Fill a brief on the left; the site renders **live** on the right as you type
+(the preview updates on every change). "Genereer kit →" writes the Elementor kit
+to `studio-output/`. It simply wraps the existing library — `briefToPlan` → `build`
+→ `renderPage` — over a tiny Node HTTP server.
+
 ## Structure
 
 ```
@@ -119,6 +134,8 @@ tools/
 ├── bin/impression.js   The CLI entry point (argument parsing + dispatch)
 └── lib/
     ├── commands.js     One function per command
+    ├── studio.js       The local Studio web server
+    ├── studio.html     The Studio UI (form + live preview)
     ├── validate.js     Data validation engine (schemas + references)
     ├── guardrails.js   The machine-checkable build-plan guardrails
     ├── jsonschema.js   Zero-dependency JSON Schema validator
