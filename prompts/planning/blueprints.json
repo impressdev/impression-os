@@ -7,7 +7,7 @@
     },
     "product": {
       "description": "Focused product or feature page.",
-      "sections": ["header", "hero", "feature-grid", "stats", "pricing", "cta", "footer"]
+      "sections": ["header", "hero", "feature-grid", "gallery", "stats", "pricing", "cta", "footer"]
     },
     "about": {
       "description": "Company / about page.",

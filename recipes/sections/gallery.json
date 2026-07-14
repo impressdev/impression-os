@@ -1,0 +1,71 @@
+{
+  "name": "gallery",
+  "category": "section",
+  "status": "draft",
+  "description": "A responsive grid of images — product shots, screenshots, or portfolio work. An optional lead-in over the grid.",
+  "landmark": "section",
+  "container": "wide",
+  "sectionSpacing": "default",
+
+  "layout": {
+    "primitive": "stack",
+    "regions": {
+      "header": {
+        "primitive": "center",
+        "gap": "{space.gap.sm}",
+        "align": "center",
+        "components": ["heading?", "text:lead?"]
+      },
+      "grid": {
+        "primitive": "grid",
+        "columns": 3,
+        "gap": "{space.gap.md}",
+        "regions": {
+          "item": {
+            "repeat": true,
+            "components": ["media"]
+          }
+        }
+      }
+    }
+  },
+
+  "content": {
+    "heading": { "type": "string", "required": false, "description": "Section heading (h2)." },
+    "intro":   { "type": "richtext", "required": false, "description": "Optional intro." },
+    "images": {
+      "type": "list",
+      "required": true,
+      "max": 24,
+      "description": "The images.",
+      "of": {
+        "url": { "type": "string", "required": true, "description": "Image URL." },
+        "alt": { "type": "string", "required": true, "description": "Descriptive alt text." }
+      }
+    }
+  },
+
+  "responsive": {
+    "base": "Two per row.",
+    "md": "Three per row.",
+    "lg": "Three per row (or as set by columns)."
+  },
+
+  "components": ["heading", "text", "media"],
+
+  "a11y": {
+    "headingLevel": "h2 for the section (optional).",
+    "notes": [
+      "Each image carries descriptive alt text — a gallery is meaningful content, not decoration.",
+      "Images reserve space via their aspect ratio to avoid layout shift on load."
+    ]
+  },
+
+  "elementor": {
+    "widget": "container",
+    "notes": "A stack container with a nested grid of image widgets.",
+    "mapping": {
+      "images": "Repeated media (image), one per item"
+    }
+  }
+}

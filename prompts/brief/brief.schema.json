@@ -111,6 +111,11 @@
           "description": "Customer/partner logos for a logo cloud.",
           "items": { "$ref": "#/$defs/image" }
         },
+        "gallery": {
+          "type": "array",
+          "description": "Images for a gallery grid (product shots, screenshots, portfolio).",
+          "items": { "$ref": "#/$defs/image" }
+        },
         "pricingTiers": {
           "type": "array",
           "items": {

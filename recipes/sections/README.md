@@ -14,6 +14,7 @@ and declares its content contract.
 | [`pricing`](pricing.json)           | Pricing tiers with CTAs. | tiers[] (name, price, features[], cta) |
 | [`testimonial`](testimonial.json)   | Social proof quotes. | testimonials[] (quote, author, role, avatar) |
 | [`team`](team.json)                 | Grid of people (portrait, name, role). | members[] (name, role, avatar) |
+| [`gallery`](gallery.json)           | Responsive image grid (shots, portfolio). | images[] (url, alt) |
 | [`faq`](faq.json)                   | Q&A accordion. | items[] (question, answer) |
 | [`cta`](cta.json)                   | Focused conversion banner. | heading, subheading, CTAs |
 | [`contact`](contact.json)           | Lead-capture form beside a pitch. | heading, fields[] (label, type, required) |

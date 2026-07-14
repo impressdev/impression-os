@@ -81,6 +81,27 @@ test('team compiles a portrait, name, and role per member', () => {
   assert.deepEqual(portraits.map((i) => i.settings.image.alt), ['Ada Nkemdirim', 'Ravi Patel']);
 });
 
+test('gallery compiles one image per item, with alt text', () => {
+  const galleryPlan = {
+    theme: 'light',
+    sections: [{
+      recipe: 'gallery',
+      content: {
+        heading: 'Screenshots',
+        images: [
+          { url: '/a.png', alt: 'Dashboard' },
+          { url: '/b.png', alt: 'Reports' },
+          { url: '/c.png', alt: 'Settings' },
+        ],
+      },
+    }],
+  };
+  const { templates } = build(root, galleryPlan);
+  const images = collect(templates[0].template, (n) => n.widgetType === 'image');
+  assert.equal(images.length, 3);
+  assert.deepEqual(images.map((i) => i.settings.image.alt), ['Dashboard', 'Reports', 'Settings']);
+});
+
 test('contact compiles a single Elementor form from the fields list', () => {
   const contactPlan = {
     theme: 'light',

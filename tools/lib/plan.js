@@ -102,6 +102,8 @@ function mapContent(recipe, brief) {
       return defined({ members: c.team });
     case 'logo-cloud':
       return defined({ logos: c.logos });
+    case 'gallery':
+      return defined({ images: c.gallery });
     case 'pricing':
       return defined({
         tiers: c.pricingTiers?.map((t) => defined({
