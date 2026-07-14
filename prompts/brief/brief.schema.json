@@ -66,6 +66,16 @@
         "primaryCta": { "$ref": "#/$defs/action" },
         "secondaryCta": { "$ref": "#/$defs/action" },
         "heroMedia": { "$ref": "#/$defs/image" },
+        "announcement": {
+          "type": "object",
+          "description": "An optional announcement-bar message above the header.",
+          "required": ["message"],
+          "properties": {
+            "message": { "type": "string" },
+            "cta": { "$ref": "#/$defs/action" }
+          },
+          "additionalProperties": false
+        },
         "features": {
           "type": "array",
           "items": {

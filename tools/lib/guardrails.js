@@ -22,7 +22,9 @@ export function lintPlan(root, plan) {
   if (!themes.has(plan.theme)) err('theme-exists', `theme "${plan.theme}" is not in the manifest`);
 
   const recs = (plan.sections ?? []).map((s) => s.recipe);
-  if (recs[0] !== 'header') err('header-footer-bookends', 'first section is not header');
+  // A single optional announcement-bar may precede the header.
+  const headerAt = recs[0] === 'announcement-bar' ? 1 : 0;
+  if (recs[headerAt] !== 'header') err('header-footer-bookends', 'first section is not header (an announcement-bar may precede it)');
   if (recs[recs.length - 1] !== 'footer') err('header-footer-bookends', 'last section is not footer');
   const heroes = recs.filter((r) => r === 'hero').length;
   if (heroes !== 1) err('single-h1', `expected exactly one hero, found ${heroes}`);

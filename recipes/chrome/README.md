@@ -7,6 +7,7 @@ one.
 
 | Recipe | Landmark | Purpose |
 | ------ | -------- | ------- |
+| [`announcement-bar`](announcement-bar.json) | `region` | Slim message + optional link above the header. |
 | [`header`](header.json) | `banner` | Brand, primary navigation, and a prominent action. |
 | [`footer`](footer.json) | `contentinfo` | Brand, grouped link columns, and a legal row. |
 

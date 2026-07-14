@@ -3,7 +3,7 @@
   "blueprints": {
     "landing": {
       "description": "Full marketing landing page.",
-      "sections": ["header", "hero", "logo-cloud", "feature-grid", "stats", "testimonial", "pricing", "faq", "cta", "footer"]
+      "sections": ["announcement-bar", "header", "hero", "logo-cloud", "feature-grid", "stats", "testimonial", "pricing", "faq", "cta", "footer"]
     },
     "product": {
       "description": "Focused product or feature page.",
@@ -23,7 +23,7 @@
     }
   },
   "rules": [
-    "A page always opens with header and closes with footer.",
+    "A page opens with header (an optional announcement-bar may precede it) and closes with footer.",
     "Exactly one hero per page; it owns the page h1.",
     "A section is dropped (not improvised) when the brief lacks its required content.",
     "Section order is preserved as given — it is the reading and tab order."

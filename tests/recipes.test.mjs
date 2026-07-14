@@ -81,6 +81,19 @@ test('team compiles a portrait, name, and role per member', () => {
   assert.deepEqual(portraits.map((i) => i.settings.image.alt), ['Ada Nkemdirim', 'Ravi Patel']);
 });
 
+test('announcement-bar compiles a message and an optional link', () => {
+  const plan = {
+    theme: 'light',
+    sections: [{ recipe: 'announcement-bar', content: { message: 'New: SAP connector is live', cta: { label: 'See what changed', href: '/changelog' } } }],
+  };
+  const { templates } = build(root, plan);
+  const t = templates[0].template;
+  const text = collect(t, (n) => n.widgetType === 'text-editor');
+  assert.ok(text.some((w) => w.settings.editor.includes('New: SAP connector is live')));
+  const btn = collect(t, (n) => n.widgetType === 'button');
+  assert.equal(btn[0].settings.text, 'See what changed');
+});
+
 test('gallery compiles one image per item, with alt text', () => {
   const galleryPlan = {
     theme: 'light',

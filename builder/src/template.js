@@ -88,7 +88,7 @@ function bindComponent(path, ref, scope, ctx) {
       return widget(path, 'heading', { title: String(title), header_size: level(variant) });
     }
     case 'text': {
-      const t = pick(scope, ['subheading', 'intro', 'body', 'answer', 'quote', 'description', 'blurb', 'legal', 'role']);
+      const t = pick(scope, ['subheading', 'intro', 'body', 'message', 'answer', 'quote', 'description', 'blurb', 'legal', 'role']);
       if (t == null) return optional ? null : null;
       return widget(path, 'text-editor', { editor: `<p>${escapeHtml(String(t))}</p>` });
     }

@@ -1,0 +1,51 @@
+{
+  "name": "announcement-bar",
+  "category": "chrome",
+  "status": "draft",
+  "description": "A slim, full-width bar above the header carrying a short message and an optional link — a launch, a promotion, or a notice.",
+  "landmark": "region",
+  "container": "full",
+  "sectionSpacing": "none",
+
+  "layout": {
+    "primitive": "cluster",
+    "regions": {
+      "bar": {
+        "primitive": "cluster",
+        "gap": "{space.gap.sm}",
+        "align": "center",
+        "components": ["text:small", "button:primary?"]
+      }
+    }
+  },
+
+  "content": {
+    "message": { "type": "string", "required": true, "description": "The announcement text." },
+    "cta":     { "type": "action", "required": false, "description": "Optional inline link." }
+  },
+
+  "responsive": {
+    "base": "Message wraps; the link sits beneath it.",
+    "md": "Message and link on one centered row."
+  },
+
+  "components": ["text", "button"],
+
+  "a11y": {
+    "landmarkNote": "Rendered as a region with an accessible name (e.g. \"Announcement\").",
+    "notes": [
+      "The bar is above the header; it does not contribute a heading to the page outline.",
+      "If the bar is dismissible, the dismiss control has an accessible name and the state persists.",
+      "Contrast of the message and link meets 4.5:1 on the bar surface."
+    ]
+  },
+
+  "elementor": {
+    "widget": "container",
+    "notes": "A full-width container above the header; typically on an accent or accent-subtle background.",
+    "mapping": {
+      "message": "Text widget",
+      "cta": "Button/link widget"
+    }
+  }
+}

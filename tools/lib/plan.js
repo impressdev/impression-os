@@ -81,6 +81,8 @@ function mapContent(recipe, brief) {
   const defined = (o) => Object.fromEntries(Object.entries(o).filter(([, v]) => v != null));
 
   switch (recipe) {
+    case 'announcement-bar':
+      return defined({ message: c.announcement?.message, cta: c.announcement?.cta });
     case 'header':
       return defined({ logo, links: c.nav, cta: c.primaryCta });
     case 'hero':
