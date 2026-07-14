@@ -117,9 +117,11 @@ The eight phases establish the system end-to-end. Progress since:
 
 Still open:
 
-- A **WordPress + Elementor render harness** to automate import and upgrade
-  visual regression from output snapshots to pixel checks (needs a WordPress
-  environment).
+- ◑ A **WordPress + Elementor render harness** — the import half exists and is
+  proven: [`tools/wp/import-kit.php`](tools/wp/import-kit.php) applies a
+  generated kit to a live Elementor install and renders it (validated against
+  MAMP + Elementor Pro; the first import surfaced and fixed a Global Colors
+  mapping bug). Still open: automated screenshots + pixel regression.
 - Richer dark-mode packaging (the open questions in the
   [token → Elementor mapping](docs/architecture/token-to-elementor-mapping.md)).
 - Multi-page support in the Studio.

@@ -8,12 +8,12 @@
       {
         "_id": "primary",
         "title": "Primary",
-        "color": "#4f46e5"
+        "color": "#f8fafc"
       },
       {
         "_id": "secondary",
         "title": "Secondary",
-        "color": "#6366f1"
+        "color": "#cbd5e1"
       },
       {
         "_id": "text",

@@ -6,8 +6,11 @@ import { hashId, parseDimension } from './util.js';
  * Elementor ships four global colors with fixed ids; we bind them to roles.
  */
 const SYSTEM_COLORS = [
-  { _id: 'primary', title: 'Primary', role: 'color.accent.default' },
-  { _id: 'secondary', title: 'Secondary', role: 'color.accent.hover' },
+  // Elementor's semantics: Primary styles headings, Secondary styles subdued
+  // text, Text styles body copy, Accent styles links and buttons. (Learned from
+  // the first real import: mapping Primary to the accent turned headings indigo.)
+  { _id: 'primary', title: 'Primary', role: 'color.text.default' },
+  { _id: 'secondary', title: 'Secondary', role: 'color.text.muted' },
   { _id: 'text', title: 'Text', role: 'color.text.default' },
   { _id: 'accent', title: 'Accent', role: 'color.accent.default' },
 ];
