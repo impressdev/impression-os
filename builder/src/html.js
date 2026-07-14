@@ -91,6 +91,8 @@ p { margin: 0 0 1em; max-width: 65ch; }
 .nav a { text-decoration: none; color: var(--color-text); font-weight: 500; }
 .nav a:hover { color: var(--color-accent); }
 .prose { color: var(--color-text-muted, inherit); }
+.card { background: var(--color-surface); border: 1px solid var(--color-border, #e5e7eb); border-radius: 16px; padding: 28px; }
+.card img { margin-bottom: 4px; }
 .field { display: grid; gap: 6px; margin-bottom: 14px; }
 input, textarea { padding: 10px 12px; border: 1px solid var(--color-border, #ccc); border-radius: 8px; font: inherit; background: var(--color-surface); color: var(--color-text); }
 `;
@@ -102,11 +104,14 @@ function renderSection(template) {
   return `<section class="section"><div class="container">${inner}</div></section>`;
 }
 
-function renderNode(node) {
+function renderNode(node, inGrid = false) {
   if (!node) return '';
   if (node.elType === 'container') {
-    const kids = (node.elements ?? []).map(renderNode).join('');
-    return `<div style="${flexStyle(node.settings ?? {})}">${kids}</div>`;
+    const s = node.settings ?? {};
+    const isGrid = s.container_type === 'grid';
+    const kids = (node.elements ?? []).map((c) => renderNode(c, isGrid)).join('');
+    const cls = inGrid ? ' class="card"' : '';
+    return `<div${cls} style="${flexStyle(s)}">${kids}</div>`;
   }
   return renderWidget(node);
 }
