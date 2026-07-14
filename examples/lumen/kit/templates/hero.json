@@ -7,8 +7,25 @@
       "id": "c97d3b3",
       "elType": "container",
       "settings": {
+        "flex_gap": {
+          "column": "16",
+          "row": "16",
+          "isLinked": true,
+          "unit": "px",
+          "size": 16
+        },
         "flex_direction": "row",
-        "align_items": "center"
+        "flex_align_items": "center",
+        "content_width": "boxed",
+        "html_tag": "section",
+        "padding": {
+          "unit": "px",
+          "top": "128",
+          "right": "20",
+          "bottom": "128",
+          "left": "20",
+          "isLinked": false
+        }
       },
       "elements": [
         {
@@ -16,10 +33,11 @@
           "elType": "container",
           "settings": {
             "flex_gap": {
-              "column": "1",
-              "row": "1",
-              "unit": "rem",
-              "isLinked": true
+              "column": "16",
+              "row": "16",
+              "isLinked": true,
+              "unit": "px",
+              "size": 16
             },
             "flex_direction": "column"
           },
@@ -39,7 +57,10 @@
               "widgetType": "heading",
               "settings": {
                 "title": "Fewer phone calls. Fuller calendars.",
-                "header_size": "h1"
+                "header_size": "h1",
+                "__globals__": {
+                  "typography_typography": "globals/typography?id=primary"
+                }
               },
               "elements": []
             },
@@ -57,14 +78,15 @@
               "elType": "container",
               "settings": {
                 "flex_gap": {
-                  "column": "0.75",
-                  "row": "0.75",
-                  "unit": "rem",
-                  "isLinked": true
+                  "column": "12",
+                  "row": "12",
+                  "isLinked": true,
+                  "unit": "px",
+                  "size": 12
                 },
                 "flex_direction": "row",
                 "flex_wrap": "wrap",
-                "align_items": "center"
+                "flex_align_items": "center"
               },
               "elements": [
                 {
@@ -91,6 +113,28 @@
                       "url": "/tour",
                       "is_external": "",
                       "nofollow": ""
+                    },
+                    "background_color": "rgba(0, 0, 0, 0)",
+                    "border_border": "solid",
+                    "border_width": {
+                      "unit": "px",
+                      "top": "1",
+                      "right": "1",
+                      "bottom": "1",
+                      "left": "1",
+                      "isLinked": true
+                    },
+                    "border_color": "#cbd5e1",
+                    "border_radius": {
+                      "unit": "px",
+                      "top": "10",
+                      "right": "10",
+                      "bottom": "10",
+                      "left": "10",
+                      "isLinked": true
+                    },
+                    "__globals__": {
+                      "button_text_color": "globals/colors?id=accent"
                     }
                   },
                   "elements": []
@@ -105,6 +149,13 @@
           "id": "a728c02",
           "elType": "container",
           "settings": {
+            "flex_gap": {
+              "column": "16",
+              "row": "16",
+              "isLinked": true,
+              "unit": "px",
+              "size": 16
+            },
             "flex_direction": "column"
           },
           "elements": [

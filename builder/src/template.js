@@ -1,14 +1,16 @@
 // @ts-check
-import { container, widget, layoutSettings } from './elementor.js';
-import { pick, hashId } from './util.js';
+import { container, widget, layoutSettings, gapValue, dimensions, slider } from './elementor.js';
+import { pick, hashId, parseDimension } from './util.js';
 
 /**
  * Compile a recipe + a content object into an Elementor template.
  *
- * The layout (regions → containers) is fully driven by the recipe. Content is
- * bound to widgets by a documented heuristic (field-name matching); the complete
- * brief → content mapping is the job of the prompts layer (Phase 6). Repeating
- * regions iterate the recipe's primary list content field.
+ * The layout (regions → containers) is fully driven by the recipe; visual
+ * decisions (section rhythm, card styling, icon sizing, global-font bindings)
+ * are projected from the resolved tokens onto real Elementor settings, so the
+ * imported page looks designed — not just structured. Content is bound to
+ * widgets by a documented heuristic (field-name matching); the complete
+ * brief → content mapping is the job of the prompts layer.
  *
  * @param {any} recipe
  * @param {Record<string, any>} content
@@ -16,19 +18,57 @@ import { pick, hashId } from './util.js';
  * @returns {any}
  */
 export function compileRecipe(recipe, content, tokens) {
-  const ctx = { primaryList: primaryListName(recipe), gap: (ref) => resolveGap(tokens, ref) };
-  const root = compileRegions(
-    recipe.name,
-    recipe.layout.primitive,
-    recipe.layout.regions,
-    content,
-    ctx,
-  );
+  const ctx = {
+    primaryList: primaryListName(recipe),
+    tokens,
+    tok: (ref) => resolveToken(tokens, ref),
+    px: (ref) => toPx(resolveToken(tokens, ref)),
+  };
+
+  const root = compileRegions(recipe.name, recipe.layout.primitive, recipe.layout.regions, content, ctx);
+  Object.assign(root.settings, sectionShell(recipe, ctx));
+
   return {
     version: '0.4',
     title: recipe.name,
-    type: recipe.category === 'chrome' ? 'section' : 'section',
+    type: 'section',
     content: [root],
+  };
+}
+
+/** Recipes that sit on a raised background, giving the page vertical rhythm. */
+const RAISED = new Set(['logo-cloud', 'stats', 'testimonial', 'faq']);
+
+/** Section-level shell: semantic tag, boxed width, rhythm padding, background. */
+function sectionShell(recipe, ctx) {
+  const spacing = { none: 0, compact: '{space.section.sm}', default: '{space.section.md}', spacious: '{space.section.lg}' };
+  const block = spacing[recipe.sectionSpacing ?? 'default'];
+  const blockPx = block === 0 ? 0 : ctx.px(block);
+  const tag = { banner: 'header', contentinfo: 'footer' }[recipe.landmark] ?? 'section';
+
+  /** @type {Record<string, any>} */
+  const shell = {
+    content_width: 'boxed',
+    html_tag: tag,
+    padding: dimensions(blockPx, 20, blockPx, 20),
+  };
+  if (RAISED.has(recipe.name)) {
+    shell.background_background = 'classic';
+    shell.background_color = ctx.tok('{color.surface.raised}');
+  }
+  return shell;
+}
+
+/** Card styling for repeated items inside a grid (pricing tiers, features, …). */
+function cardStyle(ctx) {
+  return {
+    background_background: 'classic',
+    background_color: ctx.tok('{color.surface.page}'),
+    border_border: 'solid',
+    border_width: dimensions(1),
+    border_color: ctx.tok('{color.border.default}'),
+    border_radius: dimensions(ctx.px('{radius.card}')),
+    padding: dimensions(28),
   };
 }
 
@@ -36,24 +76,28 @@ export function compileRecipe(recipe, content, tokens) {
 function compileRegions(path, primitive, regions, scope, ctx) {
   const children = [];
   for (const [name, region] of Object.entries(regions)) {
-    children.push(...compileRegion(`${path}/${name}`, name, region, scope, ctx));
+    children.push(...compileRegion(`${path}/${name}`, name, region, scope, ctx, primitive));
   }
   return container(path, layoutSettings(primitive, {}), children);
 }
 
 /**
  * Compile a single region. A repeating region emits one container per item of
- * the primary list; otherwise it emits a single container.
+ * the primary list; repeated items inside a grid render as cards (unless they
+ * are bare media, like gallery images or logos).
  * @returns {any[]} sibling elements
  */
-function compileRegion(path, name, region, scope, ctx) {
+function compileRegion(path, name, region, scope, ctx, parentPrimitive) {
   const primitive = region.primitive ?? 'stack';
-  const settings = layoutSettings(primitive, { gap: region.gap && ctx.gap(region.gap), columns: region.columns });
+  const settings = layoutSettings(primitive, { gap: region.gap && ctx.tok(region.gap), columns: region.columns });
 
   if (region.repeat) {
+    const isCard = parentPrimitive === 'grid'
+      && (region.components ?? []).some((c) => baseName(c) !== 'media');
+    const itemSettings = isCard ? { ...settings, ...cardStyle(ctx) } : settings;
     const list = Array.isArray(scope?.[ctx.primaryList]) ? scope[ctx.primaryList] : [];
     return list.map((item, i) =>
-      container(`${path}/${i}`, settings, regionChildren(`${path}/${i}`, region, item, ctx)),
+      container(`${path}/${i}`, itemSettings, regionChildren(`${path}/${i}`, region, item, ctx)),
     );
   }
   return [container(path, settings, regionChildren(path, region, scope, ctx))];
@@ -67,9 +111,22 @@ function regionChildren(path, region, scope, ctx) {
     if (el) children.push(el);
   }
   for (const [name, sub] of Object.entries(region.regions ?? {})) {
-    children.push(...compileRegion(`${path}/${name}`, name, sub, scope, ctx));
+    children.push(...compileRegion(`${path}/${name}`, name, sub, scope, ctx, region.primitive ?? 'stack'));
   }
   return children;
+}
+
+/** Global Fonts binding per heading level (ids match the kit emitter). */
+const HEADING_FONT_ID = {
+  h1: 'primary',
+  h2: 'secondary',
+  h3: hashId('type:Heading 3'),
+  h4: hashId('type:Heading 4'),
+};
+
+function headingGlobals(level) {
+  const id = HEADING_FONT_ID[level];
+  return id ? { __globals__: { typography_typography: `globals/typography?id=${id}` } } : {};
 }
 
 /**
@@ -84,10 +141,17 @@ function bindComponent(path, ref, scope, ctx) {
   switch (base) {
     case 'heading': {
       const title = pick(scope, ['heading', 'title', 'name', 'question', 'author']);
-      if (title == null) return optional ? null : widget(path, 'heading', { title: '', header_size: level(variant) });
-      return widget(path, 'heading', { title: String(title), header_size: level(variant) });
+      const size = level(variant);
+      if (title == null) return optional ? null : widget(path, 'heading', { title: '', header_size: size, ...headingGlobals(size) });
+      return widget(path, 'heading', { title: String(title), header_size: size, ...headingGlobals(size) });
     }
     case 'text': {
+      // Attribution lines (text:small on an item with an author) render
+      // "author — role" instead of re-picking the quote text.
+      if (variant === 'small' && scope && (scope.author || scope.role)) {
+        const who = [scope.author, scope.role].filter(Boolean).join(' — ');
+        return widget(path, 'text-editor', { editor: `<p>${escapeHtml(String(who))}</p>` });
+      }
       const t = pick(scope, ['subheading', 'intro', 'body', 'message', 'answer', 'quote', 'description', 'blurb', 'legal', 'role']);
       if (t == null) return optional ? null : null;
       return widget(path, 'text-editor', { editor: `<p>${escapeHtml(String(t))}</p>` });
@@ -97,10 +161,22 @@ function bindComponent(path, ref, scope, ctx) {
         ? pick(scope, ['secondaryCta'])
         : pick(scope, ['primaryCta', 'cta']);
       if (!action) return null;
-      return widget(path, 'button', {
+      /** @type {Record<string, any>} */
+      const settings = {
         text: String(action.label ?? action),
         link: { url: String(action.href ?? '#'), is_external: '', nofollow: '' },
-      });
+      };
+      if (variant === 'secondary') {
+        Object.assign(settings, {
+          background_color: 'rgba(0, 0, 0, 0)',
+          border_border: 'solid',
+          border_width: dimensions(1),
+          border_color: ctx.tok('{color.border.strong}'),
+          border_radius: dimensions(10),
+          __globals__: { button_text_color: 'globals/colors?id=accent' },
+        });
+      }
+      return widget(path, 'button', settings);
     }
     case 'media': {
       // Either a named media field, or a scope that *is* the image (e.g. a logo item).
@@ -115,7 +191,7 @@ function bindComponent(path, ref, scope, ctx) {
       const label = pick(scope, ['label']);
       if (value == null && label == null) return optional ? null : null;
       return container(path, layoutSettings('stack', {}), [
-        widget(`${path}/value`, 'heading', { title: String(value ?? ''), header_size: 'h3' }),
+        widget(`${path}/value`, 'heading', { title: String(value ?? ''), header_size: 'h3', __globals__: { typography_typography: 'globals/typography?id=secondary' } }),
         widget(`${path}/label`, 'text-editor', { editor: `<p>${escapeHtml(String(label ?? ''))}</p>` }),
       ]);
     }
@@ -127,13 +203,24 @@ function bindComponent(path, ref, scope, ctx) {
     case 'icon': {
       const icon = pick(scope, ['icon']);
       if (icon == null) return null;
-      return widget(path, 'icon', { selected_icon: { value: `fas fa-${icon}`, library: 'fa-solid' } });
+      return widget(path, 'icon', {
+        selected_icon: { value: `fas fa-${icon}`, library: 'fa-solid' },
+        size: slider(28),
+        __globals__: { primary_color: 'globals/colors?id=accent' },
+      });
     }
     case 'list-item': {
       const features = pick(scope, ['features']);
       if (Array.isArray(features)) {
         return widget(path, 'icon-list', {
-          icon_list: features.map((f) => ({ text: String(f.label ?? f) })),
+          icon_list: features.map((f, i) => ({
+            _id: hashId(`${path}/${i}`),
+            text: String(f.label ?? f),
+            selected_icon: { value: 'fas fa-check', library: 'fa-solid' },
+          })),
+          space_between: slider(8),
+          icon_size: slider(14),
+          __globals__: { icon_color: 'globals/colors?id=accent' },
         });
       }
       return null;
@@ -160,7 +247,14 @@ function bindComponent(path, ref, scope, ctx) {
       const links = pick(scope, ['links']);
       if (Array.isArray(links)) {
         return widget(path, 'icon-list', {
-          icon_list: links.map((l) => ({ text: String(l.label ?? l), link: { url: String(l.href ?? '#') } })),
+          view: 'inline',
+          icon_list: links.map((l, i) => ({
+            _id: hashId(`${path}/${i}`),
+            text: String(l.label ?? l),
+            link: { url: String(l.href ?? '#') },
+            selected_icon: { value: '', library: '' },
+          })),
+          space_between: slider(18),
         });
       }
       return null;
@@ -172,6 +266,10 @@ function bindComponent(path, ref, scope, ctx) {
 
 function level(variant) {
   return /^h[1-6]$/.test(variant ?? '') ? variant : 'h2';
+}
+
+function baseName(ref) {
+  return ref.replace(/\?$/, '').split(':')[0];
 }
 
 /** The recipe's primary repeating list content field, if any. */
@@ -186,11 +284,18 @@ function primaryListName(recipe) {
   return null;
 }
 
-function resolveGap(tokens, ref) {
+/** Resolve a {token} reference to its concrete value; literals pass through. */
+function resolveToken(tokens, ref) {
   const m = String(ref).match(/^\{([a-zA-Z0-9._-]+)\}$/);
   if (!m) return String(ref);
   const t = tokens[m[1]];
   return t ? String(t.value) : String(ref);
+}
+
+/** A CSS dimension (rem/em/px) as a pixel number. */
+function toPx(cssDim) {
+  const d = parseDimension(cssDim);
+  return d.unit === 'rem' || d.unit === 'em' ? Math.round(d.size * 16) : d.size;
 }
 
 function escapeHtml(s) {

@@ -7,7 +7,26 @@
       "id": "b8871bd",
       "elType": "container",
       "settings": {
-        "flex_direction": "column"
+        "flex_gap": {
+          "column": "16",
+          "row": "16",
+          "isLinked": true,
+          "unit": "px",
+          "size": 16
+        },
+        "flex_direction": "column",
+        "content_width": "boxed",
+        "html_tag": "section",
+        "padding": {
+          "unit": "px",
+          "top": "96",
+          "right": "20",
+          "bottom": "96",
+          "left": "20",
+          "isLinked": false
+        },
+        "background_background": "classic",
+        "background_color": "#1e293b"
       },
       "elements": [
         {
@@ -15,13 +34,14 @@
           "elType": "container",
           "settings": {
             "flex_gap": {
-              "column": "0.75",
-              "row": "0.75",
-              "unit": "rem",
-              "isLinked": true
+              "column": "12",
+              "row": "12",
+              "isLinked": true,
+              "unit": "px",
+              "size": 12
             },
             "flex_direction": "column",
-            "align_items": "center"
+            "flex_align_items": "center"
           },
           "elements": [
             {
@@ -30,7 +50,10 @@
               "widgetType": "heading",
               "settings": {
                 "title": "",
-                "header_size": "h2"
+                "header_size": "h2",
+                "__globals__": {
+                  "typography_typography": "globals/typography?id=secondary"
+                }
               },
               "elements": []
             }
@@ -42,10 +65,11 @@
           "elType": "container",
           "settings": {
             "flex_gap": {
-              "column": "0.75",
-              "row": "0.75",
-              "unit": "rem",
-              "isLinked": true
+              "column": "12",
+              "row": "12",
+              "isLinked": true,
+              "unit": "px",
+              "size": 12
             },
             "flex_direction": "column"
           },
@@ -55,10 +79,11 @@
               "elType": "container",
               "settings": {
                 "flex_gap": {
-                  "column": "0.5",
-                  "row": "0.5",
-                  "unit": "rem",
-                  "isLinked": true
+                  "column": "8",
+                  "row": "8",
+                  "isLinked": true,
+                  "unit": "px",
+                  "size": 8
                 },
                 "flex_direction": "column"
               },
@@ -69,7 +94,10 @@
                   "widgetType": "heading",
                   "settings": {
                     "title": "How long does setup take?",
-                    "header_size": "h3"
+                    "header_size": "h3",
+                    "__globals__": {
+                      "typography_typography": "globals/typography?id=0949564"
+                    }
                   },
                   "elements": []
                 },
@@ -90,10 +118,11 @@
               "elType": "container",
               "settings": {
                 "flex_gap": {
-                  "column": "0.5",
-                  "row": "0.5",
-                  "unit": "rem",
-                  "isLinked": true
+                  "column": "8",
+                  "row": "8",
+                  "isLinked": true,
+                  "unit": "px",
+                  "size": 8
                 },
                 "flex_direction": "column"
               },
@@ -104,7 +133,10 @@
                   "widgetType": "heading",
                   "settings": {
                     "title": "Does it work with our helpdesk?",
-                    "header_size": "h3"
+                    "header_size": "h3",
+                    "__globals__": {
+                      "typography_typography": "globals/typography?id=0949564"
+                    }
                   },
                   "elements": []
                 },
@@ -125,10 +157,11 @@
               "elType": "container",
               "settings": {
                 "flex_gap": {
-                  "column": "0.5",
-                  "row": "0.5",
-                  "unit": "rem",
-                  "isLinked": true
+                  "column": "8",
+                  "row": "8",
+                  "isLinked": true,
+                  "unit": "px",
+                  "size": 8
                 },
                 "flex_direction": "column"
               },
@@ -139,7 +172,10 @@
                   "widgetType": "heading",
                   "settings": {
                     "title": "Is our data secure?",
-                    "header_size": "h3"
+                    "header_size": "h3",
+                    "__globals__": {
+                      "typography_typography": "globals/typography?id=0949564"
+                    }
                   },
                   "elements": []
                 },

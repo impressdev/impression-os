@@ -7,7 +7,24 @@
       "id": "2ca6d31",
       "elType": "container",
       "settings": {
-        "flex_direction": "column"
+        "flex_gap": {
+          "column": "16",
+          "row": "16",
+          "isLinked": true,
+          "unit": "px",
+          "size": 16
+        },
+        "flex_direction": "column",
+        "content_width": "boxed",
+        "html_tag": "section",
+        "padding": {
+          "unit": "px",
+          "top": "96",
+          "right": "20",
+          "bottom": "96",
+          "left": "20",
+          "isLinked": false
+        }
       },
       "elements": [
         {
@@ -15,13 +32,14 @@
           "elType": "container",
           "settings": {
             "flex_gap": {
-              "column": "0.75",
-              "row": "0.75",
-              "unit": "rem",
-              "isLinked": true
+              "column": "12",
+              "row": "12",
+              "isLinked": true,
+              "unit": "px",
+              "size": 12
             },
             "flex_direction": "column",
-            "align_items": "center"
+            "flex_align_items": "center"
           },
           "elements": [
             {
@@ -30,7 +48,10 @@
               "widgetType": "heading",
               "settings": {
                 "title": "Simple, scalable pricing",
-                "header_size": "h2"
+                "header_size": "h2",
+                "__globals__": {
+                  "typography_typography": "globals/typography?id=secondary"
+                }
               },
               "elements": []
             }
@@ -41,21 +62,72 @@
           "id": "01eae87",
           "elType": "container",
           "settings": {
-            "flex_gap": {
-              "column": "1.5",
-              "row": "1.5",
-              "unit": "rem",
-              "isLinked": true
-            },
             "container_type": "grid",
-            "grid_template_columns": "repeat(3, 1fr)"
+            "grid_columns_grid": {
+              "unit": "fr",
+              "size": 3,
+              "sizes": []
+            },
+            "grid_columns_grid_tablet": {
+              "unit": "fr",
+              "size": 2,
+              "sizes": []
+            },
+            "grid_columns_grid_mobile": {
+              "unit": "fr",
+              "size": 1,
+              "sizes": []
+            },
+            "grid_gaps": {
+              "column": "24",
+              "row": "24",
+              "isLinked": true,
+              "unit": "px",
+              "size": 24
+            },
+            "grid_auto_flow": "row"
           },
           "elements": [
             {
               "id": "ff31b69",
               "elType": "container",
               "settings": {
-                "flex_direction": "column"
+                "flex_gap": {
+                  "column": "16",
+                  "row": "16",
+                  "isLinked": true,
+                  "unit": "px",
+                  "size": 16
+                },
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e2e8f0",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "28",
+                  "right": "28",
+                  "bottom": "28",
+                  "left": "28",
+                  "isLinked": true
+                }
               },
               "elements": [
                 {
@@ -63,10 +135,11 @@
                   "elType": "container",
                   "settings": {
                     "flex_gap": {
-                      "column": "1",
-                      "row": "1",
-                      "unit": "rem",
-                      "isLinked": true
+                      "column": "16",
+                      "row": "16",
+                      "isLinked": true,
+                      "unit": "px",
+                      "size": 16
                     },
                     "flex_direction": "column"
                   },
@@ -77,7 +150,10 @@
                       "widgetType": "heading",
                       "settings": {
                         "title": "Starter",
-                        "header_size": "h3"
+                        "header_size": "h3",
+                        "__globals__": {
+                          "typography_typography": "globals/typography?id=0949564"
+                        }
                       },
                       "elements": []
                     },
@@ -97,15 +173,43 @@
                       "settings": {
                         "icon_list": [
                           {
-                            "text": "1 workspace"
+                            "_id": "b7fff8a",
+                            "text": "1 workspace",
+                            "selected_icon": {
+                              "value": "fas fa-check",
+                              "library": "fa-solid"
+                            }
                           },
                           {
-                            "text": "3 data sources"
+                            "_id": "b7fff8b",
+                            "text": "3 data sources",
+                            "selected_icon": {
+                              "value": "fas fa-check",
+                              "library": "fa-solid"
+                            }
                           },
                           {
-                            "text": "Email alerts"
+                            "_id": "b7fff8c",
+                            "text": "Email alerts",
+                            "selected_icon": {
+                              "value": "fas fa-check",
+                              "library": "fa-solid"
+                            }
                           }
-                        ]
+                        ],
+                        "space_between": {
+                          "unit": "px",
+                          "size": 8,
+                          "sizes": []
+                        },
+                        "icon_size": {
+                          "unit": "px",
+                          "size": 14,
+                          "sizes": []
+                        },
+                        "__globals__": {
+                          "icon_color": "globals/colors?id=accent"
+                        }
                       },
                       "elements": []
                     },
@@ -133,7 +237,42 @@
               "id": "ff31b6a",
               "elType": "container",
               "settings": {
-                "flex_direction": "column"
+                "flex_gap": {
+                  "column": "16",
+                  "row": "16",
+                  "isLinked": true,
+                  "unit": "px",
+                  "size": 16
+                },
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e2e8f0",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "28",
+                  "right": "28",
+                  "bottom": "28",
+                  "left": "28",
+                  "isLinked": true
+                }
               },
               "elements": [
                 {
@@ -141,10 +280,11 @@
                   "elType": "container",
                   "settings": {
                     "flex_gap": {
-                      "column": "1",
-                      "row": "1",
-                      "unit": "rem",
-                      "isLinked": true
+                      "column": "16",
+                      "row": "16",
+                      "isLinked": true,
+                      "unit": "px",
+                      "size": 16
                     },
                     "flex_direction": "column"
                   },
@@ -155,7 +295,10 @@
                       "widgetType": "heading",
                       "settings": {
                         "title": "Growth",
-                        "header_size": "h3"
+                        "header_size": "h3",
+                        "__globals__": {
+                          "typography_typography": "globals/typography?id=0949564"
+                        }
                       },
                       "elements": []
                     },
@@ -175,18 +318,51 @@
                       "settings": {
                         "icon_list": [
                           {
-                            "text": "Unlimited workspaces"
+                            "_id": "0dcb4cb",
+                            "text": "Unlimited workspaces",
+                            "selected_icon": {
+                              "value": "fas fa-check",
+                              "library": "fa-solid"
+                            }
                           },
                           {
-                            "text": "20 data sources"
+                            "_id": "0dcb4cc",
+                            "text": "20 data sources",
+                            "selected_icon": {
+                              "value": "fas fa-check",
+                              "library": "fa-solid"
+                            }
                           },
                           {
-                            "text": "Anomaly detection"
+                            "_id": "0dcb4cd",
+                            "text": "Anomaly detection",
+                            "selected_icon": {
+                              "value": "fas fa-check",
+                              "library": "fa-solid"
+                            }
                           },
                           {
-                            "text": "SSO"
+                            "_id": "0dcb4ce",
+                            "text": "SSO",
+                            "selected_icon": {
+                              "value": "fas fa-check",
+                              "library": "fa-solid"
+                            }
                           }
-                        ]
+                        ],
+                        "space_between": {
+                          "unit": "px",
+                          "size": 8,
+                          "sizes": []
+                        },
+                        "icon_size": {
+                          "unit": "px",
+                          "size": 14,
+                          "sizes": []
+                        },
+                        "__globals__": {
+                          "icon_color": "globals/colors?id=accent"
+                        }
                       },
                       "elements": []
                     },
@@ -214,7 +390,42 @@
               "id": "ff31b6b",
               "elType": "container",
               "settings": {
-                "flex_direction": "column"
+                "flex_gap": {
+                  "column": "16",
+                  "row": "16",
+                  "isLinked": true,
+                  "unit": "px",
+                  "size": 16
+                },
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e2e8f0",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "28",
+                  "right": "28",
+                  "bottom": "28",
+                  "left": "28",
+                  "isLinked": true
+                }
               },
               "elements": [
                 {
@@ -222,10 +433,11 @@
                   "elType": "container",
                   "settings": {
                     "flex_gap": {
-                      "column": "1",
-                      "row": "1",
-                      "unit": "rem",
-                      "isLinked": true
+                      "column": "16",
+                      "row": "16",
+                      "isLinked": true,
+                      "unit": "px",
+                      "size": 16
                     },
                     "flex_direction": "column"
                   },
@@ -236,7 +448,10 @@
                       "widgetType": "heading",
                       "settings": {
                         "title": "Enterprise",
-                        "header_size": "h3"
+                        "header_size": "h3",
+                        "__globals__": {
+                          "typography_typography": "globals/typography?id=0949564"
+                        }
                       },
                       "elements": []
                     },
@@ -256,18 +471,51 @@
                       "settings": {
                         "icon_list": [
                           {
-                            "text": "Unlimited data sources"
+                            "_id": "6396a0c",
+                            "text": "Unlimited data sources",
+                            "selected_icon": {
+                              "value": "fas fa-check",
+                              "library": "fa-solid"
+                            }
                           },
                           {
-                            "text": "Dedicated support"
+                            "_id": "6396a0d",
+                            "text": "Dedicated support",
+                            "selected_icon": {
+                              "value": "fas fa-check",
+                              "library": "fa-solid"
+                            }
                           },
                           {
-                            "text": "Custom SLAs"
+                            "_id": "6396a0e",
+                            "text": "Custom SLAs",
+                            "selected_icon": {
+                              "value": "fas fa-check",
+                              "library": "fa-solid"
+                            }
                           },
                           {
-                            "text": "On-prem option"
+                            "_id": "6396a0f",
+                            "text": "On-prem option",
+                            "selected_icon": {
+                              "value": "fas fa-check",
+                              "library": "fa-solid"
+                            }
                           }
-                        ]
+                        ],
+                        "space_between": {
+                          "unit": "px",
+                          "size": 8,
+                          "sizes": []
+                        },
+                        "icon_size": {
+                          "unit": "px",
+                          "size": 14,
+                          "sizes": []
+                        },
+                        "__globals__": {
+                          "icon_color": "globals/colors?id=accent"
+                        }
                       },
                       "elements": []
                     },

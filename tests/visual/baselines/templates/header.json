@@ -7,15 +7,39 @@
       "id": "1d218ae",
       "elType": "container",
       "settings": {
+        "flex_gap": {
+          "column": "16",
+          "row": "16",
+          "isLinked": true,
+          "unit": "px",
+          "size": 16
+        },
         "flex_direction": "row",
         "flex_wrap": "wrap",
-        "align_items": "center"
+        "flex_align_items": "center",
+        "content_width": "boxed",
+        "html_tag": "header",
+        "padding": {
+          "unit": "px",
+          "top": "64",
+          "right": "20",
+          "bottom": "64",
+          "left": "20",
+          "isLinked": false
+        }
       },
       "elements": [
         {
           "id": "3e96884",
           "elType": "container",
           "settings": {
+            "flex_gap": {
+              "column": "16",
+              "row": "16",
+              "isLinked": true,
+              "unit": "px",
+              "size": 16
+            },
             "flex_direction": "column"
           },
           "elements": [
@@ -39,14 +63,15 @@
           "elType": "container",
           "settings": {
             "flex_gap": {
-              "column": "0.75",
-              "row": "0.75",
-              "unit": "rem",
-              "isLinked": true
+              "column": "12",
+              "row": "12",
+              "isLinked": true,
+              "unit": "px",
+              "size": 12
             },
             "flex_direction": "row",
             "flex_wrap": "wrap",
-            "align_items": "center"
+            "flex_align_items": "center"
           },
           "elements": [
             {
@@ -54,32 +79,58 @@
               "elType": "widget",
               "widgetType": "icon-list",
               "settings": {
+                "view": "inline",
                 "icon_list": [
                   {
+                    "_id": "3994f43",
                     "text": "Product",
                     "link": {
                       "url": "/product"
+                    },
+                    "selected_icon": {
+                      "value": "",
+                      "library": ""
                     }
                   },
                   {
+                    "_id": "3994f44",
                     "text": "Pricing",
                     "link": {
                       "url": "/pricing"
+                    },
+                    "selected_icon": {
+                      "value": "",
+                      "library": ""
                     }
                   },
                   {
+                    "_id": "3994f45",
                     "text": "Customers",
                     "link": {
                       "url": "/customers"
+                    },
+                    "selected_icon": {
+                      "value": "",
+                      "library": ""
                     }
                   },
                   {
+                    "_id": "3994f46",
                     "text": "Docs",
                     "link": {
                       "url": "/docs"
+                    },
+                    "selected_icon": {
+                      "value": "",
+                      "library": ""
                     }
                   }
-                ]
+                ],
+                "space_between": {
+                  "unit": "px",
+                  "size": 18,
+                  "sizes": []
+                }
               },
               "elements": []
             }
@@ -91,14 +142,15 @@
           "elType": "container",
           "settings": {
             "flex_gap": {
-              "column": "0.75",
-              "row": "0.75",
-              "unit": "rem",
-              "isLinked": true
+              "column": "12",
+              "row": "12",
+              "isLinked": true,
+              "unit": "px",
+              "size": 12
             },
             "flex_direction": "row",
             "flex_wrap": "wrap",
-            "align_items": "center"
+            "flex_align_items": "center"
           },
           "elements": [
             {

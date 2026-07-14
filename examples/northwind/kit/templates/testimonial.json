@@ -7,7 +7,26 @@
       "id": "c4e59ae",
       "elType": "container",
       "settings": {
-        "flex_direction": "column"
+        "flex_gap": {
+          "column": "16",
+          "row": "16",
+          "isLinked": true,
+          "unit": "px",
+          "size": 16
+        },
+        "flex_direction": "column",
+        "content_width": "boxed",
+        "html_tag": "section",
+        "padding": {
+          "unit": "px",
+          "top": "96",
+          "right": "20",
+          "bottom": "96",
+          "left": "20",
+          "isLinked": false
+        },
+        "background_background": "classic",
+        "background_color": "#f8fafc"
       },
       "elements": [
         {
@@ -15,13 +34,14 @@
           "elType": "container",
           "settings": {
             "flex_gap": {
-              "column": "0.75",
-              "row": "0.75",
-              "unit": "rem",
-              "isLinked": true
+              "column": "12",
+              "row": "12",
+              "isLinked": true,
+              "unit": "px",
+              "size": 12
             },
             "flex_direction": "column",
-            "align_items": "center"
+            "flex_align_items": "center"
           },
           "elements": [
             {
@@ -30,7 +50,10 @@
               "widgetType": "heading",
               "settings": {
                 "title": "Trusted on the floor",
-                "header_size": "h2"
+                "header_size": "h2",
+                "__globals__": {
+                  "typography_typography": "globals/typography?id=secondary"
+                }
               },
               "elements": []
             }
@@ -41,21 +64,72 @@
           "id": "25b0c5e",
           "elType": "container",
           "settings": {
-            "flex_gap": {
-              "column": "1.5",
-              "row": "1.5",
-              "unit": "rem",
-              "isLinked": true
-            },
             "container_type": "grid",
-            "grid_template_columns": "repeat(3, 1fr)"
+            "grid_columns_grid": {
+              "unit": "fr",
+              "size": 3,
+              "sizes": []
+            },
+            "grid_columns_grid_tablet": {
+              "unit": "fr",
+              "size": 2,
+              "sizes": []
+            },
+            "grid_columns_grid_mobile": {
+              "unit": "fr",
+              "size": 1,
+              "sizes": []
+            },
+            "grid_gaps": {
+              "column": "24",
+              "row": "24",
+              "isLinked": true,
+              "unit": "px",
+              "size": 24
+            },
+            "grid_auto_flow": "row"
           },
           "elements": [
             {
               "id": "be8f23a",
               "elType": "container",
               "settings": {
-                "flex_direction": "column"
+                "flex_gap": {
+                  "column": "16",
+                  "row": "16",
+                  "isLinked": true,
+                  "unit": "px",
+                  "size": 16
+                },
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e2e8f0",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "28",
+                  "right": "28",
+                  "bottom": "28",
+                  "left": "28",
+                  "isLinked": true
+                }
               },
               "elements": [
                 {
@@ -63,10 +137,11 @@
                   "elType": "container",
                   "settings": {
                     "flex_gap": {
-                      "column": "1",
-                      "row": "1",
-                      "unit": "rem",
-                      "isLinked": true
+                      "column": "16",
+                      "row": "16",
+                      "isLinked": true,
+                      "unit": "px",
+                      "size": 16
                     },
                     "flex_direction": "column"
                   },
@@ -85,14 +160,15 @@
                       "elType": "container",
                       "settings": {
                         "flex_gap": {
-                          "column": "0.75",
-                          "row": "0.75",
-                          "unit": "rem",
-                          "isLinked": true
+                          "column": "12",
+                          "row": "12",
+                          "isLinked": true,
+                          "unit": "px",
+                          "size": 12
                         },
                         "flex_direction": "row",
                         "flex_wrap": "wrap",
-                        "align_items": "center"
+                        "flex_align_items": "center"
                       },
                       "elements": [
                         {
@@ -100,7 +176,7 @@
                           "elType": "widget",
                           "widgetType": "text-editor",
                           "settings": {
-                            "editor": "<p>We caught a supplier delay four days early. That one alert paid for the year.</p>"
+                            "editor": "<p>Dana Reyes — VP Operations, Meridian Parts</p>"
                           },
                           "elements": []
                         }
@@ -117,7 +193,42 @@
               "id": "be8f23b",
               "elType": "container",
               "settings": {
-                "flex_direction": "column"
+                "flex_gap": {
+                  "column": "16",
+                  "row": "16",
+                  "isLinked": true,
+                  "unit": "px",
+                  "size": 16
+                },
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e2e8f0",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "28",
+                  "right": "28",
+                  "bottom": "28",
+                  "left": "28",
+                  "isLinked": true
+                }
               },
               "elements": [
                 {
@@ -125,10 +236,11 @@
                   "elType": "container",
                   "settings": {
                     "flex_gap": {
-                      "column": "1",
-                      "row": "1",
-                      "unit": "rem",
-                      "isLinked": true
+                      "column": "16",
+                      "row": "16",
+                      "isLinked": true,
+                      "unit": "px",
+                      "size": 16
                     },
                     "flex_direction": "column"
                   },
@@ -147,14 +259,15 @@
                       "elType": "container",
                       "settings": {
                         "flex_gap": {
-                          "column": "0.75",
-                          "row": "0.75",
-                          "unit": "rem",
-                          "isLinked": true
+                          "column": "12",
+                          "row": "12",
+                          "isLinked": true,
+                          "unit": "px",
+                          "size": 12
                         },
                         "flex_direction": "row",
                         "flex_wrap": "wrap",
-                        "align_items": "center"
+                        "flex_align_items": "center"
                       },
                       "elements": [
                         {
@@ -162,7 +275,7 @@
                           "elType": "widget",
                           "widgetType": "text-editor",
                           "settings": {
-                            "editor": "<p>Finally, one dashboard the whole floor trusts.</p>"
+                            "editor": "<p>Sam Okafor — Supply Chain Lead, Halcyon Foods</p>"
                           },
                           "elements": []
                         }

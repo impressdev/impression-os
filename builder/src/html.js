@@ -118,23 +118,22 @@ function renderNode(node, inGrid = false) {
 
 function flexStyle(s) {
   const out = [];
-  const gap = s.flex_gap ? `${s.flex_gap.column}${s.flex_gap.unit || 'px'}` : '16px';
+  const gapOf = (g) => (g ? `${g.column}${g.unit || 'px'}` : '16px');
   if (s.container_type === 'grid') {
-    out.push('display:grid', `grid-template-columns:${gridCols(s.grid_template_columns)}`, `gap:${gap}`);
+    const n = s.grid_columns_grid?.size ?? 3;
+    out.push('display:grid', `grid-template-columns:${gridCols(n)}`, `gap:${gapOf(s.grid_gaps ?? s.flex_gap)}`);
   } else {
-    out.push('display:flex', `flex-direction:${s.flex_direction || 'column'}`, `gap:${gap}`);
+    out.push('display:flex', `flex-direction:${s.flex_direction || 'column'}`, `gap:${gapOf(s.flex_gap)}`);
     if (s.flex_wrap) out.push(`flex-wrap:${s.flex_wrap}`);
-    if (s.align_items) out.push(`align-items:${s.align_items}`);
-    if (s.justify_content) out.push(`justify-content:${s.justify_content}`);
+    if (s.flex_align_items) out.push(`align-items:${s.flex_align_items}`);
+    if (s.flex_justify_content) out.push(`justify-content:${s.flex_justify_content}`);
   }
   if (s.min_height) out.push(`min-height:${s.min_height.size}${s.min_height.unit}`);
   return out.join(';');
 }
 
-/** Collapse an Elementor grid template to a responsive-ish CSS grid. */
-function gridCols(tpl) {
-  const m = String(tpl || '').match(/repeat\((\d+)/);
-  const n = m ? Number(m[1]) : 3;
+/** Collapse an Elementor grid column count to a responsive-ish CSS grid. */
+function gridCols(n) {
   return `repeat(auto-fit, minmax(${Math.max(160, Math.floor(1000 / n))}px, 1fr))`;
 }
 

@@ -7,8 +7,25 @@
       "id": "3798711",
       "elType": "container",
       "settings": {
+        "flex_gap": {
+          "column": "16",
+          "row": "16",
+          "isLinked": true,
+          "unit": "px",
+          "size": 16
+        },
         "flex_direction": "row",
-        "align_items": "center"
+        "flex_align_items": "center",
+        "content_width": "boxed",
+        "html_tag": "section",
+        "padding": {
+          "unit": "px",
+          "top": "96",
+          "right": "20",
+          "bottom": "96",
+          "left": "20",
+          "isLinked": false
+        }
       },
       "elements": [
         {
@@ -16,10 +33,11 @@
           "elType": "container",
           "settings": {
             "flex_gap": {
-              "column": "1",
-              "row": "1",
-              "unit": "rem",
-              "isLinked": true
+              "column": "16",
+              "row": "16",
+              "isLinked": true,
+              "unit": "px",
+              "size": 16
             },
             "flex_direction": "column"
           },
@@ -30,7 +48,10 @@
               "widgetType": "heading",
               "settings": {
                 "title": "See your week on Lumen",
-                "header_size": "h2"
+                "header_size": "h2",
+                "__globals__": {
+                  "typography_typography": "globals/typography?id=secondary"
+                }
               },
               "elements": []
             },
@@ -51,10 +72,11 @@
           "elType": "container",
           "settings": {
             "flex_gap": {
-              "column": "1",
-              "row": "1",
-              "unit": "rem",
-              "isLinked": true
+              "column": "16",
+              "row": "16",
+              "isLinked": true,
+              "unit": "px",
+              "size": 16
             },
             "flex_direction": "column"
           },
