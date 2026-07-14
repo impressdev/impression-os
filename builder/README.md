@@ -85,7 +85,8 @@ out as `kit.json`, a `site.json` index, `sitemap.json` + `sitemap.xml`,
 `robots.txt`, and `pages/<slug>/{templates/*, page.json}`. Each page gets a
 distinct, SEO-friendly title, a `canonical` path, a `robots` directive
 (`noindex` pages are also disallowed in `robots.txt`), and **schema.org JSON-LD**
-(an `Organization` on the home page plus a `WebPage` on every page). Use it via
+(an `Organization` on the home page, a `WebPage` on every page, and a
+`BreadcrumbList` on inner pages, derived from the page path). Use it via
 `impression build-site`, which also warns about **orphan pages** (generated but
 not linked from any nav, footer, or CTA).
 

@@ -177,7 +177,22 @@ function structuredData(sitePlan, page, meta) {
     '@context': CTX, '@type': 'WebPage',
     name: meta.title, description: meta.description, url: page.path,
   }));
+  const crumbs = breadcrumbList(CTX, page.path);
+  if (crumbs) out.push(crumbs);
   return out;
+}
+
+/** A schema.org BreadcrumbList derived from a page's path segments (Home → …). */
+function breadcrumbList(CTX, path) {
+  if (!path || path === '/') return null;
+  const segments = String(path).split('/').filter(Boolean);
+  const items = [{ '@type': 'ListItem', position: 1, name: 'Home', item: '/' }];
+  let acc = '';
+  segments.forEach((seg, i) => {
+    acc += `/${seg}`;
+    items.push({ '@type': 'ListItem', position: i + 2, name: titleCase(seg), item: acc });
+  });
+  return { '@context': CTX, '@type': 'BreadcrumbList', itemListElement: items };
 }
 
 function clean(o) {

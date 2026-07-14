@@ -87,11 +87,22 @@ test('pages carry schema.org JSON-LD (Organization on home, WebPage everywhere)'
   const inner = result.pages.find((p) => p.path !== '/');
   const types = (p) => p.page.structuredData.map((d) => d['@type']);
   assert.deepEqual(types(home), ['Organization', 'WebPage']);
-  assert.deepEqual(types(inner), ['WebPage']);
+  assert.deepEqual(types(inner), ['WebPage', 'BreadcrumbList']);
   const org = home.page.structuredData[0];
   assert.equal(org['@context'], 'https://schema.org');
   assert.equal(org.name, 'Acme');
   assert.equal(home.page.structuredData[1].url, '/');
+});
+
+test('inner pages get a BreadcrumbList; the home page does not', () => {
+  const result = buildSite(root, site);
+  const home = result.pages.find((p) => p.path === '/');
+  const inner = result.pages.find((p) => p.path === '/about');
+  assert.ok(!home.page.structuredData.some((d) => d['@type'] === 'BreadcrumbList'), 'home has no breadcrumb');
+  const crumb = inner.page.structuredData.find((d) => d['@type'] === 'BreadcrumbList');
+  assert.ok(crumb, 'about has a breadcrumb');
+  assert.deepEqual(crumb.itemListElement.map((i) => i.name), ['Home', 'About']);
+  assert.deepEqual(crumb.itemListElement.map((i) => i.item), ['/', '/about']);
 });
 
 test('each page carries a canonical path and default index robots', () => {
