@@ -124,7 +124,9 @@ node tools/bin/impression.js studio       # → http://localhost:4321
 
 Fill a brief on the left — business, brand, hero, features, testimonials, pricing,
 and FAQ; the site renders **live** on the right as you type (the preview updates on
-every change). **Download .zip** hands you the whole kit as one file; **Genereer
+every change). Pick a **custom brand color** and the preview re-themes instantly —
+the accent, link, and focus steps are chosen by contrast so it still meets WCAG AA
+(and it falls back with a warning if a color genuinely can't). **Download .zip** hands you the whole kit as one file; **Genereer
 kit →** writes it to `studio-output/`. It simply wraps the existing library —
 `briefToPlan` → `build` → `renderPage` — over a tiny Node HTTP server, with a
 zero-dependency ZIP writer for the download.

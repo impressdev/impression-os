@@ -5,9 +5,36 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build, writeBuild, renderPage } from '../../builder/src/index.js';
 import { briefToPlan } from './commands.js';
+import { synthesizeRamp } from './ramp.js';
+import { generateBrandTheme } from './theme.js';
 import { zip } from './zip.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
+
+/**
+ * Build a brief, synthesizing an ad-hoc brand theme from brand.hex when present
+ * (contrast-chosen, never persisted) — this powers the Studio's live color picker.
+ */
+function buildFromBrief(root, brief) {
+  const plan = briefToPlan(root, brief);
+  const hex = brief && brief.brand && brief.brand.hex;
+  if (typeof hex === 'string' && /^#?[0-9a-fA-F]{6}$/.test(hex)) {
+    const base = ['light', 'dark'].includes(brief.brand.theme) ? brief.brand.theme : 'light';
+    try {
+      const ramp = synthesizeRamp(hex);
+      const rampDTCG = Object.fromEntries(Object.entries(ramp).map(([k, v]) => [k, { $value: v }]));
+      const { theme } = generateBrandTheme({ color: { custom: rampDTCG } }, { name: 'custom', accent: 'custom', base });
+      plan.theme = base;
+      const r = build(root, plan, { extra: { primitives: { color: { $type: 'color', custom: rampDTCG } }, theme } });
+      return { ...r, warning: null };
+    } catch (e) {
+      // Fail gracefully: the color can't meet AA — fall back to the base theme.
+      plan.theme = base;
+      return { ...build(root, plan), warning: `Kleur kan geen AA halen — teruggevallen op thema "${base}". (${msg(e)})` };
+    }
+  }
+  return build(root, plan);
+}
 
 /**
  * Start the local Studio: a zero-dependency web app that turns a brief into a
@@ -28,8 +55,8 @@ export function startStudio(root, port = 4321) {
     if (req.method === 'POST' && req.url === '/api/preview') {
       return readBody(req, (brief) => {
         try {
-          const r = build(root, briefToPlan(root, brief));
-          json(res, 200, { html: renderPage(r.kit, r.templates, r.page), sections: r.templates.map((t) => t.name), theme: r.theme });
+          const r = buildFromBrief(root, brief);
+          json(res, 200, { html: renderPage(r.kit, r.templates, r.page), sections: r.templates.map((t) => t.name), theme: r.theme, warning: r.warning || null });
         } catch (e) { json(res, 400, { error: msg(e) }); }
       });
     }
@@ -37,7 +64,7 @@ export function startStudio(root, port = 4321) {
     if (req.method === 'POST' && req.url === '/api/build') {
       return readBody(req, (brief) => {
         try {
-          const r = build(root, briefToPlan(root, brief));
+          const r = buildFromBrief(root, brief);
           const out = join(root, 'studio-output');
           writeBuild(r, out);
           json(res, 200, { out, files: ['kit.json', 'page.json', ...r.templates.map((t) => `templates/${t.name}.json`)] });
@@ -48,7 +75,7 @@ export function startStudio(root, port = 4321) {
     if (req.method === 'POST' && req.url === '/api/download') {
       return readBody(req, (brief) => {
         try {
-          const r = build(root, briefToPlan(root, brief));
+          const r = buildFromBrief(root, brief);
           const files = [
             { name: 'kit.json', data: JSON.stringify(r.kit, null, 2) },
             { name: 'page.json', data: JSON.stringify(r.page, null, 2) },

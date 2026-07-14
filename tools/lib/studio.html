@@ -58,6 +58,12 @@
       <div><label>Thema</label><select id="theme"></select></div>
       <div><label>Accent (woord)</label><input id="accent" placeholder="trustworthy indigo"></div>
     </div>
+    <label>Eigen merk-kleur</label>
+    <div style="display:flex; gap:10px; align-items:center;">
+      <input type="checkbox" id="useHex" style="width:auto">
+      <input type="color" id="hex" value="#4f46e5" style="width:52px; height:38px; padding:2px;">
+      <span class="small">aan = overschrijft het thema (AA-gegarandeerd)</span>
+    </div>
 
     <h3>Hero</h3>
     <label>Eyebrow</label><input id="eyebrow" placeholder="Category">
@@ -174,7 +180,8 @@ function brief() {
   const b = {
     business: { name, description: $('desc').value || `${name} does something useful.` },
     goals: { primary: 'Convert visitors' },
-    brand: { theme: $('theme').value, accent: $('accent').value || 'indigo', logo: '/logo.svg' },
+    brand: { theme: $('theme').value, accent: $('accent').value || 'indigo', logo: '/logo.svg',
+             ...($('useHex').checked ? { hex: $('hex').value } : {}) },
     pages: [{ type: 'landing', path: '/' }],
     content: {
       eyebrow: $('eyebrow').value || undefined,
@@ -208,7 +215,7 @@ async function render() {
     if (data.error) return setStatus(data.error, true);
     $('frame').srcdoc = data.html;
     $('meta').textContent = `thema "${data.theme}" · secties: ${data.sections.join(', ')}`;
-    setStatus(`${data.sections.length} secties`);
+    setStatus(data.warning || `${data.sections.length} secties`, !!data.warning);
   } catch (e) { setStatus(String(e), true); }
 }
 

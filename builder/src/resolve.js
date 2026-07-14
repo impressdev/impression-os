@@ -38,7 +38,7 @@ const REF = /^\{([a-zA-Z0-9._-]+)\}$/;
  * @param {string} theme  e.g. "light" | "dark" | "brand.example"
  * @returns {Record<string, Resolved>}
  */
-export function resolveTheme(sources, theme) {
+export function resolveTheme(sources, theme, extra = {}) {
   /** @type {Record<string, any>} */
   const defs = {};
 
@@ -48,8 +48,14 @@ export function resolveTheme(sources, theme) {
     flatten(readJSON(f), defs);
   }
 
-  // 2. the requested theme, honoring $extends (base first, then override)
-  applyTheme(sources, theme, defs, new Set());
+  // 1b. optional inline primitives (e.g. a ramp synthesized from a brand hex)
+  if (extra.primitives) flatten(extra.primitives, defs);
+
+  // 2. the base theme (from files), honoring $extends, then an optional inline
+  //    theme delta (e.g. a generated brand theme not yet in the manifest).
+  const base = (extra.theme && extra.theme.$extends) || theme;
+  applyTheme(sources, base, defs, new Set());
+  if (extra.theme) flatten(extra.theme, defs);
 
   // 3. dereference every value
   /** @type {Record<string, Resolved>} */

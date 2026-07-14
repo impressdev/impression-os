@@ -42,6 +42,24 @@ test('studio serves the UI and renders a live preview from a brief', async () =>
   }
 });
 
+test('a custom brand hex re-themes the live preview (contrast-chosen accent)', async () => {
+  const s = startStudio(root, 4401);
+  await s.ready;
+  try {
+    const withHex = { ...brief, brand: { ...brief.brand, hex: '#e11d48' } };
+    const res = await fetch(`${s.url}/api/preview`, {
+      method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(withHex),
+    });
+    const data = await res.json();
+    assert.ok(!data.warning, data.warning);
+    const accent = (data.html.match(/--color-accent: (#[0-9a-f]{6})/i) || [])[1];
+    assert.match(accent, /^#[0-9a-f]{6}$/i);
+    assert.notEqual(accent.toLowerCase(), '#4f46e5', 'accent should not be the default indigo');
+  } finally {
+    s.close();
+  }
+});
+
 test('studio rejects a malformed brief with a 400 and an error message', async () => {
   const s = startStudio(root, 4400);
   await s.ready;

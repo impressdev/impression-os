@@ -34,11 +34,11 @@ export { renderPage } from './html.js';
  * @param {Brief} brief
  * @returns {Build}
  */
-export function build(root, brief) {
+export function build(root, brief, opts = {}) {
   const sources = loadSources(root);
   const theme = brief.theme ?? sources.manifest.themes.default ?? 'light';
 
-  const tokens = resolveTheme(sources, theme);
+  const tokens = resolveTheme(sources, theme, opts.extra);
   const kit = buildKit(tokens, sources.grid, theme);
   const page = buildPage(brief);
 

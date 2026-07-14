@@ -36,12 +36,12 @@ export function generateBrandTheme(colorDoc, { name, accent, base = 'light' }) {
   const subtleStep = base === 'dark' ? 950 : 50;
 
   // Link on the page surface must meet AA.
-  const linkCandidates = base === 'dark' ? [300, 400, 200] : [700, 600, 800];
+  const linkCandidates = base === 'dark' ? [300, 400, 200, 100, 50] : [700, 600, 800, 900, 950];
   const linkStep = firstPassing(linkCandidates, (s) => contrastRatio(hex(s), SURFACE[base]) >= AA_TEXT)
     ?? fail(`ramp "${accent}" cannot provide an AA link color on the ${base} surface`);
 
   // Focus ring: non-text ≥ 3:1 on the page surface.
-  const focusCandidates = base === 'dark' ? [400, 300, 500] : [500, 600, 400];
+  const focusCandidates = base === 'dark' ? [400, 300, 500, 200, 100] : [500, 600, 700, 800, 900];
   const focusStep = firstPassing(focusCandidates, (s) => contrastRatio(hex(s), SURFACE[base]) >= AA_NONTEXT)
     ?? fail(`ramp "${accent}" cannot provide an AA focus ring on the ${base} surface`);
 
