@@ -94,6 +94,22 @@ test('pages carry schema.org JSON-LD (Organization on home, WebPage everywhere)'
   assert.equal(home.page.structuredData[1].url, '/');
 });
 
+test('buildSite emits a web app manifest with brand colors from the theme', () => {
+  const withOrg = { ...site, organization: { name: 'Acme', logo: '/logo.svg' } };
+  const result = buildSite(root, withOrg);
+  assert.equal(result.manifest.name, site.meta.name); // manifest name is the site name
+  assert.match(result.manifest.theme_color, /^#[0-9a-f]{6}$/i);
+  assert.match(result.manifest.background_color, /^#[0-9a-f]{6}$/i);
+  assert.equal(result.manifest.icons[0].src, '/logo.svg');
+  assert.equal(result.manifest.icons[0].type, 'image/svg+xml');
+  // each page carries a theme-color and Open Graph type/url
+  for (const p of result.pages) {
+    assert.equal(p.page.themeColor, result.manifest.theme_color);
+    assert.equal(p.page.og.type, 'website');
+    assert.equal(p.page.og.url, p.path);
+  }
+});
+
 test('inner pages get a BreadcrumbList; the home page does not', () => {
   const result = buildSite(root, site);
   const home = result.pages.find((p) => p.path === '/');

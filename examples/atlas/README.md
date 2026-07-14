@@ -29,7 +29,8 @@ atlas/
 │   ├── sitemap.json     Pages (path, slug, title)
 │   ├── sitemap.xml      Standard sitemap (path-relative locs)
 │   ├── robots.txt       Crawl rules + sitemap pointer
-│   └── pages/           (each page.json has canonical + robots)
+│   ├── site.webmanifest Web app manifest (brand colors from the theme)
+│   └── pages/           (page.json: canonical, robots, themeColor, JSON-LD)
 │       ├── index/       templates/* + page.json   (landing)
 │       └── about/       templates/* + page.json   (about)
 └── provenance.json      Checksum over the whole site build

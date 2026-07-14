@@ -4,10 +4,13 @@
   "og": {
     "title": "About — Atlas",
     "description": "Atlas turns your scattered docs and past tickets into one searchable source of truth — so agents resolve faster and customers self-serve.",
-    "image": "/assets/atlas-search.png"
+    "image": "/assets/atlas-search.png",
+    "type": "website",
+    "url": "/about"
   },
   "canonical": "/about",
   "robots": "index, follow",
+  "themeColor": "#4f46e5",
   "structuredData": [
     {
       "@context": "https://schema.org",

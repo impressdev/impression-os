@@ -82,7 +82,8 @@ writeBuild(result, 'dist');
 `buildSite(root, sitePlan)` compiles a [site plan](../prompts/planning/site-plan.schema.json)
 into **one shared kit** plus per-page templates and metadata; `writeSite` lays it
 out as `kit.json`, a `site.json` index, `sitemap.json` + `sitemap.xml`,
-`robots.txt`, and `pages/<slug>/{templates/*, page.json}`. Each page gets a
+`robots.txt`, a `site.webmanifest` (with brand colors from the theme), and
+`pages/<slug>/{templates/*, page.json}`. Each page gets a
 distinct, SEO-friendly title, a `canonical` path, a `robots` directive
 (`noindex` pages are also disallowed in `robots.txt`), and **schema.org JSON-LD**
 (an `Organization` on the home page, a `WebPage` on every page, and a

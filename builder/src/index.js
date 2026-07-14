@@ -70,6 +70,7 @@ export function writeBuild(result, outDir) {
  * @property {any} kit
  * @property {{path:string, slug:string, type:string|undefined, templates:{name:string,template:any}[], page:any}[]} pages
  * @property {{path:string, slug:string, title:string}[]} sitemap
+ * @property {any} manifest
  */
 
 /**
@@ -84,6 +85,9 @@ export function buildSite(root, sitePlan) {
   const kit = buildKit(tokens, sources.grid, theme);
 
   const siteName = sitePlan.meta?.name ?? 'Site';
+  const accent = tokens['color.accent.default']?.value;
+  const surface = tokens['color.surface.page']?.value;
+
   const pages = (sitePlan.pages ?? []).map((p) => {
     const templates = (p.sections ?? []).map((s) => {
       const recipe = sources.recipes[s.recipe];
@@ -93,15 +97,35 @@ export function buildSite(root, sitePlan) {
     const meta = buildPage({ meta: { name: pageTitle(siteName, p) }, seo: p.seo, sections: p.sections });
     const page = {
       ...meta,
+      og: clean({ ...meta.og, type: 'website', url: p.path }),
       canonical: p.path,
       robots: p.noindex ? 'noindex, nofollow' : 'index, follow',
+      themeColor: accent,
       structuredData: structuredData(sitePlan, p, meta),
     };
     return { path: p.path, slug: pageSlug(p.path), type: p.type, templates, page };
   });
 
   const sitemap = pages.map((p) => ({ path: p.path, slug: p.slug, title: p.page.title }));
-  return { theme, kit, pages, sitemap };
+  const manifest = webManifest(siteName, sitePlan.organization?.logo, accent, surface);
+  return { theme, kit, pages, sitemap, manifest };
+}
+
+/** A W3C web app manifest with brand colors from the resolved theme. */
+function webManifest(name, logo, themeColor, background) {
+  return clean({
+    name,
+    short_name: name,
+    start_url: '/',
+    display: 'standalone',
+    theme_color: themeColor,
+    background_color: background,
+    icons: logo ? [{ src: logo, type: iconType(logo), sizes: 'any', purpose: 'any' }] : undefined,
+  });
+}
+
+function iconType(src) {
+  return /\.svg($|\?)/i.test(src) ? 'image/svg+xml' : 'image/png';
 }
 
 /**
@@ -116,6 +140,7 @@ export function writeSite(result, outDir) {
   writeFileSync(join(outDir, 'sitemap.json'), JSON.stringify(result.sitemap, null, 2) + '\n');
   writeFileSync(join(outDir, 'sitemap.xml'), sitemapXml(result.sitemap));
   writeFileSync(join(outDir, 'robots.txt'), robotsTxt(result));
+  writeFileSync(join(outDir, 'site.webmanifest'), JSON.stringify(result.manifest, null, 2) + '\n');
   for (const p of result.pages) {
     const dir = join(outDir, 'pages', p.slug);
     mkdirSync(join(dir, 'templates'), { recursive: true });
