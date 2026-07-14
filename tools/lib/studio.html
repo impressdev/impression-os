@@ -44,6 +44,7 @@
   <div class="panel">
     <div class="toolbar">
       <button class="btn btn--ghost" id="example">Laad voorbeeld</button>
+      <button class="btn btn--ghost" id="download">Download .zip</button>
       <button class="btn" id="generate">Genereer kit →</button>
     </div>
     <div class="small" id="meta">Vul de briefing in — de preview beweegt mee.</div>
@@ -219,6 +220,19 @@ $('generate').onclick = async () => {
   const data = await res.json();
   if (data.error) return setStatus(data.error, true);
   setStatus(`kit geschreven → ${data.out} (${data.files.length} bestanden)`);
+};
+
+$('download').onclick = async () => {
+  setStatus('kit inpakken…');
+  try {
+    const res = await fetch('/api/download', { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(brief()) });
+    if (!res.ok) { const e = await res.json(); return setStatus(e.error || 'fout', true); }
+    const blob = await res.blob();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = 'impression-kit.zip'; a.click();
+    URL.revokeObjectURL(a.href);
+    setStatus('impression-kit.zip gedownload');
+  } catch (e) { setStatus(String(e), true); }
 };
 
 $('example').onclick = () => {

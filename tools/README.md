@@ -122,10 +122,12 @@ face on the whole pipeline:
 node tools/bin/impression.js studio       # → http://localhost:4321
 ```
 
-Fill a brief on the left; the site renders **live** on the right as you type
-(the preview updates on every change). "Genereer kit →" writes the Elementor kit
-to `studio-output/`. It simply wraps the existing library — `briefToPlan` → `build`
-→ `renderPage` — over a tiny Node HTTP server.
+Fill a brief on the left — business, brand, hero, features, testimonials, pricing,
+and FAQ; the site renders **live** on the right as you type (the preview updates on
+every change). **Download .zip** hands you the whole kit as one file; **Genereer
+kit →** writes it to `studio-output/`. It simply wraps the existing library —
+`briefToPlan` → `build` → `renderPage` — over a tiny Node HTTP server, with a
+zero-dependency ZIP writer for the download.
 
 ## Structure
 

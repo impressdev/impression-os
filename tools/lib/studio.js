@@ -5,6 +5,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build, writeBuild, renderPage } from '../../builder/src/index.js';
 import { briefToPlan } from './commands.js';
+import { zip } from './zip.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 
@@ -40,6 +41,22 @@ export function startStudio(root, port = 4321) {
           const out = join(root, 'studio-output');
           writeBuild(r, out);
           json(res, 200, { out, files: ['kit.json', 'page.json', ...r.templates.map((t) => `templates/${t.name}.json`)] });
+        } catch (e) { json(res, 400, { error: msg(e) }); }
+      });
+    }
+
+    if (req.method === 'POST' && req.url === '/api/download') {
+      return readBody(req, (brief) => {
+        try {
+          const r = build(root, briefToPlan(root, brief));
+          const files = [
+            { name: 'kit.json', data: JSON.stringify(r.kit, null, 2) },
+            { name: 'page.json', data: JSON.stringify(r.page, null, 2) },
+            ...r.templates.map((t) => ({ name: `templates/${t.name}.json`, data: JSON.stringify(t.template, null, 2) })),
+          ];
+          const buf = zip(files);
+          res.writeHead(200, { 'content-type': 'application/zip', 'content-disposition': 'attachment; filename="impression-kit.zip"' });
+          res.end(buf);
         } catch (e) { json(res, 400, { error: msg(e) }); }
       });
     }
