@@ -97,18 +97,32 @@ Prove the whole pipeline end to end.
 
 ## Post-roadmap: what's next
 
-The eight phases establish the system end-to-end. Natural next investments:
+The eight phases establish the system end-to-end. Progress since:
+
+- ✅ **More recipes and components** — stat, stats, logo-cloud, team, gallery,
+  contact (lead form), announcement-bar; `lead` blueprint.
+- ✅ **Brand theming at scale** — `impression theme` generates per-client brand
+  themes with accent steps chosen by contrast to meet AA, including **ramp
+  synthesis from a single brand hex** ([ADR-0009](docs/decisions/0009-contrast-driven-brand-themes.md)).
+- ✅ **Multi-page sites** — `plan-site` / `build-site`: one shared kit, per-page
+  templates + metadata, sitemap, robots.txt, web manifest, JSON-LD
+  (Organization, WebPage, BreadcrumbList), orphan-page warnings.
+- ✅ **A first-class CLI** in [`tools/`](tools/) — 13 commands wrapping the
+  builder, the planner, theming, and the harness.
+- ✅ **HTML preview** — `preview` / `preview-site` render the compiled output to
+  self-contained HTML, so generated sites are visible without WordPress.
+- ✅ **The Studio** — `impression studio`: a local, zero-dependency GUI with a
+  brief form, a live preview, a contrast-safe brand-color picker, and a
+  kit download.
+
+Still open:
 
 - A **WordPress + Elementor render harness** to automate import and upgrade
-  visual regression from output snapshots to pixel checks.
-- **More recipes and components** (navbars with dropdowns, logo clouds, stats,
-  contact forms) and additional **blueprints**.
-- **Brand theming at scale** — ✅ `impression theme` generates per-client brand
-  themes with accent steps chosen by contrast to meet AA, including **ramp
-  synthesis from a single brand hex** ([ADR-0009](docs/decisions/0009-contrast-driven-brand-themes.md));
-  next: richer dark-mode packaging (the open questions in the
+  visual regression from output snapshots to pixel checks (needs a WordPress
+  environment).
+- Richer dark-mode packaging (the open questions in the
   [token → Elementor mapping](docs/architecture/token-to-elementor-mapping.md)).
-- A first-class **CLI** in [`tools/`](tools/) wrapping the builder and the harness.
+- Multi-page support in the Studio.
 
 ## Tooling & docs (continuous)
 

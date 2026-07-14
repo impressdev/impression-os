@@ -99,11 +99,17 @@ what's next and [PROJECT.md](PROJECT.md) for the full vision.
 **Quick start** (via the [`impression` CLI](tools/)):
 
 ```bash
+node tools/bin/impression.js studio                             # the GUI: brief → live preview → kit
 node tools/bin/impression.js list recipes                       # what the system offers
 node tools/bin/impression.js validate                           # check every data artifact
-node tools/bin/impression.js build examples/northwind/plan.json --out dist   # generate a kit
+node tools/bin/impression.js build examples/northwind/plan.json --out dist    # generate a kit
+node tools/bin/impression.js preview examples/northwind/plan.json --out preview  # see it as HTML
 node --test                                                     # run the quality harness
 ```
+
+The **[Studio](tools/)** is a local, zero-dependency web app: fill a brief on the
+left, watch the site render live on the right (including a contrast-safe custom
+brand color), and download the Elementor kit as a `.zip`.
 
 ## Documentation
 
