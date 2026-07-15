@@ -167,7 +167,8 @@
                 "image": {
                   "url": "/assets/lumen-app.png",
                   "alt": "The Lumen scheduling board"
-                }
+                },
+                "_impression_asset": "media"
               },
               "elements": []
             }

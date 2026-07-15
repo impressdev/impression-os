@@ -53,7 +53,8 @@
                 "image": {
                   "url": "/assets/atlas-logo.svg",
                   "alt": "Atlas"
-                }
+                },
+                "_impression_asset": "logo"
               },
               "elements": []
             }

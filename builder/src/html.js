@@ -1,4 +1,6 @@
 // @ts-check
+import { placeholderDataUri, isUnresolvedAsset } from './placeholder.js';
+
 /**
  * Render a compiled kit + templates into a single self-contained HTML page — a
  * preview of the generated site that needs no WordPress. Tokens become CSS
@@ -13,7 +15,8 @@
  */
 export function renderPage(kit, templates, page) {
   const head = renderHead(page);
-  const body = templates.map((t) => renderSection(t.template)).join('\n');
+  const pal = palette(kit);
+  const body = templates.map((t) => renderSection(t.template, pal)).join('\n');
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -100,22 +103,34 @@ input, textarea { padding: 10px 12px; border: 1px solid var(--color-border, #ccc
 `;
 }
 
+/** The brand colors the placeholder generator needs, read from the kit. */
+function palette(kit) {
+  const colors = [...(kit.settings?.system_colors ?? []), ...(kit.settings?.custom_colors ?? [])];
+  const by = (title) => colors.find((c) => c.title === title)?.color;
+  return {
+    surface: by('Surface Raised') ?? '#f1f5f9',
+    border: by('Border') ?? '#e2e8f0',
+    muted: by('Text Muted') ?? '#64748b',
+    accent: by('Accent') ?? '#4f46e5',
+  };
+}
+
 /** A top-level template becomes a full-bleed <section> with a centered container. */
-function renderSection(template) {
-  const inner = (template.content ?? []).map(renderNode).join('');
+function renderSection(template, pal) {
+  const inner = (template.content ?? []).map((n) => renderNode(n, pal)).join('');
   return `<section class="section"><div class="container">${inner}</div></section>`;
 }
 
-function renderNode(node, inGrid = false) {
+function renderNode(node, pal, inGrid = false) {
   if (!node) return '';
   if (node.elType === 'container') {
     const s = node.settings ?? {};
     const isGrid = s.container_type === 'grid';
-    const kids = (node.elements ?? []).map((c) => renderNode(c, isGrid)).join('');
+    const kids = (node.elements ?? []).map((c) => renderNode(c, pal, isGrid)).join('');
     const cls = inGrid ? ' class="card"' : '';
     return `<div${cls} style="${flexStyle(s)}">${kids}</div>`;
   }
-  return renderWidget(node);
+  return renderWidget(node, pal);
 }
 
 function flexStyle(s) {
@@ -139,7 +154,7 @@ function gridCols(n) {
   return `repeat(auto-fit, minmax(${Math.max(160, Math.floor(1000 / n))}px, 1fr))`;
 }
 
-function renderWidget(node) {
+function renderWidget(node, pal) {
   const s = node.settings ?? {};
   switch (node.widgetType) {
     case 'heading': {
@@ -149,11 +164,24 @@ function renderWidget(node) {
     case 'text-editor':
       return `<div class="prose">${s.editor ?? ''}</div>`;
     case 'button': {
-      const cls = 'btn';
+      const cls = s.border_border ? 'btn btn--secondary' : 'btn';
       return `<a class="${cls}" href="${esc(s.link?.url ?? '#')}">${esc(s.text ?? '')}</a>`;
     }
-    case 'image':
-      return `<img src="${esc(s.image?.url ?? '')}" alt="${esc(s.image?.alt ?? '')}">`;
+    case 'image': {
+      const url = s.image?.url ?? '';
+      const alt = s.image?.alt ?? '';
+      if (!isUnresolvedAsset(url)) return `<img src="${esc(url)}" alt="${esc(alt)}">`;
+      const kind = s._impression_asset ?? 'media';
+      const shape = kind === 'logo'
+        ? { wordmark: true, width: 180, height: 44 }
+        : kind === 'avatar'
+          ? { width: 96, height: 96 }
+          : { width: 800, height: 450 };
+      const src = placeholderDataUri({ label: alt || 'Image', ...shape, ...pal });
+      const style = kind === 'logo' ? ' style="width:180px;min-height:0;border:0;background:none"'
+        : kind === 'avatar' ? ' style="width:96px;border-radius:50%"' : '';
+      return `<img src="${esc(src)}" alt="${esc(alt)}"${style}>`;
+    }
     case 'icon':
       return `<span class="badge" aria-hidden="true">◆</span>`;
     case 'icon-list': {

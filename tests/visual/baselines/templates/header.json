@@ -53,7 +53,8 @@
                 "image": {
                   "url": "/assets/northwind-logo.svg",
                   "alt": "Northwind"
-                }
+                },
+                "_impression_asset": "logo"
               },
               "elements": []
             }

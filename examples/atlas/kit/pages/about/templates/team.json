@@ -124,7 +124,8 @@
                     "image": {
                       "url": "/assets/team/elena.jpg",
                       "alt": "Elena Marsh"
-                    }
+                    },
+                    "_impression_asset": "avatar"
                   },
                   "elements": []
                 },
@@ -203,7 +204,8 @@
                     "image": {
                       "url": "/assets/team/devin.jpg",
                       "alt": "Devin Osei"
-                    }
+                    },
+                    "_impression_asset": "avatar"
                   },
                   "elements": []
                 },
@@ -282,7 +284,8 @@
                     "image": {
                       "url": "/assets/team/mara.jpg",
                       "alt": "Mara Lindqvist"
-                    }
+                    },
+                    "_impression_asset": "avatar"
                   },
                   "elements": []
                 },

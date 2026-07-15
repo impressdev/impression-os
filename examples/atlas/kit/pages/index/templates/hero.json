@@ -167,7 +167,8 @@
                 "image": {
                   "url": "/assets/atlas-search.png",
                   "alt": "The Atlas search experience"
-                }
+                },
+                "_impression_asset": "media"
               },
               "elements": []
             }

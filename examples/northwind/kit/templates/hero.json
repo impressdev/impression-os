@@ -167,7 +167,8 @@
                 "image": {
                   "url": "/assets/dashboard.png",
                   "alt": "The Northwind operations dashboard"
-                }
+                },
+                "_impression_asset": "media"
               },
               "elements": []
             }

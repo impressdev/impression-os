@@ -190,10 +190,16 @@ function bindComponent(path, ref, scope, ctx) {
     }
     case 'media': {
       // Either a named media field, or a scope that *is* the image (e.g. a logo item).
-      const img = pick(scope, ['media', 'image', 'logo', 'avatar']) ?? (scope && scope.url ? scope : undefined);
+      const key = ['media', 'image', 'logo', 'avatar'].find((k) => scope?.[k] != null);
+      const img = (key ? scope[key] : undefined) ?? (scope && scope.url ? scope : undefined);
       if (!img) return null;
+      // Record what kind of asset this is so placeholder rendering (preview,
+      // import harness) can pick a fitting shape. Unknown settings keys are
+      // preserved by Elementor and ignored by its renderer.
+      const kind = key === 'logo' ? 'logo' : key === 'avatar' ? 'avatar' : 'media';
       return widget(path, 'image', {
         image: { url: String(img.url ?? img), alt: String(img.alt ?? '') },
+        _impression_asset: kind,
       });
     }
     case 'stat': {

@@ -38,6 +38,15 @@ test('the preview head carries title, description, and JSON-LD is absent for sin
   assert.match(html, /<meta name="description"/);
 });
 
+test('unresolved image URLs render as branded SVG placeholders, not broken images', () => {
+  const html = previewFor(`${root}/examples/northwind/plan.json`);
+  assert.ok(!/<img src="\//.test(html), 'no site-relative img src remains');
+  assert.match(html, /<img src="data:image\/svg\+xml/, 'placeholder data URI present');
+  assert.match(html, /alt="The Northwind operations dashboard"/, 'alt text preserved');
+  // the placeholder carries the brand palette (accent from the kit)
+  assert.ok(html.includes(encodeURIComponent('#4f46e5')), 'brand accent inside the SVG');
+});
+
 test('preview output is deterministic', () => {
   const a = previewFor(`${root}/examples/lumen/plan.json`);
   const b = previewFor(`${root}/examples/lumen/plan.json`);

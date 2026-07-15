@@ -84,7 +84,8 @@
                     "image": {
                       "url": "/assets/logos/meridian.svg",
                       "alt": "Meridian"
-                    }
+                    },
+                    "_impression_asset": "media"
                   },
                   "elements": []
                 }
@@ -113,7 +114,8 @@
                     "image": {
                       "url": "/assets/logos/halcyon.svg",
                       "alt": "Halcyon"
-                    }
+                    },
+                    "_impression_asset": "media"
                   },
                   "elements": []
                 }
@@ -142,7 +144,8 @@
                     "image": {
                       "url": "/assets/logos/northgate.svg",
                       "alt": "Northgate"
-                    }
+                    },
+                    "_impression_asset": "media"
                   },
                   "elements": []
                 }
@@ -171,7 +174,8 @@
                     "image": {
                       "url": "/assets/logos/brightline.svg",
                       "alt": "Brightline"
-                    }
+                    },
+                    "_impression_asset": "media"
                   },
                   "elements": []
                 }

@@ -79,7 +79,8 @@
                     "image": {
                       "url": "/assets/lumen-logo.svg",
                       "alt": "Lumen"
-                    }
+                    },
+                    "_impression_asset": "logo"
                   },
                   "elements": []
                 },
