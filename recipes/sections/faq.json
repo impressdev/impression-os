@@ -19,14 +19,7 @@
       "items": {
         "primitive": "stack",
         "gap": "{space.gap.sm}",
-        "regions": {
-          "item": {
-            "primitive": "stack",
-            "gap": "{space.gap.xs}",
-            "repeat": true,
-            "components": ["heading:h3", "text"]
-          }
-        }
+        "components": ["accordion"]
       }
     }
   },
@@ -51,7 +44,7 @@
     "lg": "Single column, capped at the reading measure."
   },
 
-  "components": ["heading", "text"],
+  "components": ["heading", "text", "accordion"],
 
   "a11y": {
     "headingLevel": "h2 for the section; each question is h3.",

@@ -93,6 +93,8 @@ p { margin: 0 0 1em; max-width: 65ch; }
 .prose { color: var(--color-text-muted, inherit); }
 .card { background: var(--color-surface); border: 1px solid var(--color-border, #e5e7eb); border-radius: 16px; padding: 28px; }
 .card img { margin-bottom: 4px; }
+.accordion details { border: 1px solid var(--color-border, #e5e7eb); border-radius: 10px; padding: 12px 16px; margin-bottom: 8px; background: var(--color-surface); }
+.accordion summary { cursor: pointer; }
 .field { display: grid; gap: 6px; margin-bottom: 14px; }
 input, textarea { padding: 10px 12px; border: 1px solid var(--color-border, #ccc); border-radius: 8px; font: inherit; background: var(--color-surface); color: var(--color-text); }
 `;
@@ -161,6 +163,12 @@ function renderWidget(node) {
         return `<ul class="nav">${items.map((i) => `<li><a href="${esc(i.link?.url ?? '#')}">${esc(i.text ?? '')}</a></li>`).join('')}</ul>`;
       }
       return `<ul class="list">${items.map((i) => `<li>${esc(i.text ?? '')}</li>`).join('')}</ul>`;
+    }
+    case 'accordion': {
+      const items = (s.tabs ?? []).map((t) =>
+        `<details><summary><strong>${esc(t.tab_title ?? '')}</strong></summary><div class="prose">${t.tab_content ?? ''}</div></details>`
+      ).join('');
+      return `<div class="accordion">${items}</div>`;
     }
     case 'form': {
       const fields = (s.form_fields ?? []).map((f) => {

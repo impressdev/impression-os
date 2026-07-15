@@ -75,121 +75,30 @@
           },
           "elements": [
             {
-              "id": "6adee6b",
-              "elType": "container",
+              "id": "92ea830",
+              "elType": "widget",
+              "widgetType": "accordion",
               "settings": {
-                "flex_gap": {
-                  "column": "8",
-                  "row": "8",
-                  "isLinked": true,
-                  "unit": "px",
-                  "size": 8
-                },
-                "flex_direction": "column"
+                "tabs": [
+                  {
+                    "_id": "f797a6f",
+                    "tab_title": "How long does setup take?",
+                    "tab_content": "<p>Most teams connect their first data sources and see live signal within a day.</p>"
+                  },
+                  {
+                    "_id": "f797a70",
+                    "tab_title": "Do you support on-prem systems?",
+                    "tab_content": "<p>Yes — the Enterprise plan includes on-prem connectors and a dedicated integration engineer.</p>"
+                  },
+                  {
+                    "_id": "f797a71",
+                    "tab_title": "Is my data secure?",
+                    "tab_content": "<p>Northwind is SOC 2 Type II certified, with SSO and role-based access on every paid plan.</p>"
+                  }
+                ],
+                "title_html_tag": "h3"
               },
-              "elements": [
-                {
-                  "id": "64aaf6d",
-                  "elType": "widget",
-                  "widgetType": "heading",
-                  "settings": {
-                    "title": "How long does setup take?",
-                    "header_size": "h3",
-                    "__globals__": {
-                      "typography_typography": "globals/typography?id=0949564"
-                    }
-                  },
-                  "elements": []
-                },
-                {
-                  "id": "64aaf6e",
-                  "elType": "widget",
-                  "widgetType": "text-editor",
-                  "settings": {
-                    "editor": "<p>Most teams connect their first data sources and see live signal within a day.</p>"
-                  },
-                  "elements": []
-                }
-              ],
-              "isInner": true
-            },
-            {
-              "id": "6adee6c",
-              "elType": "container",
-              "settings": {
-                "flex_gap": {
-                  "column": "8",
-                  "row": "8",
-                  "isLinked": true,
-                  "unit": "px",
-                  "size": 8
-                },
-                "flex_direction": "column"
-              },
-              "elements": [
-                {
-                  "id": "64b3bce",
-                  "elType": "widget",
-                  "widgetType": "heading",
-                  "settings": {
-                    "title": "Do you support on-prem systems?",
-                    "header_size": "h3",
-                    "__globals__": {
-                      "typography_typography": "globals/typography?id=0949564"
-                    }
-                  },
-                  "elements": []
-                },
-                {
-                  "id": "64b3bcf",
-                  "elType": "widget",
-                  "widgetType": "text-editor",
-                  "settings": {
-                    "editor": "<p>Yes — the Enterprise plan includes on-prem connectors and a dedicated integration engineer.</p>"
-                  },
-                  "elements": []
-                }
-              ],
-              "isInner": true
-            },
-            {
-              "id": "6adee6d",
-              "elType": "container",
-              "settings": {
-                "flex_gap": {
-                  "column": "8",
-                  "row": "8",
-                  "isLinked": true,
-                  "unit": "px",
-                  "size": 8
-                },
-                "flex_direction": "column"
-              },
-              "elements": [
-                {
-                  "id": "64bc82f",
-                  "elType": "widget",
-                  "widgetType": "heading",
-                  "settings": {
-                    "title": "Is my data secure?",
-                    "header_size": "h3",
-                    "__globals__": {
-                      "typography_typography": "globals/typography?id=0949564"
-                    }
-                  },
-                  "elements": []
-                },
-                {
-                  "id": "64bc830",
-                  "elType": "widget",
-                  "widgetType": "text-editor",
-                  "settings": {
-                    "editor": "<p>Northwind is SOC 2 Type II certified, with SSO and role-based access on every paid plan.</p>"
-                  },
-                  "elements": []
-                }
-              ],
-              "isInner": true
+              "elements": []
             }
           ],
           "isInner": true

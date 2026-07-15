@@ -75,121 +75,30 @@
           },
           "elements": [
             {
-              "id": "6adee6b",
-              "elType": "container",
+              "id": "92ea830",
+              "elType": "widget",
+              "widgetType": "accordion",
               "settings": {
-                "flex_gap": {
-                  "column": "8",
-                  "row": "8",
-                  "isLinked": true,
-                  "unit": "px",
-                  "size": 8
-                },
-                "flex_direction": "column"
+                "tabs": [
+                  {
+                    "_id": "f797a6f",
+                    "tab_title": "How long does setup take?",
+                    "tab_content": "<p>Most teams import their docs and see live search within an afternoon.</p>"
+                  },
+                  {
+                    "_id": "f797a70",
+                    "tab_title": "Does it work with our helpdesk?",
+                    "tab_content": "<p>Atlas connects to Zendesk, Intercom, and Freshdesk out of the box.</p>"
+                  },
+                  {
+                    "_id": "f797a71",
+                    "tab_title": "Is our data secure?",
+                    "tab_content": "<p>Atlas is SOC 2 Type II certified, with SSO and role-based access on every plan.</p>"
+                  }
+                ],
+                "title_html_tag": "h3"
               },
-              "elements": [
-                {
-                  "id": "64aaf6d",
-                  "elType": "widget",
-                  "widgetType": "heading",
-                  "settings": {
-                    "title": "How long does setup take?",
-                    "header_size": "h3",
-                    "__globals__": {
-                      "typography_typography": "globals/typography?id=0949564"
-                    }
-                  },
-                  "elements": []
-                },
-                {
-                  "id": "64aaf6e",
-                  "elType": "widget",
-                  "widgetType": "text-editor",
-                  "settings": {
-                    "editor": "<p>Most teams import their docs and see live search within an afternoon.</p>"
-                  },
-                  "elements": []
-                }
-              ],
-              "isInner": true
-            },
-            {
-              "id": "6adee6c",
-              "elType": "container",
-              "settings": {
-                "flex_gap": {
-                  "column": "8",
-                  "row": "8",
-                  "isLinked": true,
-                  "unit": "px",
-                  "size": 8
-                },
-                "flex_direction": "column"
-              },
-              "elements": [
-                {
-                  "id": "64b3bce",
-                  "elType": "widget",
-                  "widgetType": "heading",
-                  "settings": {
-                    "title": "Does it work with our helpdesk?",
-                    "header_size": "h3",
-                    "__globals__": {
-                      "typography_typography": "globals/typography?id=0949564"
-                    }
-                  },
-                  "elements": []
-                },
-                {
-                  "id": "64b3bcf",
-                  "elType": "widget",
-                  "widgetType": "text-editor",
-                  "settings": {
-                    "editor": "<p>Atlas connects to Zendesk, Intercom, and Freshdesk out of the box.</p>"
-                  },
-                  "elements": []
-                }
-              ],
-              "isInner": true
-            },
-            {
-              "id": "6adee6d",
-              "elType": "container",
-              "settings": {
-                "flex_gap": {
-                  "column": "8",
-                  "row": "8",
-                  "isLinked": true,
-                  "unit": "px",
-                  "size": 8
-                },
-                "flex_direction": "column"
-              },
-              "elements": [
-                {
-                  "id": "64bc82f",
-                  "elType": "widget",
-                  "widgetType": "heading",
-                  "settings": {
-                    "title": "Is our data secure?",
-                    "header_size": "h3",
-                    "__globals__": {
-                      "typography_typography": "globals/typography?id=0949564"
-                    }
-                  },
-                  "elements": []
-                },
-                {
-                  "id": "64bc830",
-                  "elType": "widget",
-                  "widgetType": "text-editor",
-                  "settings": {
-                    "editor": "<p>Atlas is SOC 2 Type II certified, with SSO and role-based access on every plan.</p>"
-                  },
-                  "elements": []
-                }
-              ],
-              "isInner": true
+              "elements": []
             }
           ],
           "isInner": true

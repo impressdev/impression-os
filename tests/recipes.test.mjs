@@ -115,6 +115,30 @@ test('gallery compiles one image per item, with alt text', () => {
   assert.deepEqual(images.map((i) => i.settings.image.alt), ['Dashboard', 'Reports', 'Settings']);
 });
 
+test('faq compiles to a single Elementor accordion with one tab per item', () => {
+  const faqPlan = {
+    theme: 'light',
+    sections: [{
+      recipe: 'faq',
+      content: {
+        heading: 'Questions',
+        items: [
+          { question: 'How fast is setup?', answer: 'Under a day.' },
+          { question: 'Is it secure?', answer: 'SOC 2 Type II.' },
+        ],
+      },
+    }],
+  };
+  const { templates } = build(root, faqPlan);
+  const accordions = collect(templates[0].template, (n) => n.widgetType === 'accordion');
+  assert.equal(accordions.length, 1, 'exactly one accordion widget');
+  const tabs = accordions[0].settings.tabs;
+  assert.deepEqual(tabs.map((t) => t.tab_title), ['How fast is setup?', 'Is it secure?']);
+  assert.match(tabs[0].tab_content, /Under a day\./);
+  assert.ok(tabs.every((t) => t._id), 'every tab has a repeater _id');
+  assert.equal(accordions[0].settings.title_html_tag, 'h3');
+});
+
 test('contact compiles a single Elementor form from the fields list', () => {
   const contactPlan = {
     theme: 'light',

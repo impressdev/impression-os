@@ -9,6 +9,7 @@ specified against [`../schema/component.schema.json`](../schema/component.schema
 | [`list-item`](list-item.json)   | A single row in a feature/checklist. | icon, text | `icon-list` |
 | [`form-field`](form-field.json) | Labelled control with hint/error slots. | text, icon | `form` |
 | [`nav-item`](nav-item.json)     | A navigation link with a current state. | text | `nav-menu` |
+| [`accordion`](accordion.json)   | Disclosure list (FAQ items). | heading, text | `accordion` |
 
 ## Conventions
 

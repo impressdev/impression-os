@@ -15,7 +15,7 @@
           "size": 16
         },
         "flex_direction": "row",
-        "flex_wrap": "wrap",
+        "flex_wrap": "nowrap",
         "flex_align_items": "center",
         "content_width": "boxed",
         "html_tag": "header",
@@ -26,7 +26,9 @@
           "bottom": "64",
           "left": "20",
           "isLinked": false
-        }
+        },
+        "flex_wrap_mobile": "wrap",
+        "flex_justify_content": "space-between"
       },
       "elements": [
         {

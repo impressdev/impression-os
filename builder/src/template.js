@@ -56,6 +56,16 @@ function sectionShell(recipe, ctx) {
     shell.background_background = 'classic';
     shell.background_color = ctx.tok('{color.surface.raised}');
   }
+  if (recipe.landmark === 'banner') {
+    // One row on desktop: child containers are 100%-wide by default, so a
+    // wrapping row stacks them — nowrap makes them shrink and share the row.
+    Object.assign(shell, {
+      flex_wrap: 'nowrap',
+      flex_wrap_mobile: 'wrap',
+      flex_align_items: 'center',
+      flex_justify_content: 'space-between',
+    });
+  }
   return shell;
 }
 
@@ -224,6 +234,20 @@ function bindComponent(path, ref, scope, ctx) {
         });
       }
       return null;
+    }
+    case 'accordion': {
+      // The whole disclosure list: one Elementor Accordion widget built from
+      // the items list (same pattern as list-item and form-field).
+      const items = pick(scope, ['items', 'faqs']);
+      if (!Array.isArray(items) || !items.length) return null;
+      return widget(path, 'accordion', {
+        tabs: items.map((it, i) => ({
+          _id: hashId(`${path}/${i}`),
+          tab_title: String(it.question ?? it.title ?? ''),
+          tab_content: `<p>${escapeHtml(String(it.answer ?? it.body ?? ''))}</p>`,
+        })),
+        title_html_tag: 'h3',
+      });
     }
     case 'form-field': {
       // The whole form: one Elementor Form widget built from the fields list

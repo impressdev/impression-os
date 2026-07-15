@@ -1,0 +1,46 @@
+{
+  "name": "accordion",
+  "category": "composite",
+  "status": "draft",
+  "description": "An accessible disclosure list: each item pairs a question/title trigger with collapsible content. Used by the FAQ recipe; maps to Elementor's native Accordion widget.",
+  "anatomy": ["root", "item-title", "item-content"],
+  "dependencies": ["heading", "text"],
+
+  "props": {
+    "items": {
+      "type": "string",
+      "required": true,
+      "description": "The content field holding {question|title, answer|body} pairs (bound by the compiler)."
+    }
+  },
+
+  "base": {
+    "root": { "gap": "{space.gap.sm}" },
+    "item-title": { "typography": "{text.h4}", "color": "{color.text.default}" },
+    "item-content": { "typography": "{text.body}", "color": "{color.text.muted}" }
+  },
+
+  "states": {
+    "focus": { "item-title": { "outlineColor": "{color.border.focus}", "outlineWidth": "{space.0.5}", "outlineOffset": "{space.0.5}" } },
+    "disabled": { "root": { "opacity": 0.5 } }
+  },
+
+  "a11y": {
+    "focusVisible": true,
+    "contrast": "Titles meet 4.5:1; content meets 4.5:1 on the section surface.",
+    "notes": [
+      "Each trigger is a button with aria-expanded and aria-controls linking to its panel (Elementor's widget provides this).",
+      "Titles render as h3 so the section outline stays intact.",
+      "Collapsed content remains reachable by keyboard via the trigger."
+    ]
+  },
+
+  "elementor": {
+    "widget": "accordion",
+    "notes": "Compiles to Elementor's Accordion widget; items become the tabs repeater.",
+    "mapping": {
+      "items": "tabs[] → { tab_title, tab_content }",
+      "title tag": "title_html_tag = h3"
+    }
+  }
+}
