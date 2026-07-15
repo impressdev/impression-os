@@ -21,10 +21,10 @@
     },
 
     "section": {
-      "$description": "Vertical rhythm between and within page sections.",
-      "sm": { "$value": "{space.16}" },
-      "md": { "$value": "{space.24}" },
-      "lg": { "$value": "{space.32}" }
+      "$description": "Vertical rhythm between and within page sections. Fluid: each role scales between min (mobile) and max (desktop) via clamp().",
+      "sm": { "$value": { "min": "{space.12}", "max": "{space.16}" } },
+      "md": { "$value": { "min": "{space.16}", "max": "{space.24}" } },
+      "lg": { "$value": { "min": "{space.20}", "max": "{space.32}" } }
     }
   }
 }

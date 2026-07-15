@@ -6,18 +6,18 @@
     "display": {
       "$value": {
         "fontFamily": "{font.family.sans}",
-        "fontSize": "{font.size.6xl}",
+        "fontSize": { "min": "{font.size.4xl}", "max": "{font.size.6xl}" },
         "fontWeight": "{font.weight.bold}",
         "lineHeight": "{font.line-height.tight}",
         "letterSpacing": "{font.letter-spacing.tighter}"
       },
-      "$description": "Hero / marquee headline."
+      "$description": "Hero / marquee headline. Font size is fluid: it scales between min (mobile) and max (desktop) via clamp()."
     },
 
     "h1": {
       "$value": {
         "fontFamily": "{font.family.sans}",
-        "fontSize": "{font.size.5xl}",
+        "fontSize": { "min": "{font.size.3xl}", "max": "{font.size.5xl}" },
         "fontWeight": "{font.weight.bold}",
         "lineHeight": "{font.line-height.tight}",
         "letterSpacing": "{font.letter-spacing.tight}"
@@ -27,7 +27,7 @@
     "h2": {
       "$value": {
         "fontFamily": "{font.family.sans}",
-        "fontSize": "{font.size.4xl}",
+        "fontSize": { "min": "{font.size.2xl}", "max": "{font.size.4xl}" },
         "fontWeight": "{font.weight.semibold}",
         "lineHeight": "{font.line-height.snug}",
         "letterSpacing": "{font.letter-spacing.tight}"
@@ -37,7 +37,7 @@
     "h3": {
       "$value": {
         "fontFamily": "{font.family.sans}",
-        "fontSize": "{font.size.3xl}",
+        "fontSize": { "min": "{font.size.xl}", "max": "{font.size.3xl}" },
         "fontWeight": "{font.weight.semibold}",
         "lineHeight": "{font.line-height.snug}",
         "letterSpacing": "{font.letter-spacing.normal}"

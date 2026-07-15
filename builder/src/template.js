@@ -1,6 +1,7 @@
 // @ts-check
 import { container, widget, layoutSettings, gapValue, dimensions, slider } from './elementor.js';
 import { pick, hashId, parseDimension } from './util.js';
+import { isFluid, fluidToClamp } from './fluid.js';
 
 /**
  * Compile a recipe + a content object into an Elementor template.
@@ -22,6 +23,7 @@ export function compileRecipe(recipe, content, tokens) {
     primaryList: primaryListName(recipe),
     tokens,
     tok: (ref) => resolveToken(tokens, ref),
+    raw: (ref) => rawToken(tokens, ref),
     px: (ref) => toPx(resolveToken(tokens, ref)),
   };
 
@@ -43,14 +45,20 @@ const RAISED = new Set(['logo-cloud', 'stats', 'testimonial', 'faq']);
 function sectionShell(recipe, ctx) {
   const spacing = { none: 0, compact: '{space.section.sm}', default: '{space.section.md}', spacious: '{space.section.lg}' };
   const block = spacing[recipe.sectionSpacing ?? 'default'];
-  const blockPx = block === 0 ? 0 : ctx.px(block);
   const tag = { banner: 'header', contentinfo: 'footer' }[recipe.landmark] ?? 'section';
+
+  // Section rhythm: fluid tokens ({min, max}) become clamp() via Elementor's
+  // custom unit; static tokens stay plain pixels.
+  const raw = block === 0 ? 0 : ctx.raw(block);
+  const padding = isFluid(raw)
+    ? { unit: 'custom', top: fluidToClamp(raw), right: '20px', bottom: fluidToClamp(raw), left: '20px', isLinked: false }
+    : dimensions(block === 0 ? 0 : toPx(String(raw)), 20, block === 0 ? 0 : toPx(String(raw)), 20);
 
   /** @type {Record<string, any>} */
   const shell = {
     content_width: 'boxed',
     html_tag: tag,
-    padding: dimensions(blockPx, 20, blockPx, 20),
+    padding,
   };
   if (RAISED.has(recipe.name)) {
     shell.background_background = 'classic';
@@ -320,6 +328,14 @@ function resolveToken(tokens, ref) {
   if (!m) return String(ref);
   const t = tokens[m[1]];
   return t ? String(t.value) : String(ref);
+}
+
+/** Like resolveToken, but returns the raw value (objects stay objects). */
+function rawToken(tokens, ref) {
+  const m = String(ref).match(/^\{([a-zA-Z0-9._-]+)\}$/);
+  if (!m) return ref;
+  const t = tokens[m[1]];
+  return t ? t.value : ref;
 }
 
 /** A CSS dimension (rem/em/px) as a pixel number. */

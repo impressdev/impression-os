@@ -57,7 +57,9 @@ export function renderCss(kit) {
     const d = type[t];
     if (!d) return fallback;
     const fam = d.typography_font_family ? `"${d.typography_font_family}", ` : '';
-    const size = d.typography_font_size ? `${d.typography_font_size.size}${d.typography_font_size.unit}` : '';
+    const fs = d.typography_font_size;
+    // custom unit carries a full CSS expression (e.g. clamp(...)) in `size`
+    const size = fs ? (fs.unit === 'custom' ? String(fs.size) : `${fs.size}${fs.unit}`) : '';
     const lh = d.typography_line_height ? d.typography_line_height.size : '';
     const wt = d.typography_font_weight ?? '';
     return `${fam}${fallback}|${size}|${lh}|${wt}`;

@@ -73,6 +73,16 @@ theme-independent and lives in `semantic/`. This keeps exactly one source of tru
 per decision: swapping a theme changes color roles only, never the type or spatial
 system.
 
+## Fluid dimensions
+
+A dimension token may be **fluid**: its `$value` is `{ "min": …, "max": … }`
+(each side a reference or literal). The builder emits it as a CSS `clamp()`
+that interpolates between the mobile (375px) and desktop (1280px) viewports —
+via Elementor's *custom* unit in global fonts and section padding, and natively
+in the HTML preview. The heading scale (`text.display…h3`) and the section
+rhythm (`space.section.*`) are fluid; body text stays static for readability.
+See [ADR-0010](../docs/decisions/0010-fluid-tokens.md).
+
 ## Conventions
 
 - **Semantic over primitive.** Components and recipes bind **color, typography,

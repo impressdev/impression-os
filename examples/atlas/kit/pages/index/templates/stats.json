@@ -18,11 +18,11 @@
         "content_width": "boxed",
         "html_tag": "section",
         "padding": {
-          "unit": "px",
-          "top": "96",
-          "right": "20",
-          "bottom": "96",
-          "left": "20",
+          "unit": "custom",
+          "top": "clamp(4rem, 3.1713rem + 3.5359vw, 6rem)",
+          "right": "20px",
+          "bottom": "clamp(4rem, 3.1713rem + 3.5359vw, 6rem)",
+          "left": "20px",
           "isLinked": false
         },
         "background_background": "classic",

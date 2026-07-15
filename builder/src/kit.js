@@ -1,5 +1,6 @@
 // @ts-check
 import { hashId, parseDimension } from './util.js';
+import { isFluid, fluidToClamp } from './fluid.js';
 
 /**
  * Map of Elementor system-color slots → semantic color role.
@@ -103,13 +104,16 @@ export function buildKit(tokens, grid, theme) {
 
 /** Build Elementor typography settings from a resolved type style. */
 function typography(style) {
-  const size = parseDimension(style.fontSize);
+  // Fluid font sizes ({min, max}) become clamp() via Elementor's custom unit.
+  const size = isFluid(style.fontSize)
+    ? { unit: 'custom', size: fluidToClamp(style.fontSize) }
+    : (({ unit, size }) => ({ unit, size }))(parseDimension(style.fontSize));
   const tracking = parseDimension(style.letterSpacing);
   return {
     typography_typography: 'custom',
     typography_font_family: Array.isArray(style.fontFamily) ? style.fontFamily[0] : style.fontFamily,
     typography_font_weight: String(style.fontWeight),
-    typography_font_size: { unit: size.unit, size: size.size },
+    typography_font_size: size,
     typography_line_height: { unit: 'em', size: Number(style.lineHeight) },
     typography_letter_spacing: { unit: tracking.unit, size: tracking.size },
   };

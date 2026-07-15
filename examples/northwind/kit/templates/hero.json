@@ -19,11 +19,11 @@
         "content_width": "boxed",
         "html_tag": "section",
         "padding": {
-          "unit": "px",
-          "top": "128",
-          "right": "20",
-          "bottom": "128",
-          "left": "20",
+          "unit": "custom",
+          "top": "clamp(5rem, 3.7569rem + 5.3039vw, 8rem)",
+          "right": "20px",
+          "bottom": "clamp(5rem, 3.7569rem + 5.3039vw, 8rem)",
+          "left": "20px",
           "isLinked": false
         }
       },

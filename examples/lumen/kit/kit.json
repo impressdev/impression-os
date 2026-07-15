@@ -86,8 +86,8 @@
         "typography_font_family": "Inter",
         "typography_font_weight": "700",
         "typography_font_size": {
-          "unit": "rem",
-          "size": 3
+          "unit": "custom",
+          "size": "clamp(1.875rem, 1.4088rem + 1.989vw, 3rem)"
         },
         "typography_line_height": {
           "unit": "em",
@@ -105,8 +105,8 @@
         "typography_font_family": "Inter",
         "typography_font_weight": "600",
         "typography_font_size": {
-          "unit": "rem",
-          "size": 2.25
+          "unit": "custom",
+          "size": "clamp(1.5rem, 1.1892rem + 1.326vw, 2.25rem)"
         },
         "typography_line_height": {
           "unit": "em",
@@ -164,8 +164,8 @@
         "typography_font_family": "Inter",
         "typography_font_weight": "700",
         "typography_font_size": {
-          "unit": "rem",
-          "size": 3.75
+          "unit": "custom",
+          "size": "clamp(2.25rem, 1.6285rem + 2.6519vw, 3.75rem)"
         },
         "typography_line_height": {
           "unit": "em",
@@ -183,8 +183,8 @@
         "typography_font_family": "Inter",
         "typography_font_weight": "600",
         "typography_font_size": {
-          "unit": "rem",
-          "size": 1.875
+          "unit": "custom",
+          "size": "clamp(1.25rem, 0.991rem + 1.105vw, 1.875rem)"
         },
         "typography_line_height": {
           "unit": "em",

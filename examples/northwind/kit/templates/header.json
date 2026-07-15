@@ -20,11 +20,11 @@
         "content_width": "boxed",
         "html_tag": "header",
         "padding": {
-          "unit": "px",
-          "top": "64",
-          "right": "20",
-          "bottom": "64",
-          "left": "20",
+          "unit": "custom",
+          "top": "clamp(3rem, 2.5856rem + 1.768vw, 4rem)",
+          "right": "20px",
+          "bottom": "clamp(3rem, 2.5856rem + 1.768vw, 4rem)",
+          "left": "20px",
           "isLinked": false
         },
         "flex_wrap_mobile": "wrap",

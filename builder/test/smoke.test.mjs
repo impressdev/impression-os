@@ -25,9 +25,10 @@ test('resolves tokens to concrete values (no dangling references)', () => {
   const accent = tokens['color.accent.default'];
   assert.ok(accent, 'color.accent.default resolved');
   assert.match(accent.value, /^#[0-9a-f]{6}$/i, 'accent is a concrete hex');
-  // typography composite is fully dereferenced
+  // typography composite is fully dereferenced (h1 size is fluid: {min,max})
   const h1 = tokens['text.h1'].value;
-  assert.match(h1.fontSize, /rem$/);
+  assert.match(h1.fontSize.min, /rem$/);
+  assert.match(h1.fontSize.max, /rem$/);
   assert.equal(typeof h1.fontWeight, 'number');
 });
 
