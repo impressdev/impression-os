@@ -268,6 +268,11 @@ export function newCmd(name, outPath) {
       secondaryCta: { label: 'See how it works', href: '/product' },
       features: [{ icon: 'bolt', title: 'Feature one', body: 'A short benefit statement.' }],
       faqs: [{ question: 'A common question?', answer: 'A clear answer.' }],
+      formFields: [
+        { label: 'Your name', type: 'text', required: true },
+        { label: 'Work email', type: 'email', required: true },
+        { label: 'Message', type: 'textarea' },
+      ],
       nav: [{ label: 'Product', href: '/product' }, { label: 'Pricing', href: '/pricing' }],
       footerColumns: [{ title: 'Product', links: [{ label: 'Overview', href: '/product' }] }],
     },

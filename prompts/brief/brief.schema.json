@@ -157,6 +157,21 @@
             "additionalProperties": false
           }
         },
+        "formFields": {
+          "type": "array",
+          "description": "Fields for the contact/lead form (used by the lead blueprint).",
+          "items": {
+            "type": "object",
+            "required": ["label"],
+            "properties": {
+              "label": { "type": "string" },
+              "type": { "type": "string", "description": "text | email | tel | textarea | select. Defaults to text." },
+              "required": { "type": "boolean" },
+              "placeholder": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
         "faqs": {
           "type": "array",
           "items": {

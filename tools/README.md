@@ -144,14 +144,23 @@ WordPress + Elementor install:
   same page and templates, never duplicate)
 - materializes brand-colored SVG placeholders for unresolved image URLs
 
-Run it with the PHP that serves your WordPress:
+For **multi-page sites** (`impression build-site` output),
+[`wp/import-site.php`](wp/import-site.php) imports the whole site in one go:
+one WordPress page per site page, the `/` page set as the **front page**,
+header/footer created once as Theme Builder site parts, and **internal links
+rewritten to real permalinks** so navigation between the pages works.
+
+Run them with the PHP that serves your WordPress:
 
 ```bash
-php tools/wp/import-kit.php <wp-root> <kit-dir> "Page title" [host]
+php tools/wp/import-kit.php  <wp-root> <kit-dir>  "Page title" [host]   # single page
+php tools/wp/import-site.php <wp-root> <site-dir> [host]                # whole site
 # e.g. (MAMP):
-/Applications/MAMP/bin/php/php8.2.0/bin/php tools/wp/import-kit.php \
-  /Applications/MAMP/htdocs/impression examples/northwind/kit "Northwind"
+/Applications/MAMP/bin/php/php8.2.0/bin/php tools/wp/import-site.php \
+  /Applications/MAMP/htdocs/impression dist
 ```
+
+Shared logic lives in [`wp/lib.php`](wp/lib.php).
 
 Proven end-to-end: the Northwind example imports and renders in real Elementor
 (and the first import immediately surfaced — and fixed — a Global Colors
