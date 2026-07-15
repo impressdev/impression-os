@@ -64,6 +64,37 @@ foreach ($files as $f) {
 }
 if (!$elements) { fwrite(STDERR, "no template content found\n"); exit(1); }
 
+// ---------- 2b. materialize placeholders for unresolved image URLs ----------
+// Briefs reference assets that don't exist yet (/assets/hero.png). Write
+// brand-colored SVG placeholders into wp-content/uploads and point the image
+// widgets at them, so the imported page never shows broken images. Shape
+// follows the compiler's _impression_asset hint (logo | avatar | media).
+$palette = kit_palette($kit);
+$uploads = wp_upload_dir();
+$phDir = $uploads['basedir'] . '/impression-placeholders';
+$phUrl = $uploads['baseurl'] . '/impression-placeholders';
+if (!is_dir($phDir)) wp_mkdir_p($phDir);
+$placeholders = 0;
+$rewrite = function (&$els) use (&$rewrite, $palette, $phDir, $phUrl, &$placeholders) {
+    foreach ($els as &$el) {
+        if (($el['widgetType'] ?? '') === 'image') {
+            $url = $el['settings']['image']['url'] ?? '';
+            if ($url !== '' && !preg_match('~^(https?:|data:)~i', $url)) {
+                $kind = $el['settings']['_impression_asset'] ?? 'media';
+                $alt = $el['settings']['image']['alt'] ?? '';
+                $svg = placeholder_svg($kind, $alt !== '' ? $alt : 'Image', $palette);
+                $file = md5($kind . '|' . $alt . '|' . implode(',', $palette)) . '.svg';
+                if (!file_exists("$phDir/$file")) file_put_contents("$phDir/$file", $svg);
+                $el['settings']['image']['url'] = "$phUrl/$file";
+                $placeholders++;
+            }
+        }
+        if (!empty($el['elements'])) $rewrite($el['elements']);
+    }
+};
+$rewrite($elements);
+if ($placeholders) echo "placeholders: $placeholders unresolved images now point at generated SVGs\n";
+
 // Reuse an existing page with the same slug so re-runs update, not duplicate.
 $existing = get_page_by_path(sanitize_title($pageTitle), OBJECT, 'page');
 $postarr = ['post_title' => $pageTitle, 'post_type' => 'page', 'post_status' => 'publish'];
@@ -82,3 +113,49 @@ update_post_meta($pageId, '_elementor_data', wp_slash(wp_json_encode($elements))
 echo 'page #' . $pageId . ' "' . $pageTitle . '": ' . count($files) . " sections, "
    . count($elements) . " root containers\n";
 echo 'URL: ' . get_permalink($pageId) . "\n";
+
+/** Brand colors for placeholders, read from the kit globals by title. */
+function kit_palette($kit) {
+    $colors = array_merge($kit['settings']['system_colors'] ?? [], $kit['settings']['custom_colors'] ?? []);
+    $by = function ($title, $fallback) use ($colors) {
+        foreach ($colors as $c) if (($c['title'] ?? '') === $title) return $c['color'];
+        return $fallback;
+    };
+    return [
+        'surface' => $by('Surface Raised', '#f1f5f9'),
+        'border'  => $by('Border', '#e2e8f0'),
+        'muted'   => $by('Text Muted', '#64748b'),
+        'accent'  => $by('Accent', '#4f46e5'),
+    ];
+}
+
+/** PHP port of builder/src/placeholder.js — keep the two visually in sync. */
+function placeholder_svg($kind, $label, $p) {
+    $esc = fn($s) => htmlspecialchars($s, ENT_QUOTES);
+    $label = mb_strlen($label) > 48 ? mb_substr($label, 0, 47) . '…' : $label;
+
+    if ($kind === 'logo') {
+        [$w, $h] = [180, 44];
+        $r = $h * 0.22; $fs = round($h * 0.42); $tx = $h * 0.95; $ty = $h / 2 + 6;
+        return "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"$w\" height=\"$h\" viewBox=\"0 0 $w $h\" role=\"img\" aria-label=\"{$esc($label)}\">\n"
+            . "<rect width=\"$w\" height=\"$h\" rx=\"8\" fill=\"{$p['surface']}\"/>\n"
+            . "<circle cx=\"" . ($h / 2) . "\" cy=\"" . ($h / 2) . "\" r=\"$r\" fill=\"{$p['accent']}\"/>\n"
+            . "<text x=\"$tx\" y=\"$ty\" font-family=\"system-ui, sans-serif\" font-size=\"$fs\" font-weight=\"700\" fill=\"{$p['muted']}\">{$esc($label)}</text>\n</svg>";
+    }
+
+    [$w, $h] = $kind === 'avatar' ? [96, 96] : [800, 450];
+    $cx = $w / 2; $cy = $h / 2 - ($kind === 'media' ? 14 : 0);
+    $g = min($w, $h) * 0.16;
+    $text = $kind === 'media'
+        ? "<text x=\"$cx\" y=\"" . ($cy + $g + 30) . "\" text-anchor=\"middle\" font-family=\"system-ui, sans-serif\" font-size=\"14\" fill=\"{$p['muted']}\">{$esc($label)}</text>\n"
+        : '';
+    $gx = $cx - $g; $gy = $cy - $g; $g2 = $g * 2;
+    return "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"$w\" height=\"$h\" viewBox=\"0 0 $w $h\" role=\"img\" aria-label=\"{$esc($label)}\">\n"
+        . "<rect width=\"$w\" height=\"$h\" fill=\"{$p['surface']}\"/>\n"
+        . "<rect x=\"1\" y=\"1\" width=\"" . ($w - 2) . "\" height=\"" . ($h - 2) . "\" fill=\"none\" stroke=\"{$p['border']}\" stroke-width=\"2\" rx=\"12\"/>\n"
+        . "<g transform=\"translate($gx, $gy)\">\n"
+        . "<rect width=\"$g2\" height=\"$g2\" rx=\"8\" fill=\"none\" stroke=\"{$p['muted']}\" stroke-width=\"3\"/>\n"
+        . "<circle cx=\"" . ($g * 0.62) . "\" cy=\"" . ($g * 0.62) . "\" r=\"" . ($g * 0.16) . "\" fill=\"{$p['accent']}\"/>\n"
+        . "<path d=\"M " . ($g * 0.2) . " " . ($g * 1.7) . " L " . ($g * 0.85) . " " . ($g * 0.95) . " L " . ($g * 1.3) . " " . ($g * 1.4) . " L " . ($g * 1.55) . " " . ($g * 1.15) . " L " . ($g * 1.8) . " " . ($g * 1.7) . " Z\" fill=\"{$p['muted']}\"/>\n"
+        . "</g>\n$text</svg>";
+}
