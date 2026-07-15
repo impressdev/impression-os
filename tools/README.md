@@ -134,9 +134,17 @@ zero-dependency ZIP writer for the download.
 ### WordPress import (the real thing)
 
 [`wp/import-kit.php`](wp/import-kit.php) imports a generated kit into a live
-WordPress + Elementor install: it applies the kit's globals to Elementor's
-active kit and creates one page from the section templates (re-runs update the
-same page). Run it with the PHP that serves your WordPress:
+WordPress + Elementor install:
+
+- applies the kit's globals to Elementor's active kit
+- with **Elementor Pro**: creates the header (announcement-bar included) and
+  footer as real **Theme Builder templates** with an *entire site* display
+  condition — every page gets them automatically, editable in one place
+- creates one page from the remaining section templates (re-runs update the
+  same page and templates, never duplicate)
+- materializes brand-colored SVG placeholders for unresolved image URLs
+
+Run it with the PHP that serves your WordPress:
 
 ```bash
 php tools/wp/import-kit.php <wp-root> <kit-dir> "Page title" [host]

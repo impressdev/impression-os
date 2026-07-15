@@ -57,12 +57,13 @@ usort($files, function ($a, $b) use ($order) {
     return $pos($a) <=> $pos($b);
 });
 
-$elements = [];
+$sections = []; // [name => root elements]
 foreach ($files as $f) {
     $tpl = json_decode(file_get_contents($f), true);
-    foreach ($tpl['content'] as $el) $elements[] = $el;
+    $sections[basename($f, '.json')] = $tpl['content'];
 }
-if (!$elements) { fwrite(STDERR, "no template content found\n"); exit(1); }
+if (!$sections) { fwrite(STDERR, "no template content found\n"); exit(1); }
+$elements = array_merge(...array_values($sections));
 
 // ---------- 2b. materialize placeholders for unresolved image URLs ----------
 // Briefs reference assets that don't exist yet (/assets/hero.png). Write
@@ -92,8 +93,32 @@ $rewrite = function (&$els) use (&$rewrite, $palette, $phDir, $phUrl, &$placehol
         if (!empty($el['elements'])) $rewrite($el['elements']);
     }
 };
-$rewrite($elements);
+foreach ($sections as &$roots) $rewrite($roots);
+unset($roots);
 if ($placeholders) echo "placeholders: $placeholders unresolved images now point at generated SVGs\n";
+
+// ---------- 3. Elementor Pro Theme Builder: header & footer as site parts ----------
+// With Pro, the header (announcement-bar included) and footer become real
+// theme-builder templates with an "entire site" display condition, so every
+// page gets them automatically and they are editable in one place. Without
+// Pro, they stay inline on the page (canvas template) as before.
+$CHROME = ['announcement-bar', 'header', 'footer'];
+$hasPro = class_exists('\ElementorPro\Modules\ThemeBuilder\Classes\Conditions_Cache');
+if ($hasPro) {
+    $themeParts = [];
+    $headerEls = array_merge($sections['announcement-bar'] ?? [], $sections['header'] ?? []);
+    if ($headerEls) $themeParts['header'] = upsert_theme_part('header', 'Impression OS Header', $headerEls);
+    if (!empty($sections['footer'])) $themeParts['footer'] = upsert_theme_part('footer', 'Impression OS Footer', $sections['footer']);
+    if ($themeParts) {
+        (new \ElementorPro\Modules\ThemeBuilder\Classes\Conditions_Cache())->regenerate();
+        foreach ($themeParts as $type => $id) echo "theme part: $type → template #$id (display: entire site)\n";
+    }
+    $bodySections = array_diff_key($sections, array_flip($CHROME));
+} else {
+    echo "note: Elementor Pro theme builder not found — header/footer stay inline on the page\n";
+    $bodySections = $sections;
+}
+$pageElements = $bodySections ? array_merge(...array_values($bodySections)) : [];
 
 // Reuse an existing page with the same slug so re-runs update, not duplicate.
 $existing = get_page_by_path(sanitize_title($pageTitle), OBJECT, 'page');
@@ -104,15 +129,33 @@ $pageId = wp_insert_post($postarr);
 update_post_meta($pageId, '_elementor_edit_mode', 'builder');
 update_post_meta($pageId, '_elementor_template_type', 'wp-page');
 update_post_meta($pageId, '_elementor_version', ELEMENTOR_VERSION);
-update_post_meta($pageId, '_wp_page_template', 'elementor_canvas'); // sections bring their own header/footer
-update_post_meta($pageId, '_elementor_data', wp_slash(wp_json_encode($elements)));
+// With Pro theme parts the page uses the theme's header/footer locations;
+// without Pro it stays a blank canvas carrying its own chrome sections.
+update_post_meta($pageId, '_wp_page_template', $hasPro ? 'elementor_header_footer' : 'elementor_canvas');
+update_post_meta($pageId, '_elementor_data', wp_slash(wp_json_encode($pageElements)));
 
 // Regenerate Elementor's CSS so the page renders with fresh globals.
 \Elementor\Plugin::$instance->files_manager->clear_cache();
 
-echo 'page #' . $pageId . ' "' . $pageTitle . '": ' . count($files) . " sections, "
-   . count($elements) . " root containers\n";
+echo 'page #' . $pageId . ' "' . $pageTitle . '": ' . count($bodySections) . " body sections, "
+   . count($pageElements) . " root containers\n";
 echo 'URL: ' . get_permalink($pageId) . "\n";
+
+/** Create or update a theme-builder template (header/footer) shown site-wide. */
+function upsert_theme_part($type, $title, $elements) {
+    $existing = get_posts(['post_type' => 'elementor_library', 'title' => $title, 'post_status' => 'any', 'numberposts' => 1, 'fields' => 'ids']);
+    $postarr = ['post_title' => $title, 'post_type' => 'elementor_library', 'post_status' => 'publish'];
+    if ($existing) $postarr['ID'] = $existing[0];
+    $id = wp_insert_post($postarr);
+    wp_set_object_terms($id, $type, 'elementor_library_type');
+    update_post_meta($id, '_elementor_edit_mode', 'builder');
+    update_post_meta($id, '_elementor_template_type', $type);
+    update_post_meta($id, '_elementor_location', $type);
+    update_post_meta($id, '_elementor_version', ELEMENTOR_VERSION);
+    update_post_meta($id, '_elementor_data', wp_slash(wp_json_encode($elements)));
+    update_post_meta($id, '_elementor_conditions', ['include/general']);
+    return $id;
+}
 
 /** Brand colors for placeholders, read from the kit globals by title. */
 function kit_palette($kit) {
