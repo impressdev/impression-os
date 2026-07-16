@@ -20,10 +20,10 @@
         "html_tag": "section",
         "padding": {
           "unit": "custom",
-          "top": "clamp(4rem, 3.1713rem + 3.5359vw, 6rem)",
-          "right": "20px",
-          "bottom": "clamp(4rem, 3.1713rem + 3.5359vw, 6rem)",
-          "left": "20px",
+          "top": "var(--ios-section-md)",
+          "right": "var(--ios-page-inline)",
+          "bottom": "var(--ios-section-md)",
+          "left": "var(--ios-page-inline)",
           "isLinked": false
         }
       },
@@ -106,17 +106,17 @@
                       "left": "1",
                       "isLinked": true
                     },
-                    "border_color": "#334155",
                     "border_radius": {
-                      "unit": "px",
-                      "top": "10",
-                      "right": "10",
-                      "bottom": "10",
-                      "left": "10",
+                      "unit": "custom",
+                      "top": "var(--ios-radius-control)",
+                      "right": "var(--ios-radius-control)",
+                      "bottom": "var(--ios-radius-control)",
+                      "left": "var(--ios-radius-control)",
                       "isLinked": true
                     },
                     "__globals__": {
-                      "button_text_color": "globals/colors?id=accent"
+                      "button_text_color": "globals/colors?id=accent",
+                      "border_color": "globals/colors?id=86c94fc"
                     }
                   },
                   "elements": []

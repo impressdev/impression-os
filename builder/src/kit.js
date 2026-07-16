@@ -91,6 +91,9 @@ export function buildKit(tokens, grid, theme) {
     container_width: parseDimension(containerWidth),
     viewport_md: parseDimension(String(get(tokens, 'breakpoint.md'))).size,
     viewport_lg: parseDimension(String(get(tokens, 'breakpoint.lg'))).size,
+    // Every size as a kit-level CSS variable (Site Settings → Custom CSS, Pro):
+    // templates reference var(--ios-…), so sizes are centrally editable.
+    custom_css: cssVariables(tokens),
   };
 
   return {
@@ -100,6 +103,38 @@ export function buildKit(tokens, grid, theme) {
     theme,
     settings,
   };
+}
+
+/**
+ * The spatial system as kit-level CSS variables. Fluid tokens become clamp();
+ * shadows come from the elevation roles. The `.ios-card` rule gives generated
+ * cards their elevation without per-element custom CSS.
+ */
+function cssVariables(tokens) {
+  const val = (path) => get(tokens, path);
+  const dim = (path) => {
+    const v = val(path);
+    return isFluid(v) ? fluidToClamp(v) : String(v);
+  };
+  const lines = [
+    `--ios-section-sm: ${dim('space.section.sm')};`,
+    `--ios-section-md: ${dim('space.section.md')};`,
+    `--ios-section-lg: ${dim('space.section.lg')};`,
+    `--ios-gap-xs: ${dim('space.gap.xs')};`,
+    `--ios-gap-sm: ${dim('space.gap.sm')};`,
+    `--ios-gap-md: ${dim('space.gap.md')};`,
+    `--ios-gap-lg: ${dim('space.gap.lg')};`,
+    `--ios-gap-xl: ${dim('space.gap.xl')};`,
+    `--ios-radius-control: ${dim('radius.control')};`,
+    `--ios-radius-card: ${dim('radius.card')};`,
+    `--ios-radius-surface: ${dim('radius.surface')};`,
+    `--ios-inset-card: 28px;`,
+    `--ios-page-inline: 20px;`,
+    `--ios-shadow-raised: ${val('elevation.raised')};`,
+    `--ios-shadow-overlay: ${val('elevation.overlay')};`,
+    `--ios-shadow-modal: ${val('elevation.modal')};`,
+  ];
+  return `/* Impression OS design tokens — generated; edit tokens, not this block. */\n:root {\n  ${lines.join('\n  ')}\n}\n.ios-card { box-shadow: var(--ios-shadow-raised); }`;
 }
 
 /** Build Elementor typography settings from a resolved type style. */

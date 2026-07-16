@@ -24,6 +24,7 @@ site in Elementor sees clean, named globals, not a wall of inline overrides.
 | **Radius** roles (`radius.control`, `radius.card`) | Default border-radius on the matching widgets |
 | **Shadow** / elevation roles | Box-shadow defaults on cards and floating elements |
 | **Breakpoints** | Kit responsive breakpoint configuration |
+| **All sizes** (section rhythm, gaps, radius, insets, elevation shadows) | Kit **Custom CSS** (Pro): a generated `:root { --ios-… }` block; templates reference `var(--ios-…)` via Elementor's custom unit, so sizes are centrally editable in Site Settings |
 
 Primitives are **not** mapped directly. Only *semantic* roles reach Elementor —
 because only semantic roles carry intent, and only they should appear as named

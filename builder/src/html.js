@@ -23,6 +23,7 @@ export function renderPage(kit, templates, page) {
 ${head}
 <style>
 ${renderCss(kit)}
+${kit.settings?.custom_css ?? ''}
 </style>
 </head>
 <body>
@@ -129,7 +130,8 @@ function renderNode(node, pal, inGrid = false) {
     const s = node.settings ?? {};
     const isGrid = s.container_type === 'grid';
     const kids = (node.elements ?? []).map((c) => renderNode(c, pal, isGrid)).join('');
-    const cls = inGrid ? ' class="card"' : '';
+    const extra = s.css_classes ? ' ' + s.css_classes : '';
+    const cls = inGrid ? ` class="card${extra}"` : '';
     return `<div${cls} style="${flexStyle(s)}">${kids}</div>`;
   }
   return renderWidget(node, pal);

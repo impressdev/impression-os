@@ -19,7 +19,7 @@ function ios_apply_kit_globals($kit) {
     if (!$kitId) { fwrite(STDERR, "no active Elementor kit\n"); exit(1); }
     $settings = get_post_meta($kitId, '_elementor_page_settings', true);
     if (!is_array($settings)) $settings = [];
-    foreach (['system_colors', 'custom_colors', 'system_typography', 'custom_typography'] as $key) {
+    foreach (['system_colors', 'custom_colors', 'system_typography', 'custom_typography', 'custom_css'] as $key) {
         if (!empty($kit['settings'][$key])) $settings[$key] = $kit['settings'][$key];
     }
     if (!empty($kit['settings']['container_width'])) {

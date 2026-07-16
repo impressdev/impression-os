@@ -21,10 +21,10 @@
         "html_tag": "header",
         "padding": {
           "unit": "custom",
-          "top": "clamp(3rem, 2.5856rem + 1.768vw, 4rem)",
-          "right": "20px",
-          "bottom": "clamp(3rem, 2.5856rem + 1.768vw, 4rem)",
-          "left": "20px",
+          "top": "var(--ios-section-sm)",
+          "right": "var(--ios-page-inline)",
+          "bottom": "var(--ios-section-sm)",
+          "left": "var(--ios-page-inline)",
           "isLinked": false
         },
         "flex_wrap_mobile": "wrap",

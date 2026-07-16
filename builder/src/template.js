@@ -1,7 +1,6 @@
 // @ts-check
 import { container, widget, layoutSettings, gapValue, dimensions, slider } from './elementor.js';
 import { pick, hashId, parseDimension } from './util.js';
-import { isFluid, fluidToClamp } from './fluid.js';
 
 /**
  * Compile a recipe + a content object into an Elementor template.
@@ -23,7 +22,6 @@ export function compileRecipe(recipe, content, tokens) {
     primaryList: primaryListName(recipe),
     tokens,
     tok: (ref) => resolveToken(tokens, ref),
-    raw: (ref) => rawToken(tokens, ref),
     px: (ref) => toPx(resolveToken(tokens, ref)),
   };
 
@@ -43,16 +41,13 @@ const RAISED = new Set(['logo-cloud', 'stats', 'testimonial', 'faq']);
 
 /** Section-level shell: semantic tag, boxed width, rhythm padding, background. */
 function sectionShell(recipe, ctx) {
-  const spacing = { none: 0, compact: '{space.section.sm}', default: '{space.section.md}', spacious: '{space.section.lg}' };
+  const spacing = { none: '0px', compact: 'var(--ios-section-sm)', default: 'var(--ios-section-md)', spacious: 'var(--ios-section-lg)' };
   const block = spacing[recipe.sectionSpacing ?? 'default'];
   const tag = { banner: 'header', contentinfo: 'footer' }[recipe.landmark] ?? 'section';
 
-  // Section rhythm: fluid tokens ({min, max}) become clamp() via Elementor's
-  // custom unit; static tokens stay plain pixels.
-  const raw = block === 0 ? 0 : ctx.raw(block);
-  const padding = isFluid(raw)
-    ? { unit: 'custom', top: fluidToClamp(raw), right: '20px', bottom: fluidToClamp(raw), left: '20px', isLinked: false }
-    : dimensions(block === 0 ? 0 : toPx(String(raw)), 20, block === 0 ? 0 : toPx(String(raw)), 20);
+  // Section rhythm via the kit's CSS variables (fluid clamp() lives there),
+  // so sizes stay centrally editable in Site Settings → Custom CSS.
+  const padding = { unit: 'custom', top: block, right: 'var(--ios-page-inline)', bottom: block, left: 'var(--ios-page-inline)', isLinked: false };
 
   /** @type {Record<string, any>} */
   const shell = {
@@ -79,14 +74,19 @@ function sectionShell(recipe, ctx) {
 
 /** Card styling for repeated items inside a grid (pricing tiers, features, …). */
 function cardStyle(ctx) {
+  const v = (name) => `var(--ios-${name})`;
   return {
     background_background: 'classic',
-    background_color: ctx.tok('{color.surface.page}'),
     border_border: 'solid',
     border_width: dimensions(1),
-    border_color: ctx.tok('{color.border.default}'),
-    border_radius: dimensions(ctx.px('{radius.card}')),
-    padding: dimensions(28),
+    border_radius: { unit: 'custom', top: v('radius-card'), right: v('radius-card'), bottom: v('radius-card'), left: v('radius-card'), isLinked: true },
+    padding: { unit: 'custom', top: v('inset-card'), right: v('inset-card'), bottom: v('inset-card'), left: v('inset-card'), isLinked: true },
+    css_classes: 'ios-card',
+    // colors bind to the kit's Global Colors instead of baked-in hex
+    __globals__: {
+      background_color: `globals/colors?id=${hashId('color:Surface')}`,
+      border_color: `globals/colors?id=${hashId('color:Border')}`,
+    },
   };
 }
 
@@ -189,9 +189,11 @@ function bindComponent(path, ref, scope, ctx) {
           background_color: 'rgba(0, 0, 0, 0)',
           border_border: 'solid',
           border_width: dimensions(1),
-          border_color: ctx.tok('{color.border.strong}'),
-          border_radius: dimensions(10),
-          __globals__: { button_text_color: 'globals/colors?id=accent' },
+          border_radius: { unit: 'custom', top: 'var(--ios-radius-control)', right: 'var(--ios-radius-control)', bottom: 'var(--ios-radius-control)', left: 'var(--ios-radius-control)', isLinked: true },
+          __globals__: {
+            button_text_color: 'globals/colors?id=accent',
+            border_color: `globals/colors?id=${hashId('color:Border')}`,
+          },
         });
       }
       return widget(path, 'button', settings);
@@ -328,14 +330,6 @@ function resolveToken(tokens, ref) {
   if (!m) return String(ref);
   const t = tokens[m[1]];
   return t ? String(t.value) : String(ref);
-}
-
-/** Like resolveToken, but returns the raw value (objects stay objects). */
-function rawToken(tokens, ref) {
-  const m = String(ref).match(/^\{([a-zA-Z0-9._-]+)\}$/);
-  if (!m) return ref;
-  const t = tokens[m[1]];
-  return t ? t.value : ref;
 }
 
 /** A CSS dimension (rem/em/px) as a pixel number. */

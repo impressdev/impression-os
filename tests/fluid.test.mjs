@@ -42,12 +42,34 @@ test('the kit emits fluid global fonts via the custom unit', () => {
   assert.equal(body.typography_font_size.unit, 'rem', 'body stays static');
 });
 
-test('section shells carry fluid clamp() padding', () => {
+test('section shells reference the kit CSS variables for rhythm', () => {
   const { templates } = build(root, readJSON(`${root}/examples/northwind/plan.json`));
   const hero = templates.find((t) => t.name === 'hero').template.content[0];
   assert.equal(hero.settings.padding.unit, 'custom');
-  assert.match(hero.settings.padding.top, /^clamp\(5rem, .+, 8rem\)$/); // spacious: 80→128px
-  assert.equal(hero.settings.padding.left, '20px');
+  assert.equal(hero.settings.padding.top, 'var(--ios-section-lg)'); // spacious
+  assert.equal(hero.settings.padding.left, 'var(--ios-page-inline)');
+});
+
+test('the kit carries every size as a CSS variable (custom_css)', () => {
+  const { kit } = build(root, readJSON(`${root}/examples/northwind/plan.json`));
+  const css = kit.settings.custom_css;
+  assert.match(css, /--ios-section-lg: clamp\(5rem, .+, 8rem\);/); // fluid rhythm lives here
+  assert.match(css, /--ios-radius-card: 0\.75rem;/);
+  assert.match(css, /--ios-gap-md: 1rem;/);
+  assert.match(css, /--ios-shadow-raised: 0 1px 3px/);
+  assert.match(css, /\.ios-card \{ box-shadow: var\(--ios-shadow-raised\); \}/);
+});
+
+test('cards reference variables and bind colors to Global Colors', () => {
+  const { templates } = build(root, readJSON(`${root}/examples/northwind/plan.json`));
+  const fg = templates.find((t) => t.name === 'feature-grid').template.content[0];
+  const findCard = (n) => n.settings?.css_classes === 'ios-card' ? n : (n.elements ?? []).map(findCard).find(Boolean);
+  const card = findCard(fg);
+  assert.ok(card, 'a card container exists');
+  assert.equal(card.settings.border_radius.top, 'var(--ios-radius-card)');
+  assert.equal(card.settings.padding.top, 'var(--ios-inset-card)');
+  assert.match(card.settings.__globals__.border_color, /^globals\/colors\?id=/);
+  assert.ok(!('border_color' in card.settings), 'no baked-in hex border color');
 });
 
 test('fluid emission is deterministic', () => {
